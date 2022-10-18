@@ -63,17 +63,26 @@
     </nav>
 
     <!--TEXT BOX-->
-
-    <div class="container-fluid pt-5 py-5">
-    <select v-model="selected_bus_stop_code" class="form-select form-select-lg mb-3"
-    aria-label=".form-select-lg example">
-        <option v-for="bus_stop of bus_stops" v-bind:value="bus_stop.code"></option>
-    </select>
-    <button type="button" class="btn btn-success mt-2"
-    v-on:click="get_arrival_time_bus_stop()">Go</button>
+<div class="container py-5">
+    <div class="row justify-content-md-center" style="color:#C79E53;">
+    <div class="input-group mb-3 w-50 " >
+        <span class="input-group-text" id="inputGroup-sizing-default" style="background-color:#C79E53;">From</span>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" placeholder="where are you?">
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="input-group mb-3 w-50 ">
+        <span class="input-group-text" id="inputGroup-sizing-default"
+        style="background-color:#C79E53;">To</span>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" placeholder="where do you want to go?">
+      </div>
+    </div>
+    </div>   
+    
+    <button type="button" class="btn btn-success mt-2">Go</button>
 
 </div>
-    <h3 class=" text-left ">
+    <h3 class="container">
         Favourite route
     </h3>
 
