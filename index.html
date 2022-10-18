@@ -63,6 +63,8 @@
     </nav>
 
     <!--TEXT BOX-->
+
+    <div class="container-fluid pt-5 py-5">
     <select v-model="selected_bus_stop_code" class="form-select form-select-lg mb-3"
     aria-label=".form-select-lg example">
         <option v-for="bus_stop of bus_stops" v-bind:value="bus_stop.code"></option>
@@ -70,7 +72,7 @@
     <button type="button" class="btn btn-success mt-2"
     v-on:click="get_arrival_time_bus_stop()">Go</button>
 
-
+</div>
     <h3 class=" text-left ">
         Favourite route
     </h3>
