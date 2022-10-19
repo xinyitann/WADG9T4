@@ -5,10 +5,12 @@ var app = Vue.createApp({
             selected_bus_stop_code: '',
             selected_bus_stop: '',
             bus_stop_hidden: '',
+            bus_service_hidden: '',
             bus_stops: [],
             services: [],
             selected_service_no: '',
-            selected_bus_stop_arrivals: {}
+            selected_bus_stop_arrivals: {},
+            bus_service_sequence: {}
         }
     },
 
@@ -21,25 +23,64 @@ var app = Vue.createApp({
                     headers: {
                         'AccountKey': '3+qMwmsMR1+Y4uxlex3DvA==',
                         'accept': 'application/json',
-
                     }
                 })
                 .then(response => {
+                    Object.keys(this.selected_bus_stop_arrivals).forEach(key => {
+                        delete this.selected_bus_stop_arrivals[key];
+                    })
+                    console.log('here')
+                    console.log(this.selected_bus_stop_arrivals)
                     var response = response.data.Services
                     next_bus_no = 0
-                    console.log(response)
+                    // console.log(response)
                     for (res of response) {
-                        const current = Date().slice(16,24);
-                        console.log(current);
-                        var time = res.NextBus.EstimatedArrival
-                        time = time.slice(11,19)
-                        console.log(time)
-                        console.log(time - current)
-                        var ServiceNo = res.ServiceNo
                         console.log(res)
-                        var first_bus = []
-                        // first_bus.push(res)
-                        // this.selected_bus_stop_arrivals[ServiceNo] = 
+                        const current = new Date()
+                        var bus_big_list = []
+                        for (i = 1; i <= 3; i++) {
+                            var bus_no = 'NextBus'
+                            var bus_inner_list = []
+                            if (i == 1) {
+                                var time = res[bus_no].EstimatedArrival
+                                time = new Date(time)
+                                var diff = (time.getTime() - current.getTime()) / 1000;
+                                diff /= 60;
+                                diff = Math.abs(Math.round(diff));
+                                if (diff == 1) {
+                                    diff = 'Arr'
+                                }
+                                var feature = res[bus_no].Feature
+                                var capacity = res[bus_no].Load
+                                var type = res[bus_no].Type
+                                bus_inner_list.push(diff, feature, capacity, type)
+                                console.log(bus_inner_list)
+
+                            } else {
+                                bus_no += i
+                                if (res[bus_no].DestinationCode.length > 0) {
+                                    var time = res[bus_no].EstimatedArrival
+                                    time = new Date(time)
+                                    var diff = (time.getTime() - current.getTime()) / 1000;
+                                    diff /= 60;
+                                    diff = Math.abs(Math.round(diff));
+                                    if (diff == 1) {
+                                        diff = 'Arr'
+                                    }
+                                    var feature = res[bus_no].Feature
+                                    var capacity = res[bus_no].Load
+                                    var type = res[bus_no].Type
+                                    bus_inner_list.push(diff, feature, capacity, type)
+                                    console.log(bus_inner_list)
+                                }
+                            }
+                            bus_big_list.push(bus_inner_list)
+                        }
+                        console.log(bus_big_list)
+                        var ServiceNo = res.ServiceNo
+                        console.log(ServiceNo)
+                        this.selected_bus_stop_arrivals[ServiceNo] = bus_big_list
+                        console.log(this.selected_bus_stop_arrivals)
                     }
 
                 })
@@ -56,6 +97,55 @@ var app = Vue.createApp({
             }
         },
 
+        get_capacity_color(cap) {
+            if (cap == 'SEA') {
+                return 'green'
+            } else if (cap == 'SDA') {
+                return 'yellow'
+            } else {
+                return 'red'
+            }
+        },
+        get_arrival_time_bus_service() {
+            // get the bus stop sequence and the direction from bus route
+            // have an object with two list, in the list save the bus stop code (the sequence would be the order we push in) 
+            // store the bus route to the list with both direction into different list
+            // get the first and the last bus stop from both direction for the drop down (using the bus stops one or the list above)
+            // get the arrival time base on the bus stop code
+            // display bus stop code, bus stop name, arrival time, capacity, feature, type
+            let api_endpoint_url = 'http://datamall2.mytransport.sg/ltaodataservice/BusRoutes'
+            axios.get(api_endpoint_url, {
+                    headers: {
+                        'AccountKey': '3+qMwmsMR1+Y4uxlex3DvA==',
+                        'accept': 'application/json',
+                    }
+                })
+                .then(response => {
+                    var response = response.data.value
+                    this.bus_service_hidden = 'false'
+                    console.log(response)
+                    console.log(this.selected_service_no)
+                    for(res of response){
+                        if(res.ServiceNo == this.selected_service_no){
+                            console.log(res)
+                            console.log(res.ServiceNo)
+                            console.log(res.Direction)
+                            
+                        }
+                    }
+                    // get the bus stop sequence and the direction from bus route
+                    // have an object with two list, in the list save the bus stop code (the sequence would be the order we push in) 
+                    // store the bus route to the list with both direction into different list
+                    // get the first and the last bus stop from both direction for the drop down (using the bus stops one or the list above)
+                    // get the arrival time base on the bus stop code
+                    // display bus stop code, bus stop name, arrival time, capacity, feature, type
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
+
+        }
+
 
     },
     created() {
@@ -69,7 +159,7 @@ var app = Vue.createApp({
             })
             .then(response => {
                 var response = response.data.value
-                console.log(response)
+                // console.log(response)
 
                 for (res of response) {
                     var bus_obj = {}
@@ -88,7 +178,7 @@ var app = Vue.createApp({
             })
 
 
-        let api_endpoint_url2 = 'http://datamall2.mytransport.sg/ltaodataservice/BusServices'
+        let api_endpoint_url2 = 'http://datamall2.mytransport.sg/ltaodataservice/BusRoutes'
         axios.get(api_endpoint_url2, {
                 headers: {
                     'AccountKey': '3+qMwmsMR1+Y4uxlex3DvA==',
@@ -99,7 +189,6 @@ var app = Vue.createApp({
             .then(response => {
                 var response = response.data.value
                 for (res of response) {
-                    this.services.push(res.ServiceNo)
                     var service = res.ServiceNo
                     if (this.services.includes(service)) {
                         continue

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 10 - Activity 3</title>
+    <title>Bus Arrival Time</title>
 
     <!-- Vue.js 3 CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -14,8 +14,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    <!-- Internal CSS
-        YOU MUST USE THIS FOR YOUR SOLUTION -->
+    <style>
+        .green {
+            color: green;
+        }
+
+        .yellow {
+            color: yellow;
+        }
+
+        .red {
+            color: red;
+        }
+    </style>
 
 
 </head>
@@ -89,26 +100,51 @@
         <div id="app">
             <div class="tab-content">
                 <div id="email" class="container tab-pane active"><br>
-                    <h2>Bus Stops</h2>
-                    <select v-model="selected_bus_stop_code" class="form-select form-select-lg mb-3"
-                        aria-label=".form-select-lg example">
-                        <option v-for="bus_stop of bus_stops" v-bind:value="bus_stop.code">{{bus_stop.desc}}</option>
-                    </select>
-                    <button type="button" class="btn btn-success mt-2"
-                        v-on:click="get_arrival_time_bus_stop()">Go</button>
+                    <h2 class="fw-bold display-3 text-center">Bus Stops</h2>
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col-8">
+                            <select v-model="selected_bus_stop_code" class="form-select form-select-lg mb-3"
+                                aria-label=".form-select-lg example">
+                                <option v-for="bus_stop of bus_stops" v-bind:value="bus_stop.code">{{bus_stop.desc}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-success mt-2"
+                                v-on:click="get_arrival_time_bus_stop()">Go</button>
+                        </div>
+                    </div>
 
                     <div v-show="bus_stop_hidden.length > 0">
-                        <h3 class="text-center fw-bold">{{get_bus_stop_name()}}</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Service No</th>
-                                    <th scope="col">Timings</th>
-                                </tr>
-                            </thead>
+                        <h3 class="text-center fw-bold display-5 text-decoration-underline">{{get_bus_stop_name()}}</h3>
+                        <div class="row" v-for="(value, key) of selected_bus_stop_arrivals">
+                            <div class="col-4 text-center display-6 my-5 fw-bold">
+                                {{key}}
+                            </div>
+                            <div class="col-8">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Timings</th>
+                                            <th scope="col">Wheelchair accessible?</th>
+                                            <th scope="col">Bus type</th>
+                                        </tr>
+                                    </thead>
 
-                            <!-- <tr v-for=""></tr> -->
-                        </table>
+                                    <tr v-for="val of value">
+                                        <td v-bind:class="get_capacity_color(val[2])">{{val[0]}}</td>
+                                            <td v-if="val[1].length > 0">
+                                                <i class="fa-solid fa-wheelchair display-6"></i>
+                                            </td>
+                                            <td v-else>hello</td>
+                                        <td v-if="val[3] == 'SD'"><img src="../../src/img/bus/sd.png" style='width:60px'></td>
+                                        <td v-else-if="val[3] == 'DD'"><img src="../../src/img/bus/dd.png"  style="width:60px" ></td>
+                                        <td v-else-if="val[3] == 'BD'"> <img src="../../src/img/bus/bd.png" style="width:100px" ></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -120,7 +156,11 @@
                         aria-label=".form-select-lg example">
                         <option v-for="service of services" v-bind:value="service">{{service}}</option>
                     </select>
-                    <button type="button" class="btn btn-success mt-2">Go</button>
+                    <button type="button" class="btn btn-success mt-2" v-on:click="get_arrival_time_bus_service()">Go</button>
+                    <div v-show="bus_service_hidden.length > 0">
+                    </div>
+                    
+                    
                 </div>
             </div>
         </div>
