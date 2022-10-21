@@ -52,10 +52,56 @@
                 </ul>
                 <ul class="navbar-nav float-end">
                     <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="fa-sharp fa-solid fa-gear"></i></a>
+                        <a href="pages/profile.html" class="nav-link"><i class="fa-sharp fa-solid fa-gear"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="fa-solid fa-user"></i></a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-user" data-bs-toggle="modal" 
+                            data-bs-target="#modal" onClick="login"></i></a>
+
+
+                        <div class="modal" id="modal">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                          
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Login</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    
+                                    <!-- Modal body -->
+                                    <div class="modal-body mx-auto">
+                                      <!-- <iframe id="iframe_${record.name}" width="560" height="50" src="" frameborder="0" 
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                          
+                          
+                                        <form>
+                                              <div class="mb-3">
+                                                <label for="exampleInputEmail1" class="form-label"></label>
+                                                <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Email">
+                                                <div id="emailHelp" class="form-text"></div>
+                                              </div>
+                                              <div class="mb-3">
+                                                <label for="exampleInputPassword1" class="form-label"></label>
+                                                <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
+                                              </div>
+                                              <br>
+                                              <button type="submit" class="btn justify-content" style="background-color: #c4a872;">Go</button>
+                                            </form>
+                          
+                                            <h4 style="text-align: center">OR</h4>
+                                           <button type="submit" class="btn " style="background-color: #c4a872 ;justify-content: center; " >Sign up</button>
+                          
+                                    </div>
+                                                                            
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        
+                                    </div>
+                          
+                                </div>
+                            </div>
+                          </div>
                     </li>
                 </ul>
             </div>
@@ -63,7 +109,7 @@
     </nav>
 
     <!--TEXT BOX-->
-<div class="container py-5">
+<div class="container py-5"  id="app">
     <div class="row align-items-start">
     <div class="col-10">
 
