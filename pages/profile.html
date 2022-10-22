@@ -35,7 +35,7 @@
 <body>
   <!--NAVIGATION BAR-->
       <div class="sticky-top p-3" >
-        <a href="#">
+        <a href="../index.html">
           logo
         </a>
         <h3 style="text-align: center">Profile</h3>
@@ -117,23 +117,26 @@
         <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script> 
         <!-- This is the API from Firebase Realtime Database -->
         <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script> 
-        
+
+        <script src="../src/js/index.js"></script>
         <script>
           // Your web app's Firebase configuration
           // You can find yours at Firebase -> Project Overview -> Project Settings
           // -> SDK setup and configuration -> CDN
-          const firebaseConfig = {
-          apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
-          authDomain: "onestopper.firebaseapp.com",
-          databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
-          projectId: "onestopper",
-          storageBucket: "onestopper.appspot.com",
-          messagingSenderId: "64753765868",
-          appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
-          measurementId: "G-DE6MGV1BWE"
-        };
-          // Initialize Firebase
-          firebase.initializeApp(firebaseConfig);
+        //   const firebaseConfig = {
+        //   apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
+        //   authDomain: "onestopper.firebaseapp.com",
+        //   databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
+        //   projectId: "onestopper",
+        //   storageBucket: "onestopper.appspot.com",
+        //   messagingSenderId: "64753765868",
+        //   appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
+        //   measurementId: "G-DE6MGV1BWE"
+        // };
+        //   // Initialize Firebase
+        //   firebase.initializeApp(firebaseConfig);
+
+        
         
           var users = firebase.database().ref('users');
           users.on('child_added', (snapshot) =>{
@@ -217,7 +220,7 @@
           firebase.database().ref().update(updates);
         }
 
-</script>
+        </script>
 
 
 
