@@ -9,6 +9,9 @@
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="src/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+   
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="module" src="src/js/index.js"></script>
 
 
       <style>
@@ -127,7 +130,7 @@
         <div class="row justify-content-md-center" style="color:#C79E53;">
             <div class="input-group mb-3 w-50 " >
                 <span class="input-group-text" id="inputGroup-sizing-default" style="background-color:#C79E53;">From</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" placeholder="where are you?">
+                <input id="pac-input" type="text" class="controls" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" placeholder="where are you?">
             </div>
         </div>
     
@@ -171,7 +174,56 @@
                 document.getElementById('map'), {zoom: 14, center: loc});
             // The marker, positioned at SIS, SMU
             var marker = new google.maps.Marker({position: loc, map: map});
-        }
+
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 6,
+            });
+            infoWindow = new google.maps.InfoWindow();
+
+            const locationButton = document.createElement("button");
+
+            locationButton.textContent = "Pan to Current Location";
+            locationButton.classList.add("custom-map-control-button");
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+            locationButton.addEventListener("click", () => {
+                // Try HTML5 geolocation.
+                if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent("Location found.");
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                    },
+                    () => {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                    }
+                );
+                } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+                }
+            });
+            }
+
+            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(
+                browserHasGeolocation
+                ? "Error: The Geolocation service failed."
+                : "Error: Your browser doesn't support geolocation."
+            );
+            infoWindow.open(map);
+                    }
+
+        window.initMap = initMap;
     </script>
     
     <!--Load the API from the specified URL
