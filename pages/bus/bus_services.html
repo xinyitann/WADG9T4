@@ -88,64 +88,79 @@
 
     <div class="container-fluid pt-5 py-5">
 
+
         <!-- Tab panes -->
         <div id="app">
+            {{get_bus_stops}}
+            {{get_bus_service}}
             {{get_bus_routes}}
-            <h2 class="fw-bold display-3 text-center">Bus Stops</h2>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-8">
-                    {{get_bus_stops}}
-                    <input type="text" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_bus_stop"
-                        @keyup="auto_complete_bus_stop_search()">
-                    <div v-show="auto_complete_suggestion_bus.length > 0">
-                        <ul id="search">
-                            <li v-for="suggestion of auto_complete_suggestion_bus"
-                                v-on:click="fill_bus_stops(suggestion)">
-                                {{suggestion}}</li>
-                        </ul>
+                    <h2 class="fw-bold display-3 text-center">Bus Service</h2>
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col-8">
+                            {{get_bus_service}}
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_service_no"
+                                @keyup="auto_complete_bus_service_search()">
+                            <div v-show="auto_complete_suggestion_service.length > 0">
+                                <ul id="search">
+                                    <li v-for="suggestion of auto_complete_suggestion_service"
+                                        v-on:click="fill_bus_service(suggestion)">
+                                        {{suggestion}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-success mt-2"
+                                v-on:click="get_service_sequence()">Go</button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-success mt-2"
-                        v-on:click="get_arrival_time_bus_stop()">Go</button>
-                </div>
-            </div>
 
-            <div v-show="bus_stop_hidden.length > 0">
-                <h3 class="text-center fw-bold display-5 text-decoration-underline">{{selected_bus_stop}}</h3>
-                <div class="row" v-for="(value, key) of selected_bus_stop_arrivals">
-                    <div class="col-4 text-center display-6 my-5 fw-bold">
-                        {{key}}
+                    <div class="row" v-if="Object.keys(this.bus_direction_points).length > 1">
+                        <div class="col-1"></div>
+                        <div class="col-8">
+                            <select v-model="direction" class="form-select form-select-lg mb-3"
+                                aria-label=".form-select-lg example">
+                                <option v-for="(value, key) of bus_direction_points" v-bind:value="key">
+                                    {{Object.keys(value)[0]}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-success mt-2" v-on:click="get_bus_timing_from_service()">Go</button>
+                        </div>
                     </div>
-                    <div class="col-8">
+
+                    <!-- {{arrival_timings}} -->
+                    
+                    <div v-if="direction.length > 0">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Timings</th>
-                                    <th scope="col">Wheelchair accessible?</th>
-                                    <th scope="col">Bus type</th>
+                                    <th scope="col">Bus Stop Code</th>
+                                    <th scope="col">Bus Stop Name</th>
+                                    <th scope="col">Bus Timing</th>
                                 </tr>
                             </thead>
 
-                            <tr v-for="val of value">
-                                <td v-bind:class="get_capacity_color(val[2])">{{val[0]}}</td>
-                                <td v-if="val[1] == 'WAB'">
-                                    <i class="fa-solid fa-wheelchair display-6"></i>
+
+                            <tr v-for="(value, key) of bus_service_sequence[direction]">
+                                <td>{{value}}</td>
+                                <td>{{get_bus_stop_name(value)}}</td>
+                                <!-- <td v-html="get_bus_timing_from_service(value)">44</td> -->
+                                <!-- <td>{{get_bus_timing_from_service(value)}}</td> -->
+                                <td v-show="service_arrival_time.length == 0">
+                                    <button type="button" class="btn btn-success mt-2" v-on:click="get_bus_timing_from_service(value)">Get arrival time</button>
                                 </td>
-                                <td v-else>hello</td>
-                                <td v-if="val[3] == 'SD'"><img src="../../src/img/bus/sd.png" style='width:60px'></td>
-                                <td v-else-if="val[3] == 'DD'"><img src="../../src/img/bus/dd.png" style="width:60px">
-                                </td>
-                                <td v-else-if="val[3] == 'BD'"> <img src="../../src/img/bus/bd.png" style="width:100px">
-                                </td>
+                                <!-- <td v-show="service_arrival_time.length > 0">4</td> -->
+                                <!-- <td v-for="time in service_time">{{time}}</td>
+                                <td v-html="service_time"></td> -->
                             </tr>
                         </table>
                     </div>
-                </div>
             </div>
         </div>
+
 
 
         <!-- FOOTER -->
