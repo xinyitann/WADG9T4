@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+   <!-- Bootstrap CSS -->
+
+
+   <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../src/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="../src/js/profile.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+   <style>
+    a{
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    body{
+      background-color:#efecdf
+      ;
+    }
+    
+   </style>
+</head>
+<body>
+  <!--NAVIGATION BAR-->
+      <div class="sticky-top p-3" >
+        <a href="../index.html">
+          logo
+        </a>
+        <h3 style="text-align: center">Profile</h3>
+      </div>
+
+      <hr>
+     <div class="container d-flex flex-column flex-md-row">
+            <nav class="navbar navbar-expand-md navbar-light d-flex flex-md-column">
+              
+              <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="#navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle Navigation">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+      
+                  <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
+                    <ul class="navbar-nav w-100 d-flex flex-md-column text-center text-md-end">
+                      <li>
+                        <a href="#name" class="nav-link" aria-current="page">Name</a>
+                      </li>
+                      <li>
+                        <a href="#email" class="nav-link" aria-current="page">Email</a>
+                      </li>
+                      <li>
+                        <a href="#saved" class="nav-link" aria-current="page">Saved Places</a>
+                      </li>
+                      <li>
+                        <a href="#account" class="nav-link" aria-current="page">Account</a>
+                      </li>
+                    </ul>
+                    </div>
+
+              </nav>
+              
+        <main class="ps-0 ps-md-5 flex-grow-1">
+
+          <div class="container overflow-auto">
+
+            <h4>User name</h4>
+            <input id="userName" type='text'class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF" >  
+
+            <button type="button" class="btn"  onclick="checkIfUserExists(document.getElementById('userName').value)">Available?</button>
+
+          
+            <h4>Name</h4>
+            <input id="name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" >
+            <!-- <button type="button" class="btn"  onclick="updateName()">Update Name</button> -->
+         
+      <br>
+          
+            <h4>Email</h4>
+         
+            <input id="email" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;">
+
+            <!-- <button type="button" class="btn" onclick="updateEmail()">Update Email</button> -->
+         
+
+          <button type="button" class="btn" onclick="register()">Register</button> 
+          <!-- <button type="button" class="btn" onclick="deregister(document.getElementById('userName').value)">De-Register</button>  -->
+          <button type="button" class="btn" onclick="updateEmail()">Update Email</button> 
+
+          <h4>Saved Place</h4>
+         
+            <input id="saved" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;">
+            <button type="button" class="btn" onclick="updateSaved()">Update Saved Place</button> 
+          
+          <p id="status"></p>
+          <p id="latest"></p>
+        </div>
+        
+
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script> 
+        <!-- This is the API from Firebase Realtime Database -->
+        <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script> 
+
+        <script src="../src/js/index.js"></script>
+        <script>
+          // Your web app's Firebase configuration
+          // You can find yours at Firebase -> Project Overview -> Project Settings
+          // -> SDK setup and configuration -> CDN
+        //   const firebaseConfig = {
+        //   apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
+        //   authDomain: "onestopper.firebaseapp.com",
+        //   databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
+        //   projectId: "onestopper",
+        //   storageBucket: "onestopper.appspot.com",
+        //   messagingSenderId: "64753765868",
+        //   appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
+        //   measurementId: "G-DE6MGV1BWE"
+        // };
+        //   // Initialize Firebase
+        //   firebase.initializeApp(firebaseConfig);
+
+        
+        
+          var users = firebase.database().ref('users');
+          users.on('child_added', (snapshot) =>{
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = mm + '/' + dd + '/' + yyyy;
+            document.getElementById("latest").innerText = "Last edited " + today;
+          });
+        
+        //The following example demostrates how to read data
+        function checkIfUserExists(userName) {
+          var user = firebase.database().ref('users/' + userName);
+          user.once('value').then((snapshot) => {
+            if(snapshot.exists()) {
+              document.getElementById("status").innerText = "User name has already been taken.";
+            }
+            else {
+              document.getElementById("status").innerText = "User name is available.";
+            }
+          });
+        }
+        
+        //The following example demostrates how to add data
+        function register() {
+          var userName = document.getElementById("userName").value;
+          var name = document.getElementById("name").value;
+          var email = document.getElementById("email").value;
+          var saved = document.getElementById("saved").value;
+          writeUserDataWithCompletion(userName,name,email,saved);
+        }
+        
+        //The following writes the data
+        function writeUserDataWithCompletion(userName, name, email,saved) {
+          firebase.database().ref('users/' + userName).set({
+            name: name,
+            email: email,
+            saved:saved
+          }, function(error) {
+            if (error) {
+              document.getElementById("status").innerText = "User Registration Failed!";
+            } else {
+              document.getElementById("status").innerText = "User Registration Done!";
+            }
+          });
+        }
+        
+        //The following example demostrates how to delete data
+        function deregister(userName) {
+          firebase.database().ref('users/' + userName).remove()
+          .then(function() {
+            document.getElementById("status").innerText = "Remove succeeded.";
+          })
+          .catch(function(error) {
+            document.getElementById("status").innerText = "Remove Failed.";
+          });
+        }
+        
+        function updateEmail() {
+          var userName = document.getElementById("userName").value;
+          var name = document.getElementById("name").value;
+          var email = document.getElementById("email").value;
+          var saved = document.getElementById("saved").value;
+          var updates = {};
+          updates['/users/' + userName + "/" + 'name'] = name;
+          updates['/users/' + userName + "/" + 'email'] = email;
+          updates['/users/' + userName + "/" + 'saved'] = saved;
+          firebase.database().ref().update(updates);
+        }
+
+        function updateSaved() {
+          var userName = document.getElementById("userName").value;
+          var name = document.getElementById("name").value;
+          var email = document.getElementById("email").value;
+          var saved = document.getElementById("saved").value;
+          var updates = {};
+          updates['/users/' + userName + "/" + 'name'] = name;
+          updates['/users/' + userName + "/" + 'email'] = email;
+          updates['/users/' + userName + "/" + 'saved'] = saved;
+          firebase.database().ref().update(updates);
+        }
+
+        </script>
+
+
+
+        </div>
+
+        </main>
+  </div>
+
+
+
+
+</script>
+  </body>
+
+</html>
