@@ -135,8 +135,6 @@
         // };
         //   // Initialize Firebase
         //   firebase.initializeApp(firebaseConfig);
-
-        
         
           var users = firebase.database().ref('users');
           users.on('child_added', (snapshot) =>{

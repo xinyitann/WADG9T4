@@ -6,13 +6,15 @@ var app = Vue.createApp({
             services_affected: [],
             
             selected_service_no: '',
-            selected_bus_stop_arrivals: {},
+            accident_details: {},//{accident: type, lat, long }
             bus_service_sequence: {}
+
         }
     },
 
     methods:{
         get_accident(){
+            console.log("=== [traffic.js] get_accident() ===")
             let api_endpoint_url= "http://datamall2.mytransport.sg/ltaodataservice/TrafficIncidents"
             axios.get(api_endpoint_url, {
                 headers: {
@@ -21,24 +23,19 @@ var app = Vue.createApp({
                 }
             })
             .then(response => {
+
                 var response = response.data.value
-                this.bus_service_hidden = 'false'
                 console.log(response)
-                console.log(this.selected_service_no)
-                for(res of response){
-                    if(res.ServiceNo == this.selected_service_no){
-                        console.log(res)
-                        console.log(res.ServiceNo)
-                        console.log(res.Direction)
-                        
-                    }
-                }
+                
+                
             })
             .catch(error => {
                 console.log(error.message)
             })
         },
         get_roadworks(){
+
+            console.log("=== [traffic.js] get_roadworks() ===")
             let api_endpoint_url= "http://datamall2.mytransport.sg/ltaodataservice/RoadWorks"
             axios.get(api_endpoint_url, {
                 headers: {
@@ -48,6 +45,7 @@ var app = Vue.createApp({
             })
             .then(response => {
                 var response = response.data.value
+                
                 console.log(response)
                 
             })
@@ -55,6 +53,7 @@ var app = Vue.createApp({
                 console.log(error.message)
             })
         }
+        
     }
 })
-app.mount("#app")
+app.mount("#appp")
