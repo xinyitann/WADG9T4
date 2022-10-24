@@ -7,7 +7,7 @@ var app = Vue.createApp({
             
             selected_service_no: '',
             accident_details: {},//{accident: type, lat, long }
-            bus_service_sequence: {}
+            
 
         }
     },
@@ -15,8 +15,8 @@ var app = Vue.createApp({
     methods:{
         get_accident(){
             console.log("=== [traffic.js] get_accident() ===")
-            let api_endpoint_url= "http://datamall2.mytransport.sg/ltaodataservice/TrafficIncidents"
-            axios.get(api_endpoint_url, {
+            let api_endpoint_url1 = '../../src/js/traffic_accident.php'
+            axios.get(api_endpoint_url1, {
                 headers: {
                     'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',
                     'accept': 'application/json',
@@ -24,10 +24,10 @@ var app = Vue.createApp({
             })
             .then(response => {
 
-                var response = response.data.value
+                var response = response.data[0].value
                 console.log(response)
-                
-                
+                //array of objects(key = number key = type,lat,long)
+                this.accident_details
             })
             .catch(error => {
                 console.log(error.message)
@@ -36,16 +36,17 @@ var app = Vue.createApp({
         get_roadworks(){
 
             console.log("=== [traffic.js] get_roadworks() ===")
-            let api_endpoint_url= "http://datamall2.mytransport.sg/ltaodataservice/RoadWorks"
-            axios.get(api_endpoint_url, {
+            let api_endpoint_url1 = '../../src/js/traffic_roadworks.php'
+            axios.get(api_endpoint_url1, {
                 headers: {
                     'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',
                     'accept': 'application/json',
                 }
             })
             .then(response => {
-                var response = response.data.value
-                
+                console.log('test')
+                var response = response.data
+                for(res of response)
                 console.log(response)
                 
             })
