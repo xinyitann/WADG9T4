@@ -12,8 +12,6 @@
    
     <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
     <script type="module" src="src/js/index.js"></script>
-    <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -21,7 +19,7 @@
     <!-- This is the authentication API from Firebase Realtime Database -->
     <!-- <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>  -->
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
-
+    <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places"></script> -->
 
 
       <style>
@@ -322,9 +320,8 @@
     <h3 class="container">
         Favourite route
     </h3>
-    <label for="locationTextField">Location</label>
-    <input id="locationTextField" size="50" type="text" />
 
+    <!-- <input id="autocomplete" placeholder="Enter place" type="text"/> -->
 
     <div id="map" class="mx-auto"></div>
     <script>
@@ -392,12 +389,16 @@
                     }
 
         window.initMap = initMap;
+        
 
-
+        // function initAutocomplete(){
+        //   var input=document.getElementById('autocomplete');
+        //   var autocomplete=new google.maps.places.Autocomplete(input);
+        // }
         let autocomplete;
         function initAutocomplete(){
             autocomplete= new google.maps.places.Autocomplete(
-                document.getElementById('autocomplete'),
+                document.getElementById('pac-input'),
                 {
                     types:['establishment'],
                     componentRestrictions:{'country':['AU']},
@@ -425,9 +426,7 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initAutocomplete" async defer>
         </script>
-        <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initMap">
-</script>
+
 
     
     <!--Load the API from the specified URL
@@ -435,8 +434,8 @@
     * The key parameter will contain your own API key 
     * The callback parameter executes the initMap() function
     -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&callback=initMap"
-    async defer></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&callback=initMap"
+    async defer></script> -->
 
     <div class="jumbotron">          
         
