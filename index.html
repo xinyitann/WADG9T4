@@ -21,6 +21,8 @@
             width: 50%;  /* The width is the width of the web page */
             
         }
+
+       
             /* Optional: Makes the sample page fill the window. */
 
         
@@ -71,8 +73,9 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link"><i class="fa-solid fa-user" data-bs-toggle="modal" 
                             data-bs-target="#modal" onClick="login"></i></a>
+                        </nav>
 
-
+            <!--MODAL-->
                         <div class="modal" id="modal">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -88,8 +91,10 @@
                                       <!-- <iframe id="iframe_${record.name}" width="560" height="50" src="" frameborder="0" 
                                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
                           
-                          
+                                      
                                         <form>
+                                            <div class="row">
+                                            <div class="col-10">
                                               <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label"></label>
                                                 <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Email">
@@ -99,12 +104,16 @@
                                                 <label for="exampleInputPassword1" class="form-label"></label>
                                                 <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
                                               </div>
+                                            </div>
                                               <br>
-                                              <button type="submit" class="btn justify-content" style="background-color: #c4a872;">Go</button>
-                                            </form>
-                          
-                                            <h4 style="text-align: center">OR</h4>
-                                           <button type="submit" class="btn " style="background-color: #c4a872 ;justify-content: center; " >Sign up</button>
+                                              <div class="col-2">
+                                              <button type="submit" class="btn mb-3" style="background-color: #c4a872;">Go</button>
+                                              </div>
+                                            </div>
+                                        </form>
+                        
+                                        <h4 style="text-align: center">OR</h4>
+                                        <button type="submit" class="btn " style="background-color: #c4a872 ;justify-content: center; " >Sign up</button>
                           
                                     </div>
                                                                             
@@ -120,7 +129,7 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    
 
     <!--TEXT BOX-->
 <div class="container py-5"  id="app">
@@ -132,7 +141,7 @@
                 <span class="input-group-text" id="inputGroup-sizing-default" style="background-color:#C79E53;">From</span>
                 <input id="pac-input" type="text" class="controls" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" placeholder="where are you?">
             </div>
-        </div>
+    </div>
     
 
          <div class="row justify-content-md-center">
@@ -144,9 +153,9 @@
         </div>
     </div>
 
-            <div class="col-2">
-                <span type="button" class="btn mt-2" style="background-color:#C79E53;">Go</span>
-            </div>
+        <div class="col-2">
+            <span type="button" class="btn mt-2" style="background-color:#C79E53;">Go</span>
+        </div>
        
         </div>
 </div>   
