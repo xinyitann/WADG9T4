@@ -10,8 +10,18 @@
     <link rel="stylesheet" href="src/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
    
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
     <script type="module" src="src/js/index.js"></script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script> 
+    <!-- This is the authentication API from Firebase Realtime Database -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>  -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+
 
 
       <style>
@@ -114,7 +124,10 @@
                         
                                         <h4 style="text-align: center">OR</h4>
                                         <button type="submit" class="btn " style="background-color: #c4a872 ;justify-content: center; " >Sign up</button>
-                          
+                                        <div id="firebaseui-auth-container"></div>
+                                        <div id="loader">Loading...</div>
+                                   
+                                  
                                     </div>
                                                                             
                                     <!-- Modal footer -->
@@ -166,6 +179,9 @@
     <h3 class="container">
         Favourite route
     </h3>
+    <label for="locationTextField">Location</label>
+    <input id="locationTextField" size="50" type="text" />
+
 
     <div id="map" class="mx-auto"></div>
     <script>
@@ -233,7 +249,43 @@
                     }
 
         window.initMap = initMap;
+
+
+        let autocomplete;
+        function initAutocomplete(){
+            autocomplete= new google.maps.places.Autocomplete(
+                document.getElementById('autocomplete'),
+                {
+                    types:['establishment'],
+                    componentRestrictions:{'country':['AU']},
+                    fields:['place_id','geometry','name']
+                });
+
+            autocomplete.addListener('place_changed',onPlaceChanged);
+        }
+
+        function onPlaceChanged(){
+            var place = autocomplete.getPlace();
+
+            if(!place.geometry){
+                document.getElementById('autocomplete').placeholder='Enter a place';
+            }else{
+                document.getElementById('details').innerHTML=place.name;
+            }
+        }
+
+//         function init() {
+//       var input = document.getElementById('locationTextField');
+//       var autocomplete = new google.maps.places.Autocomplete(input);
+//    }
+// google.maps.event.addDomListener(window, 'load', init);
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initAutocomplete" async defer>
+        </script>
+        <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initMap">
+</script>
+
     
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
