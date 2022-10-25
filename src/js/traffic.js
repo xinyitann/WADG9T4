@@ -1,9 +1,10 @@
-export var all_accidents = []
+let all_accident = []
 
 var app = Vue.createApp({
 
     data() {
         return {
+            test: "hello world 123",
             accidents: [],
             services_affected: [],
             
@@ -37,8 +38,11 @@ var app = Vue.createApp({
                     if(accident_object != [] ){
                         for(var accident of accident_object){
                             this.accidents.push(accident)
-                            all_accidents.push(accident)
+                            all_accident.push(accident)
                         }
+                        console.log("===get_accident()===")
+                        console.log(all_accident)
+                
                     }
                     console.log(this.accidents)
                 }
@@ -78,5 +82,4 @@ var app = Vue.createApp({
 })
 
 app.mount("#appp")
-
 // alert("this is traffic js")
