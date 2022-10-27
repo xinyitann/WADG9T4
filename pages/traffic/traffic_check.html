@@ -148,8 +148,38 @@ function initMap() {
 
 
                 for (let line of values) {
+                    var icon = {}
                     const latlng = {lat:line.Latitude, lng:line.Longitude}
-                    var marker = new google.maps.Marker({position: latlng, map: window.map});
+                    console.log(line.Type)
+                    if(line.Type == 'Roadwork'){
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            map: window.map,
+                            icon:{
+                                url: "../../src/img/traffic/roadwork.png",
+                                scaledSize: new google.maps.Size(38,31)
+                            }});
+                    }
+                    if(line.Type == 'Vehicle breakdown'){
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            map: window.map,
+                            icon:{
+                                url: "../../src/img/traffic/images.png",
+                                scaledSize: new google.maps.Size(38,31)
+                            }});
+                    }
+                    if(line.Type == 'Accident'){
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            map: window.map,
+                            icon:{
+                                url: "../../src/img/traffic/accident.png",
+                                scaledSize: new google.maps.Size(38,31)
+                            }});
+                    }
+                    // var marker = new google.maps.Marker({position: latlng, map: window.map});
+
                 }
             })
 

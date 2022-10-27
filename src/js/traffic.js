@@ -77,7 +77,6 @@ var app = Vue.createApp({
                 console.log(error.message)
             })
         }
-        
     }
 })
 
