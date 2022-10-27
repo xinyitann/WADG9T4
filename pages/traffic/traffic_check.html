@@ -157,7 +157,7 @@ function initMap() {
                             map: window.map,
                             icon:{
                                 url: "../../src/img/traffic/roadwork.png",
-                                scaledSize: new google.maps.Size(38,31)
+                                scaledSize: new google.maps.Size(35,28)
                             }});
                     }
                     if(line.Type == 'Vehicle breakdown'){
@@ -166,7 +166,7 @@ function initMap() {
                             map: window.map,
                             icon:{
                                 url: "../../src/img/traffic/images.png",
-                                scaledSize: new google.maps.Size(38,31)
+                                scaledSize: new google.maps.Size(35,28)
                             }});
                     }
                     if(line.Type == 'Accident'){
@@ -175,14 +175,58 @@ function initMap() {
                             map: window.map,
                             icon:{
                                 url: "../../src/img/traffic/accident.png",
-                                scaledSize: new google.maps.Size(38,31)
+                                scaledSize: new google.maps.Size(35,28)
                             }});
                     }
-                    // var marker = new google.maps.Marker({position: latlng, map: window.map});
+                    if(line.Type == 'Unattended Vehicle'){
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            map: window.map,
+                            icon:{
+                                url: "../../src/img/traffic/abandoned.png",
+                                scaledSize: new google.maps.Size(35,28)
+                            }});
+                    }
+                    if(line.Type == 'Diversion'){
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            map: window.map,
+                            icon:{
+                                url: "../../src/img/traffic/roadwork.png",
+                                scaledSize: new google.maps.Size(35,28)
+                            }});
+                    }
+                    if(line.Type == 'Misc.'){
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            map: window.map,
+                            icon:{
+                                url: "../../src/img/traffic/misc.png",
+                                scaledSize: new google.maps.Size(35,28)
+                            }});
+                    }
+                    if(line.Type == 'Road Block'){
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            map: window.map,
+                            icon:{
+                                url: "../../src/img/traffic/roadblock.png",
+                                scaledSize: new google.maps.Size(35,28)
+                            }});
+                    }
+                    if(line.Type == 'Heavy Traffic'){
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            map: window.map,
+                            icon:{
+                                url: "../../src/img/traffic/congestion.png",
+                                scaledSize: new google.maps.Size(35,28)
+                            }});
+                    }
 
+                    // var marker = new google.maps.Marker({position: latlng, map: window.map});
                 }
             })
-
 }
 
 </script>
