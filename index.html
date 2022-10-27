@@ -12,16 +12,25 @@
    
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script type="module" src="src/js/index.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script> 
+    <!-- This is the authentication API from Firebase Realtime Database -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>  -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places"></script> -->
 
 
       <style>
-        /* Set the size of the div element that contains the map */
         #map {
             height: 400px;  /* The height is 400 pixels */
-            width: 50%;  /* The width is the width of the web page */
+            width: 50%; 
             
         }
-            /* Optional: Makes the sample page fill the window. */
+        #pac-input{
+          width:300px
+        }
 
         
       </style>
@@ -52,7 +61,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Train</a>
+                        <a class="nav-link" href="./pages/train.html">Train</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Taxi</a>
@@ -71,8 +80,9 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link"><i class="fa-solid fa-user" data-bs-toggle="modal" 
                             data-bs-target="#modal" onClick="login"></i></a>
+                        </nav>
 
-
+            <!--MODAL-->
                         <div class="modal" id="modal">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -87,9 +97,155 @@
                                     <div class="modal-body mx-auto">
                                       <!-- <iframe id="iframe_${record.name}" width="560" height="50" src="" frameborder="0" 
                                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-                          
-                          
-                                        <form>
+                                      <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                          <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
+                                            aria-controls="pills-login" aria-selected="true">Login</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                          <a class="nav-link" id="tab-register" data-mdb-toggle="pill" href="#pills-register" role="tab"
+                                            aria-controls="pills-register" aria-selected="false">Register</a>
+                                        </li>
+                                      </ul>
+                                      <!-- Pills navs -->
+                                      
+                                      <!-- Pills content -->
+                                      <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                                          <form>
+                                            <div class="text-center mb-3">
+                                              <p>Sign in with:</p>
+                                              <!-- <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-facebook-f"></i>
+                                              </button> -->
+                                      
+                                              <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-google">
+                                                    <div id="firebaseui-auth-container"></div>
+                                                    <div id="loader">Loading...</div>
+                                                
+                                                </i>
+                                              </button>
+                                      
+                                              <!-- <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-twitter"></i>
+                                              </button>
+                                      
+                                              <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-github"></i>
+                                              </button> -->
+                                              
+                                      
+                                            <p class="text-center">or:</p>
+                                      
+                                            <!-- Email input -->
+                                            <div class="form-outline mb-4">
+                                              <input type="email" id="loginName" class="form-control" placeholder="Email or username" />
+                                              <label class="form-label" for="loginName" ></label>
+                                            </div>
+                                      
+                                            <!-- Password input -->
+                                            <div class="form-outline mb-4">
+                                              <input type="password" id="loginPassword" class="form-control" placeholder="Password" />
+                                              <label class="form-label" for="loginPassword"></label>
+                                            </div>
+                                      
+                                            <!-- 2 column grid layout -->
+                                            <div class="row mb-4">
+                                              <div class="col-md-6 d-flex justify-content-center">
+                                                <!-- Checkbox -->
+                                                <div class="form-check mb-3 mb-md-0">
+                                                  <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+                                                  <label class="form-check-label" for="loginCheck"> Remember me </label>
+                                                </div>
+                                              </div>
+                                      
+                                              <div class="col-md-6 d-flex justify-content-center">
+                                                <!-- Simple link -->
+                                                <a href="#!">Forgot password?</a>
+                                              </div>
+                                            </div>
+                                      
+                                            <!-- Submit button -->
+                                            <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                                      
+                                            <!-- Register buttons -->
+                                            <div class="text-center">
+                                              <p>Not a member? <a href="#!">Register</a></p>
+                                            </div>
+                                          </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                                          <form>
+                                            <div class="text-center mb-3">
+                                              <p>Sign up with:</p>
+                                              <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-facebook-f"></i>
+                                              </button>
+                                      
+                                              <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-google"></i>
+                                              </button>
+                                      
+                                              <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-twitter"></i>
+                                              </button>
+                                      
+                                              <button type="button" class="btn btn-link btn-floating mx-1">
+                                                <i class="fab fa-github"></i>
+                                              </button>
+                                            </div>
+                                      
+                                            <p class="text-center">or:</p>
+                                      
+                                            <!-- Name input -->
+                                            <div class="form-outline mb-4">
+                                              <input type="text" id="registerName" class="form-control" />
+                                              <label class="form-label" for="registerName">Name</label>
+                                            </div>
+                                      
+                                            <!-- Username input -->
+                                            <div class="form-outline mb-4">
+                                              <input type="text" id="registerUsername" class="form-control" />
+                                              <label class="form-label" for="registerUsername">Username</label>
+                                            </div>
+                                      
+                                            <!-- Email input -->
+                                            <div class="form-outline mb-4">
+                                              <input type="email" id="registerEmail" class="form-control" />
+                                              <label class="form-label" for="registerEmail">Email</label>
+                                            </div>
+                                      
+                                            <!-- Password input -->
+                                            <div class="form-outline mb-4">
+                                              <input type="password" id="registerPassword" class="form-control" />
+                                              <label class="form-label" for="registerPassword">Password</label>
+                                            </div>
+                                      
+                                            <!-- Repeat Password input -->
+                                            <div class="form-outline mb-4">
+                                              <input type="password" id="registerRepeatPassword" class="form-control" />
+                                              <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+                                            </div>
+                                      
+                                            <!-- Checkbox -->
+                                            <div class="form-check d-flex justify-content-center mb-4">
+                                              <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+                                                aria-describedby="registerCheckHelpText" />
+                                              <label class="form-check-label" for="registerCheck">
+                                                I have read and agree to the terms
+                                              </label>
+                                            </div>
+                                      
+                                            <!-- Submit button -->
+                                            <button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+                                          </form>
+                                        </div>
+                                      </div>
+                                      
+                                        <!-- <form>
+                                            <div class="row">
+                                            <div class="col-10">
                                               <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label"></label>
                                                 <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Email">
@@ -99,13 +255,19 @@
                                                 <label for="exampleInputPassword1" class="form-label"></label>
                                                 <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
                                               </div>
+                                            </div>
                                               <br>
-                                              <button type="submit" class="btn justify-content" style="background-color: #c4a872;">Go</button>
-                                            </form>
-                          
-                                            <h4 style="text-align: center">OR</h4>
-                                           <button type="submit" class="btn " style="background-color: #c4a872 ;justify-content: center; " >Sign up</button>
-                          
+                                              <div class="col-2">
+                                              <button type="submit" class="btn mb-3" style="background-color: #c4a872;">Go</button>
+                                              </div>
+                                            </div>
+                                        </form> -->
+                        
+                                        <!-- <h4 style="text-align: center">OR</h4>
+                                        <button type="submit" class="btn " style="background-color: #c4a872 ;justify-content: center; " >Sign up</button>
+                                         -->
+                                   
+                                  
                                     </div>
                                                                             
                                     <!-- Modal footer -->
@@ -120,7 +282,7 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    
 
     <!--TEXT BOX-->
 <div class="container py-5"  id="app">
@@ -132,21 +294,21 @@
                 <span class="input-group-text" id="inputGroup-sizing-default" style="background-color:#C79E53;">From</span>
                 <input id="pac-input" type="text" class="controls" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" placeholder="where are you?">
             </div>
-        </div>
+    </div>
     
 
          <div class="row justify-content-md-center">
             <div class="input-group mb-3 w-50 ">
                 <span class="input-group-text" id="inputGroup-sizing-default"
                 style="background-color:#C79E53;">To</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" placeholder="where do you want to go?">
+                    <input id="pac-input" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" placeholder="where do you want to go?">
             </div> 
         </div>
     </div>
 
-            <div class="col-2">
-                <span type="button" class="btn mt-2" style="background-color:#C79E53;">Go</span>
-            </div>
+        <div class="col-2">
+            <span type="button" class="btn mt-2" style="background-color:#C79E53;">Go</span>
+        </div>
        
         </div>
 </div>   
@@ -158,10 +320,12 @@
         Favourite route
     </h3>
 
+    <!-- <input id="autocomplete" placeholder="Enter place" type="text"/> -->
+
     <div id="map" class="mx-auto"></div>
     <script>
-        // Initialize and add the map
-        function initMap() {
+        //Initialize and add the map
+        function initMap() { //displaying user position on maps
             // default: The location of SIS, SMU
             var lat = parseFloat(document.getElementById("lat").value);
             var lng = parseFloat(document.getElementById("lng").value);
@@ -177,8 +341,8 @@
 
 
             map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 6,
+                center: { lat: 1.290, lng: 103.851 },
+                zoom: 13,
             });
             infoWindow = new google.maps.InfoWindow();
 
@@ -224,7 +388,124 @@
                     }
 
         window.initMap = initMap;
+
+      //         function initMap() {
+      //   const map = new google.maps.Map(document.getElementById("map"), {
+      //     zoom: 4,
+      //     center: { lat: -24.345, lng: 134.46 }, // Australia.
+      //   });
+      //   const directionsService = new google.maps.DirectionsService();
+      //   const directionsRenderer = new google.maps.DirectionsRenderer({
+      //     draggable: true,
+      //     map,
+      //     panel: document.getElementById("panel"),
+      //   });
+
+      //   directionsRenderer.addListener("directions_changed", () => {
+      //     const directions = directionsRenderer.getDirections();
+
+      //     if (directions) {
+      //       computeTotalDistance(directions);
+      //     }
+      //   });
+      //   displayRoute(
+      //     "Perth, WA",
+      //     "Sydney, NSW",
+      //     directionsService,
+      //     directionsRenderer
+      //   );
+      // }
+
+      function displayRoute(origin, destination, service, display) {
+        service
+          .route({
+            origin: origin,
+            destination: destination,
+            waypoints: [
+              { location: "Adelaide, SA" },
+              { location: "Broken Hill, NSW" },
+            ],
+            travelMode: google.maps.TravelMode.DRIVING,
+            avoidTolls: true,
+          })
+          .then((result) => {
+            display.setDirections(result);
+          })
+          .catch((e) => {
+            alert("Could not display directions due to: " + e);
+          });
+      }
+
+      function computeTotalDistance(result) {
+        let total = 0;
+        const myroute = result.routes[0];
+
+        if (!myroute) {
+          return;
+        }
+
+        for (let i = 0; i < myroute.legs.length; i++) {
+          total += myroute.legs[i].distance.value;
+        }
+
+        total = total / 1000;
+        document.getElementById("total").innerHTML = total + " km";
+      }
+
+      window.initMap = initMap;
+        function calcRoute() {
+            var start = document.getElementById('start').value;
+            var end = document.getElementById('end').value;
+            var request = {
+              origin: start,
+              destination: end,
+              travelMode: 'DRIVING'
+            };
+            directionsService.route(request, function(result, status) {
+              if (status == 'OK') {
+                directionsRenderer.setDirections(result);
+              }
+            });
+            console.log("hi1")
+          }
+
+        // function initAutocomplete(){
+        //   var input=document.getElementById('autocomplete');
+        //   var autocomplete=new google.maps.places.Autocomplete(input);
+        // }
+        let autocomplete;
+        function initAutocomplete(){
+            autocomplete= new google.maps.places.Autocomplete(
+                document.getElementById('pac-input'),
+                {
+                    types:['establishment'],
+                    componentRestrictions:{'country':['SG']},
+                    fields:['place_id','geometry','name']
+                });
+                console.log("hi")
+            autocomplete.addListener('place_changed',onPlaceChanged);
+        }
+
+        function onPlaceChanged(){
+            var place = autocomplete.getPlace();
+
+            if(!place.geometry){
+                document.getElementById('autocomplete').placeholder='Enter a place';
+            }else{
+                document.getElementById('details').innerHTML=place.name;
+            }
+        }
+
+//         function init() {
+//       var input = document.getElementById('locationTextField');
+//       var autocomplete = new google.maps.places.Autocomplete(input);
+//    }
+// google.maps.event.addDomListener(window, 'load', init);
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initAutocomplete" async defer>
+        </script>
+
+
     
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads

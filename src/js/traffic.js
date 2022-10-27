@@ -1,54 +1,76 @@
+let all_accident = []
+
 var app = Vue.createApp({
 
     data() {
         return {
-            road_names: [],
+            test: "hello world 123",
+            accidents: [],
             services_affected: [],
             
             selected_service_no: '',
-            selected_bus_stop_arrivals: {},
-            bus_service_sequence: {}
+            accident_details: {},//{accident: type, lat, long }
+            
+
         }
     },
 
     methods:{
         get_accident(){
-            let api_endpoint_url= "http://datamall2.mytransport.sg/ltaodataservice/TrafficIncidents"
-            axios.get(api_endpoint_url, {
+            console.log("=== [traffic.js] get_accident() ===")
+            let api_endpoint_url1 = '../../src/js/traffic_accident.php'
+            axios.get(api_endpoint_url1, {
                 headers: {
                     'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',
                     'accept': 'application/json',
                 }
             })
             .then(response => {
-                var response = response.data.value
-                this.bus_service_hidden = 'false'
+
+                var response = response.data
                 console.log(response)
-                console.log(this.selected_service_no)
-                for(res of response){
-                    if(res.ServiceNo == this.selected_service_no){
-                        console.log(res)
-                        console.log(res.ServiceNo)
-                        console.log(res.Direction)
-                        
+                
+                for(var res of response){
+                    //response is the array of objects of 500s
+                    let accident_object = res.value
+                    //res.value is the individual arrays with objects
+                    console.log(res.value)
+                    if(accident_object != [] ){
+                        for(var accident of accident_object){
+                            this.accidents.push(accident)
+                            all_accident.push(accident)
+                        }
+                        console.log("===get_accident()===")
+                        console.log(all_accident)
+                
                     }
+                    console.log(this.accidents)
                 }
+                //array of objects(key = number key = type,lat,long)
+                this.accident_details
             })
             .catch(error => {
                 console.log(error.message)
             })
         },
         get_roadworks(){
-            let api_endpoint_url= "http://datamall2.mytransport.sg/ltaodataservice/RoadWorks"
-            axios.get(api_endpoint_url, {
+
+            console.log("=== [traffic.js] get_roadworks() ===")
+            let api_endpoint_url1 = '../../src/js/traffic_roadworks.php'
+            axios.get(api_endpoint_url1, {
                 headers: {
                     'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',
                     'accept': 'application/json',
                 }
             })
             .then(response => {
-                var response = response.data.value
+                console.log('test')
+                var response = response.data
                 console.log(response)
+                for(res of response){
+                    console.log(res)
+                }
+                
                 
             })
             .catch(error => {
@@ -57,4 +79,6 @@ var app = Vue.createApp({
         }
     }
 })
-app.mount("#app")
+
+app.mount("#appp")
+// alert("this is traffic js")

@@ -35,25 +35,13 @@ function callAPI($method, $url, $data)
 }
 
 
+
+
+
+
+
 $url = '';
-$code = '';
-$service = '';
-if($_GET['BusStopCode'] != ''){
-    $code = $_GET['BusStopCode'];
-    $url = 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=' . $code;
-}
-
-if($_GET['ServiceNo'] == 'a'){
-    $code = $_GET['BusStopCode'];
-    $url = 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=' . $code;
-}else{
-    $service = $_GET['ServiceNo'];
-    $url = 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=' . $code . "&ServiceNo=" . $service;
-}
-
-
-
-
+$url = 'http://datamall2.mytransport.sg/ltaodataservice/TrainServiceAlerts?' 
 
 
 // var_dump($url);

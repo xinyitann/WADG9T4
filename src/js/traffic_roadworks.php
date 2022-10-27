@@ -1,6 +1,9 @@
 <?php
-function callAPI($method, $url, $data)
+function callAPI($method, $url, $data,$skip)
 {
+    if($skip != 0){
+        $url = $url . '?$skip=' . $skip;
+    }
     $curl = curl_init();
     switch ($method) {
         case "POST":
@@ -20,7 +23,7 @@ function callAPI($method, $url, $data)
     // OPTIONS:
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-        'accountkey: 3+qMwmsMR1+Y4uxlex3DvA==',
+        'AccountKey: rA62Al3wSpWoBqzOBOIC6g==',
         'Content-Type: application/json',
     ));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -35,33 +38,18 @@ function callAPI($method, $url, $data)
 }
 
 
-$url = '';
-$code = '';
-$service = '';
-if($_GET['BusStopCode'] != ''){
-    $code = $_GET['BusStopCode'];
-    $url = 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=' . $code;
-}
-
-if($_GET['ServiceNo'] == 'a'){
-    $code = $_GET['BusStopCode'];
-    $url = 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=' . $code;
-}else{
-    $service = $_GET['ServiceNo'];
-    $url = 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=' . $code . "&ServiceNo=" . $service;
-}
-
-
-
-
-
-
-// var_dump($url);
-
-$big_list = [];
-$get_data = callAPI('GET', $url, false);
+$big_list2 = [];
+$get_data = callAPI('GET', 'http://datamall2.mytransport.sg/ltaodataservice/RoadWorks', false, 0);
 $response = json_decode($get_data, true);
+array_push($big_list2,$response);
+$num = 500;
 
-// var_dump($response);
-echo json_encode($response);
+while(count($response['value']) != 0){
+    $get_data = callAPI('GET', 'http://datamall2.mytransport.sg/ltaodataservice/RoadWorks', false, $num);
+    $response = json_decode($get_data, true);
+    array_push($big_list2,$response);
+    $num += 500;
+}
+
+echo json_encode($big_list2);
 ?>
