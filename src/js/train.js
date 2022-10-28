@@ -36,6 +36,12 @@ var app = Vue.createApp({
 
         
       }
+  },
+  computed(){
+    get_station_name(){
+      ...
+    }
+    
   }
 
 })
