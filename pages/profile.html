@@ -13,12 +13,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../src/css/index.css">
+    <link rel="stylesheet" href="../../src/css/index1.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="../src/js/profile.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 
    <style>
     a{
@@ -77,23 +78,27 @@
               
         <main class="ps-0 ps-md-5 flex-grow-1">
 
-          <div class="container overflow-auto">
+          <div class="container overflow-auto" id="app">
 
             <h4>User name</h4>
-            <input id="userName" type='text'class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF" >  
+          
+          
+              <input id="userName" type='text'class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF" :placeholder="username"/>
+          
+           
 
             <button type="button" class="btn"  onclick="checkIfUserExists(document.getElementById('userName').value)">Available?</button>
 
           
             <h4>Name</h4>
-            <input id="name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" >
+            <input id="name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" :placeholder="name">
             <!-- <button type="button" class="btn"  onclick="updateName()">Update Name</button> -->
          
       <br>
           
             <h4>Email</h4>
          
-            <input id="email" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;">
+            <input id="email" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" :placeholder="email">
 
             <!-- <button type="button" class="btn" onclick="updateEmail()">Update Email</button> -->
          
@@ -104,7 +109,7 @@
 
           <h4>Saved Place</h4>
          
-            <input id="saved" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;">
+            <input id="saved" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" :placeholder="saved">
             <button type="button" class="btn" onclick="updateSaved()">Update Saved Place</button> 
           
           <p id="status"></p>
@@ -118,7 +123,7 @@
         <!-- This is the API from Firebase Realtime Database -->
         <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script> 
 
-        <script src="../src/js/index.js"></script>
+        <script src="../src/js/index1.js"></script>
         <script>
           // Your web app's Firebase configuration
           // You can find yours at Firebase -> Project Overview -> Project Settings
@@ -228,7 +233,7 @@
   </div>
 
 
-
+  <script src="../src/js/profile.js"></script>
 
 </script>
   </body>

@@ -37,12 +37,12 @@ var app = Vue.createApp({
         
       }
   },
-  computed(){
-    get_station_name(){
-      ...
-    }
+  // computed(){
+  //   get_station_name(){
+  //     ...
+  //   }
     
-  }
+  // }
 
 })
 app.mount("#app")
