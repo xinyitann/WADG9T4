@@ -9,6 +9,8 @@
 //   appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
 //   measurementId: "G-DE6MGV1BWE"
 // };
+// firebase.initializeApp(firebaseConfig);
+// const database = firebase.database()
 // // Initialize Firebase
 
 
@@ -26,8 +28,9 @@ var app = Vue.createApp({
   },
 
   methods:{
- 
-    getData(){
+
+
+   getData(){
       const dbRef = ref(getDatabase());
       get(child(dbRef, `users/${userId}`)).then((snapshot) => {
         if (snapshot.exists()) {
@@ -39,6 +42,19 @@ var app = Vue.createApp({
         console.error(error);
       });
     }
+
+//     firebase.auth().onAuthStateChanged(user => {
+//       if (user) {
+//           getUserData(user.uid)
+//       }
+//   }
+
+//   getUserData(uid){
+//     firebase.database().ref('users/' + uid).once("value", snap => {
+//         console.log(snap.val())
+//     })
+// }
+    
    
   }
 

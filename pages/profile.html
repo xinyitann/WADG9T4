@@ -13,9 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../src/css/index1.css">
+    <link rel="stylesheet" href="../src/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    
+    <!-- <script type="module" src="../src/js/index1.js"></script> -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="../src/js/profile.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -91,7 +91,7 @@
 
           
             <h4>Name</h4>
-            <input id="name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" :placeholder="name">
+            <input id="fullName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" :placeholder="name">
             <!-- <button type="button" class="btn"  onclick="updateName()">Update Name</button> -->
          
       <br>
@@ -104,6 +104,7 @@
          
 
           <button type="button" class="btn" onclick="register()">Register</button> 
+          <button type="button" class="btn" onclick="login()">Login</button> 
           <!-- <button type="button" class="btn" onclick="deregister(document.getElementById('userName').value)">De-Register</button>  -->
           <button type="button" class="btn" onclick="updateEmail()">Update Email</button> 
 
@@ -124,6 +125,7 @@
         <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script> 
 
         <script src="../src/js/index1.js"></script>
+        
         <script>
           // Your web app's Firebase configuration
           // You can find yours at Firebase -> Project Overview -> Project Settings
@@ -156,6 +158,9 @@
           var user = firebase.database().ref('users/' + userName);
           user.once('value').then((snapshot) => {
             if(snapshot.exists()) {
+              console.log(snapshot.val())
+              console.log(snapshot.val().name)
+              document.getElementById("name").value=snapshot.val().name
               document.getElementById("status").innerText = "User name has already been taken.";
             }
             else {
@@ -167,16 +172,17 @@
         //The following example demostrates how to add data
         function register() {
           var userName = document.getElementById("userName").value;
-          var name = document.getElementById("name").value;
+          var fullName = document.getElementById("fullName").value;
           var email = document.getElementById("email").value;
           var saved = document.getElementById("saved").value;
-          writeUserDataWithCompletion(userName,name,email,saved);
+          writeUserDataWithCompletion(userName,fullName,email,saved);
         }
         
         //The following writes the data
-        function writeUserDataWithCompletion(userName, name, email,saved) {
+        function writeUserDataWithCompletion(userName,fullName, email,saved) {
           firebase.database().ref('users/' + userName).set({
-            name: name,
+            userName: userName,
+            fullName:fullName,
             email: email,
             saved:saved
           }, function(error) {
@@ -201,11 +207,12 @@
         
         function updateEmail() {
           var userName = document.getElementById("userName").value;
-          var name = document.getElementById("name").value;
+          var fullName = document.getElementById("fullName").value;
           var email = document.getElementById("email").value;
           var saved = document.getElementById("saved").value;
           var updates = {};
-          updates['/users/' + userName + "/" + 'name'] = name;
+          updates['/users/' + userName + "/" + 'userName'] = userName;
+          updates['/users/' + userName + "/" + 'fullName'] = fullName;
           updates['/users/' + userName + "/" + 'email'] = email;
           updates['/users/' + userName + "/" + 'saved'] = saved;
           firebase.database().ref().update(updates);
@@ -222,6 +229,45 @@
           updates['/users/' + userName + "/" + 'saved'] = saved;
           firebase.database().ref().update(updates);
         }
+
+        function displayData(){
+          var user = firebase.database().ref('users/' + userName);
+          user.once('value').then((snapshot) => {
+            if(snapshot.exists()) {
+              document.getElementById("userName").innerText = "User name has already been taken.";
+        }else {
+              document.getElementById("status").innerText = "User name is available.";
+            }
+          });
+        }
+        function login() {
+          // Get all our input fields
+          this.userName = document.getElementById("userName").value;
+          this.name = document.getElementById("fullName").value;
+          this.email = document.getElementById("email").value;
+          this.saved = document.getElementById("password").value;
+        
+          // Validate input fields
+          if (validate_email(email) == false || validate_password(password) == false) {
+            alert('Email or Password is Outta Line!!')
+            return
+            // Don't continue running the code
+          }
+        }
+
+
+       
+
+        // const dbRef = ref(getDatabase());
+        // get(child(dbRef, `users/xy`)).then((snapshot) => {
+        //   if (snapshot.exists()) {
+        //     console.log(snapshot.val());
+        //   } else {
+        //     console.log("No data available");
+        //   }
+        // }).catch((error) => {
+        //   console.error(error);
+        // });
 
         </script>
 

@@ -21,7 +21,7 @@ const database = firebase.database()
 
 
 // Set up our register function
-function register () {
+function register() {
   // Get all our input fields
   email = document.getElementById('email').value
   password = document.getElementById('password').value
@@ -35,46 +35,47 @@ function register () {
     return
     // Don't continue running the code
   }
-  if (validate_field(full_name) == false ) {
+  if (validate_field(full_name) == false) {
     alert('One or More Extra Fields is Outta Line!!')
     return
   }
- 
+
   // Move on with Auth
   auth.createUserWithEmailAndPassword(email, password)
-  .then(function() {
-    // Declare user variable
-    var user = auth.currentUser
+    .then(function () {
+      // Declare user variable
+      var user = auth.currentUser
 
-    // Add this user to Firebase Database
-    var database_ref = database.ref()
+      // Add this user to Firebase Database
+      var database_ref = database.ref()
 
-    // Create User data
-    var user_data = {
-      email : email,
-      full_name : full_name,
-      // favourite_song : favourite_song,
-      // milk_before_cereal : milk_before_cereal,
-      last_login : Date.now()
-    }
+      // Create User data
+      var user_data = {
+        email: email,
+        full_name: full_name,
+        uid:user.uid,
+        // favourite_song: 'favourite_song',
+        // milk_before_cereal : milk_before_cereal,
+        last_login: Date.now()
+      }
 
-    // Push to Firebase Database
-    database_ref.child('users/' + user.uid).set(user_data)
+      // Push to Firebase Database
+      database_ref.child('users/' + user.uid).set(user_data)
 
-    // DOne
-    alert('User Created!!')
-  })
-  .catch(function(error) {
-    // Firebase will use this to alert of its errors
-    var error_code = error.code
-    var error_message = error.message
+      // DOne
+      alert('User Created!!')
+    })
+    .catch(function (error) {
+      // Firebase will use this to alert of its errors
+      var error_code = error.code
+      var error_message = error.message
 
-    alert(error_message)
-  })
+      alert(error_message)
+    })
 }
 
 // Set up our login function
-function login () {
+function login() {
   // Get all our input fields
   email = document.getElementById('email').value
   password = document.getElementById('password').value
@@ -87,33 +88,43 @@ function login () {
   }
 
   auth.signInWithEmailAndPassword(email, password)
-  .then(function() {
-    // Declare user variable
-    var user = auth.currentUser
+    .then(function () {
+      // Declare user variable
+      var user = auth.currentUser
 
-    // Add this user to Firebase Database
-    var database_ref = database.ref()
+      // Add this user to Firebase Database
+      var database_ref = database.ref()
 
-    // Create User data
-    var user_data = {
-      last_login : Date.now()
-    }
+      // Create User data
+      var user_data = {
+        email: email,
+        full_name: full_name,
+        uid:user.uid,
+        last_login: Date.now()
+      }
 
-    // Push to Firebase Database
-    database_ref.child('users/' + user.uid).update(user_data)
+      // Push to Firebase Database
+      database_ref.child('users/' + user.uid).update(user_data)
 
-    // DOne
-    alert('User Logged In!!')
-    window.location.replace("./index.html");
+      // DOne
+      alert('User Logged In!!')
+      firebase.database().ref('users/' + user.uid).once("value", snap => {
+        
+        console.log(snap.val())
+        console.log(user_data)
+        
+      })
+      localStorage.setItem("users",JSON.stringify(user_data) );
+       window.location.replace("./index.html");
 
-  })
-  .catch(function(error) {
-    // Firebase will use this to alert of its errors
-    var error_code = error.code
-    var error_message = error.message
+    })
+    .catch(function (error) {
+      // Firebase will use this to alert of its errors
+      var error_code = error.code
+      var error_message = error.message
 
-    alert(error_message)
-  })
+      alert(error_message)
+    })
 }
 
 
@@ -152,20 +163,20 @@ function validate_field(field) {
   }
 }
 
-if (login){
+if (login) {
   getAuth()
-  .getUser(uid)
-  .then((userRecord) => {
-    // See the UserRecord reference doc for the contents of userRecord.
-    console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
-  })
-  .catch((error) => {
-    console.log('Error fetching user data:', error);
-  });
-} 
+    .getUser(uid)
+    .then((userRecord) => {
+      // See the UserRecord reference doc for the contents of userRecord.
+      console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+    })
+    .catch((error) => {
+      console.log('Error fetching user data:', error);
+    });
+}
 
 
-  getAuth()
+getAuth()
   .getUserByEmail(email)
   .then((userRecord) => {
     // See the UserRecord reference doc for the contents of userRecord.
@@ -230,10 +241,10 @@ if (login){
 //     apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
 //   authDomain: "onestopper.firebaseapp.com"
 //   });
-  
+
 //   // As httpOnly cookies are to be used, do not persist any state client side.
 //   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
-  
+
 //   // When the user signs in with email and password.
 //   firebase.auth().signInWithEmailAndPassword('user@example.com', 'password').then(user => {
 //     // Get the user's ID token as it is needed to exchange for a session cookie.
