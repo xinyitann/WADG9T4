@@ -56,7 +56,7 @@ var app = Vue.createApp({
             console.log(this.bus_stops[this.selected_bus_stop])
             var code = this.bus_stops[this.selected_bus_stop]
 
-            let api_endpoint_url = '../../src/php/bus/bus_arrival.php?BusStopCode=' + code  + '&ServiceNo=a'
+            let api_endpoint_url = '../../src/php/bus/bus_arrival.php?BusStopCode=' + code + '&ServiceNo=a'
             axios.get(api_endpoint_url)
                 .then(response => {
                     console.log(response)
@@ -200,3 +200,40 @@ var app = Vue.createApp({
 
 })
 app.mount("#app")
+
+
+var map;
+var service;
+var infowindow;
+
+function initialize() {
+    var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: pyrmont,
+        zoom: 15
+    });
+
+    var request = {
+        location: pyrmont,
+        radius: '500',
+        type: ['bus_station']
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callback);
+    console.log('here')
+    console.log(service)
+    
+}
+
+function callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+            createMarker(results[i]);
+            console.log('here')
+        }
+    }
+}
+
+window.initMap = initialize;
