@@ -24,8 +24,8 @@
         var user_detail = localStorage.getItem("users")
         console.log(user_detail)
         var obj=JSON.parse(user_detail)
-        var email=obj.email
-        console.log(email)
+        var username=obj.username
+        console.log(username)
     </script>
 
       <style>
@@ -93,15 +93,15 @@
                 </ul>
             </div>
         </div>
-   <div class="container" id="username">
+   <div class="container text-center py-3" id="username">
   
    </div>
    <script>
    function get_data(){
     if (localStorage!=null){
-        document.getElementById('username').innerText=email;
+        document.getElementById('username').innerHTML="<h3>"+"Welcome "+ username+"</h3>";
     }else{
-        document.getElementById('username').innerText="Welcome";
+        document.getElementById('username').innerText="<h3>"+"Welcome"+"</h3>";
     }
    }
 
@@ -323,8 +323,8 @@
 //    }
 // google.maps.event.addDomListener(window, 'load', init);
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initAutocomplete" async defer>
-        </script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initAutocomplete" async defer>
+        </script> -->
 
 
     
@@ -333,7 +333,7 @@
     * The key parameter will contain your own API key 
     * The callback parameter executes the initMap() function
     -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initMap&initAutocomplete"
     async defer></script>
 
     <div class="jumbotron">          

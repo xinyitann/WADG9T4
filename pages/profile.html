@@ -30,10 +30,23 @@
       background-color:#efecdf
       ;
     }
+    .group{
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
     
    </style>
+   <script>
+    var user_detail = localStorage.getItem("users")
+    console.log(user_detail)
+    var obj=JSON.parse(user_detail)
+    var username=obj.username
+    var email=obj.email
+
+   
+</script>
 </head>
-<body>
+<body onload="get_data()">
   <!--NAVIGATION BAR-->
       <div class="sticky-top p-3" >
         <a href="../index.html">
@@ -66,10 +79,10 @@
                         <a href="#email" class="nav-link" aria-current="page">Email</a>
                       </li>
                       <li>
-                        <a href="#saved" class="nav-link" aria-current="page">Saved Places</a>
+                        <a href="#home" class="nav-link" aria-current="page">Home</a>
                       </li>
                       <li>
-                        <a href="#account" class="nav-link" aria-current="page">Account</a>
+                        <a href="#work" class="nav-link" aria-current="page">Work</a>
                       </li>
                     </ul>
                     </div>
@@ -80,38 +93,49 @@
 
           <div class="container overflow-auto" id="app">
 
-            <h4>User name</h4>
-          
-          
-              <input id="userName" type='text'class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF" :placeholder="username"/>
-          
+            <div class="group">
+              <h4>User name</h4>
+              <input id="userName" type='text'class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF" />
+            </div>
            
 
-            <button type="button" class="btn"  onclick="checkIfUserExists(document.getElementById('userName').value)">Available?</button>
+            <!-- <button type="button" class="btn"  onclick="checkIfUserExists(document.getElementById('userName').value)">Available?</button> -->
 
           
-            <h4>Name</h4>
-            <input id="fullName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" :placeholder="name">
+            <!-- <h4>Name</h4>
+            <input id="fullName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" :placeholder="name"> -->
             <!-- <button type="button" class="btn"  onclick="updateName()">Update Name</button> -->
          
       <br>
+            <div class="group">
+              <h4>Email</h4>
           
-            <h4>Email</h4>
-         
-            <input id="email" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" :placeholder="email">
-
+              <input id="email" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;">
+              <button type="button" class="btn " onclick="updateEmail()">Update Email</button> 
+            </div>
             <!-- <button type="button" class="btn" onclick="updateEmail()">Update Email</button> -->
          
 
-          <button type="button" class="btn" onclick="register()">Register</button> 
-          <button type="button" class="btn" onclick="login()">Login</button> 
+          <!-- <button type="button" class="btn" onclick="register()">Register</button> 
+          <button type="button" class="btn" onclick="login()">Login</button>  -->
           <!-- <button type="button" class="btn" onclick="deregister(document.getElementById('userName').value)">De-Register</button>  -->
-          <button type="button" class="btn" onclick="updateEmail()">Update Email</button> 
-
-          <h4>Saved Place</h4>
+          
+          <div class="group">
+            <h4>Home</h4>
          
-            <input id="saved" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" :placeholder="saved">
-            <button type="button" class="btn" onclick="updateSaved()">Update Saved Place</button> 
+            <input id="home" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;">
+            <button type="button" class="btn" onclick="updateSaved()">Update Location</button> 
+          </div>
+          
+          <div class="group">
+            <h4>Work</h4>
+            <input id="work" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" >
+          <button type="button" class="btn" onclick="updateSaved()">Update Location</button> 
+
+          </div>
+          
+        
+          
           
           <p id="status"></p>
           <p id="latest"></p>
@@ -124,9 +148,20 @@
         <!-- This is the API from Firebase Realtime Database -->
         <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script> 
 
-        <script src="../src/js/index1.js"></script>
-        
+        <script src="../src/js/index.js"></script>
+
         <script>
+           function get_data(){
+    if (localStorage!=null){
+        document.getElementById('userName').value=username;
+        document.getElementById('email').value=email;
+    }else{
+        document.getElementById('userName').innerText="";
+    }
+   }
+        </script>
+        
+        <!-- <script>
           // Your web app's Firebase configuration
           // You can find yours at Firebase -> Project Overview -> Project Settings
           // -> SDK setup and configuration -> CDN
@@ -269,7 +304,7 @@
         //   console.error(error);
         // });
 
-        </script>
+        </script> -->
 
 
 
