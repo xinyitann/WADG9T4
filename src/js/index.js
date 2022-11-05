@@ -79,6 +79,7 @@ function login() {
   // Get all our input fields
   email = document.getElementById('email').value
   password = document.getElementById('password').value
+  username = document.getElementById('username').value
 
   // Validate input fields
   if (validate_email(email) == false || validate_password(password) == false) {
@@ -95,6 +96,7 @@ function login() {
       // Add this user to Firebase Database
       var database_ref = database.ref()
 
+      var user_routes = []
       // Create User data
       var user_data = {
         email: email,
@@ -339,3 +341,7 @@ getAuth()
 //     res.clearCookie('session');
 //     res.redirect('/login');
 //   });
+
+function getDirections() {
+  console.log('getting directions')
+}
