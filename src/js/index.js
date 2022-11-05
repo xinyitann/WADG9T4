@@ -95,6 +95,7 @@ function login() {
       // Add this user to Firebase Database
       var database_ref = database.ref()
 
+      var user_routes = []
       // Create User data
       var user_data = {
         email: email,
@@ -339,3 +340,7 @@ getAuth()
 //     res.clearCookie('session');
 //     res.redirect('/login');
 //   });
+
+function getDirections() {
+  console.log('getting directions')
+}

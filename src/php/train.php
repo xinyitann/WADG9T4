@@ -35,11 +35,6 @@ function callAPI($method, $url, $data)
 }
 
 
-
-
-
-
-
 $url = '';
 $url = 'http://datamall2.mytransport.sg/ltaodataservice/TrainServiceAlerts?' 
 
