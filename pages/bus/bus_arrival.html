@@ -32,8 +32,9 @@
         .red {
             color: red;
         }
+
         #map {
-            height: 400px;
+            /* height: 500px; */
             /* The height is 400 pixels */
             width: 100%;
             /* The width is the width of the web page */
@@ -81,7 +82,7 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav float-end">
-                    <li class="nav-item">
+                    <li class="nav-itget_bus_stopsem">
                         <a href="#" class="nav-link"><i class="fa-sharp fa-solid fa-gear"></i></a>
                     </li>
                     <li class="nav-item">
@@ -97,10 +98,12 @@
     </h1>
 
     <div class="container-fluid pt-5 py-5">
-        <div id="map"></div>
+
         <!-- Tab panes -->
         <div id="app">
-            {{get_bus_routes}}
+            <!-- <button type="button" class="btn btn-success mt-2" v-on:click="get_bus_stop_map()">View Bus Stop in
+                Map</button> -->
+            <div id="map"></div>
             <h2 class="fw-bold display-3 text-center">Bus Stops</h2>
             <div class="row">
                 <div class="col-1"></div>

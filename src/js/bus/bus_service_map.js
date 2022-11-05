@@ -63,6 +63,7 @@ var app = Vue.createApp({
 
 
         get_service_sequence() {
+            this.auto_complete_suggestion_service.length = 0
             this.table_shown = false
             this.direction_dropdown = false
             for (const key in this.bus_service_sequence) {
@@ -248,6 +249,7 @@ var app = Vue.createApp({
         },
 
         initMap() {
+            console.log(this.selected_locations)
             var locations = this.selected_locations
 
 
@@ -260,10 +262,10 @@ var app = Vue.createApp({
 
                 points.push(latlong)
             }
-
+            document.getElementById('map').style.height = "500px"
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 10,
-                center: new google.maps.LatLng(1.29, 103.8),
+                zoom: 12,
+                center: new google.maps.LatLng(1.35, 103.8),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
