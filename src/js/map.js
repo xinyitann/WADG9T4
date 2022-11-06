@@ -28,11 +28,12 @@ directionsDisplay.setMap(map);
 
 function calcRoute(){
   //create request 
+  const selectedMode=document.getElementById('mode').value;
   var request ={
     origin:document.getElementById('from').value,
     destination:document.getElementById('to').value,
-    travelMode: google.maps.TravelMode.DRIVING,//WALKING,BICYCLING AND TRANSIT
-    unitSystem:google.maps.UnitSystem.IMPERIAL
+    travelMode: google.maps.TravelMode[selectedMode],//WALKING,BICYCLING AND TRANSIT
+    unitSystem:google.maps.UnitSystem.METRIC
   }
 
   //Pass the request to the route metthod

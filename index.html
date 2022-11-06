@@ -137,34 +137,45 @@
                 onclick="calcRoute()"
                 >Go</span>
         </div>
+
+        <div class="dropdown row justify-content-md-center">
+            <!-- <b>Mode of Travel</b> -->
+            <select id="mode" class="form-control" style="width:200px">
+                <option value="DRIVING">Driving</option>
+                <option value="WALKING">Walking</option>
+                <option value="BICYCLING">Bicycling</option>
+                <option value="TRANSIT">Transit</option>
+            </select> 
+            </div>  
+            
+              <div class="container-fluid">
+                <div id="map">
+            
+                </div>
+                <div id="output">
+            
+                </div>
+              </div>
        
         </div>
 </div>   
-    
-   
 
-<!-- <div class="container-fluid">
-    <form class="form-horizontal">
-      <div class="form-group">
-        <label for="from" class="col-xs-2 control label">
-          <div class="col-xs-4">
-            <input type="text" id="from" placeholder="origin" class="form-control" >
-          </div>
-      </div>
-
-      <div class="form-group">
-        <label for="from" class="col-xs-2 control label">
-          <div class="col-xs-4">
-            <input type="text" id="to" placeholder="destination" class="form-control" >
-          </div>
-      </div>
-    </form>
-    <div class="col-xs-offset-2 col-xs-10">
-      <button class="btn btn-info btn-lg" onclick="calcRoute();"><i class="fas fa-directions"></i>
-        
-      </button>
-    </div>
-  </div> -->
+<!-- <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Mode of Transport
+  </button>
+  <ul class="dropdown-menu" id="mode">
+    <li><a class="dropdown-item" value="DRIVING">Driving</a></li>
+    <li><a class="dropdown-item" value="WALKING">Walking</a></li>
+    <li><a class="dropdown-item" value="BICYCLING">Bicycling</a></li>
+    <li><a class="dropdown-item"  value="TRANSIT">Transit</a></li>
+  </ul> -->
+<!-- <select id="mode">
+    <option value="DRIVING">Driving</option>
+    <option value="WALKING">Walking</option>
+    <option value="BICYCLING">Bicycling</option>
+    <option value="TRANSIT">Transit</option>
+</select> 
+</div>  
 
   <div class="container-fluid">
     <div id="map">
@@ -173,7 +184,7 @@
     <div id="output">
 
     </div>
-  </div>
+  </div> -->
 
 
 
