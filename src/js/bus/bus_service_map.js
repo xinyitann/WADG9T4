@@ -17,7 +17,8 @@ var app = Vue.createApp({
             bus_stop_location: [],
             selected_locations: [],
             table_shown: false,
-            direction_dropdown: false
+            direction_dropdown: false,
+            display_service_no: ''
         }
     },
 
@@ -63,6 +64,7 @@ var app = Vue.createApp({
 
 
         get_service_sequence() {
+            this.display_service_no = this.selected_service_no
             this.auto_complete_suggestion_service.length = 0
             this.table_shown = false
             this.direction_dropdown = false
@@ -154,7 +156,7 @@ var app = Vue.createApp({
                         var diff = (time.getTime() - current.getTime()) / 1000;
                         diff /= 60;
                         diff = Math.abs(Math.round(diff));
-                        if (diff == 1) {
+                        if (diff <= 1) {
                             diff = 'Arr'
                         }
                         var feature = res[bus_no].Feature

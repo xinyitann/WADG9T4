@@ -20,6 +20,13 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWyI5hJe5X7W9Svu7sVQCsUt3Q9JVdOqk&libraries=places&callback=initMap">
     </script>
 
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
+
+    <!-- <script src="../../src/js/index.js"></script> -->
+
     <style>
         .green {
             color: green;
@@ -39,12 +46,25 @@
             width: 100%;
             /* The width is the width of the web page */
         }
+
+        .c {
+            color: orange;
+        }
     </style>
+
+    <script>
+        var user_detail = localStorage.getItem("users")
+        console.log(user_detail)
+        var obj = JSON.parse(user_detail)
+        var username = obj.username
+        console.log(username)
+    </script>
+
 
 
 </head>
 
-<body>
+<body onload="user_login()">
     <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#C79E53; color: #C4A872;">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -63,9 +83,9 @@
                             Bus
                         </a>
                         <ul class="dropdown-menu" style="background-color:#C79E53;">
-                            <li><a class="dropdown-item fw-bold" href="pages/bus/bus_arrival.html">Bus Arrival Time</a>
+                            <li><a class="dropdown-item fw-bold" href="bus_arrival.html">Bus Arrival Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold" href="#">Bus Services</a></li>
+                            <li><a class="dropdown-item fw-bold" href="bus_service_map.html">Bus Services</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -83,10 +103,10 @@
                 </ul>
                 <ul class="navbar-nav float-end">
                     <li class="nav-itget_bus_stopsem">
-                        <a href="#" class="nav-link"><i class="fa-sharp fa-solid fa-gear"></i></a>
+                        <a href="../profile.html" class="nav-link"><i class="fa-sharp fa-solid fa-gear"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="fa-solid fa-user"></i></a>
+                        <a href="../../login.html" class="nav-link"><i class="fa-solid fa-user"></i></a>
                     </li>
                 </ul>
             </div>
@@ -127,7 +147,18 @@
             </div>
 
             <div v-show="bus_stop_hidden.length > 0">
-                <h3 class="text-center fw-bold display-5 text-decoration-underline">{{selected_bus_stop}}</h3>
+
+
+                <!-- <button type="submit"><i class="icon-refresh"></i> </button> -->
+                <h3 class="text-center fw-bold display-5 text-decoration-underline" id="bus_stop_name">
+                    {{displayed_bus_stop_name}} ({{selected_bus_stop_code}})</h3>
+                <div class="container w-100 text-center" style="height: 50px;">
+                    <button type="button" class="btn btn-primary mt-2 mx-4" v-on:click="get_arrival_time_bus_stop()"><i
+                            class="fa-solid fa-rotate-right"></i>
+                        Refresh</button>
+                    <span id="fav"></span>
+                </div>
+
                 <div class="row" v-for="(value, key) of selected_bus_stop_arrivals">
                     <div class="col-4 text-center display-6 my-5 fw-bold">
                         {{key}}
@@ -160,7 +191,6 @@
             </div>
         </div>
 
-
         <!-- FOOTER -->
         <div class="container-fluid text-center fs-1" style="color:#C79E53;">
             <ul class="list-inline">
@@ -186,6 +216,119 @@
         <!-- <script src="../../src/js/bus_arrival.js"></script> -->
         <script src="../../src/js/bus/bus_arr.js"></script>
 
+
+
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
+                authDomain: "onestopper.firebaseapp.com",
+                databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
+                projectId: "onestopper",
+                storageBucket: "onestopper.appspot.com",
+                messagingSenderId: "64753765868",
+                appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
+                measurementId: "G-DE6MGV1BWE"
+            };
+            // Initialize Firebase
+
+            firebase.initializeApp(firebaseConfig);
+            // Initialize variables
+            // import { getDatabase, ref, onValue } from "firebase/database";
+            // import { getAuth } from "firebase/auth";
+            // import { getAuth } from "firebase/auth";
+            // const auth = firebase.auth()
+            const database = firebase.database()
+
+            // TO CHECK IF USER
+            function user_login() {
+                console.log('user_login')
+                if (user_detail != null) {
+                    console.log('hree')
+                    document.getElementById('fav').innerHTML =
+                        `<button type="button" class="btn btn-secondary mt-2 checked"
+                onclick="save_bus_stop()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
+                    // console.log(find_all_favs())
+                }
+            }
+
+            // TO SAVE THE FAV BUS STOP
+            function save_bus_stop() {
+                var user_detail = localStorage.getItem("users")
+                console.log(user_detail)
+                var obj = JSON.parse(user_detail)
+                var uid = obj.uid
+                console.log(uid)
+                var bus_stops = ''
+                firebase.database().ref('users/' + uid).once("value", snap => {
+
+                    console.log(snap.val())
+                    bus_stops = snap.val().fav_bus_stop
+                    
+                    if (bus_stops == '') {
+                        var users = firebase.database().ref('users');
+                        document.getElementById('fav_button').style.color += 'orange'
+                        var bus_stop = document.getElementById('bus_stop_name').innerText
+                        var bus_stop_name = bus_stop.split('(')[0]
+                        var bus_stop_code = bus_stop.split('(')[1]
+                        bus_stop_code = bus_stop_code.split(')')[0]
+
+
+                        var user_detail = localStorage.getItem("users")
+                        console.log(user_detail)
+                        var obj = JSON.parse(user_detail)
+                        var fav_bus_stop = obj.fav_bus_stops
+                        console.log(fav_bus_stop)
+
+                        var user_detail = localStorage.getItem("users")
+                        console.log(user_detail)
+                        var obj = JSON.parse(user_detail)
+                        var uid = obj.uid
+                        console.log(uid)
+
+                        var updates = {};
+                        updates['/users/' + uid + "/" + 'fav_bus_stop'] = bus_stop_name;
+                        firebase.database().ref().update(updates);
+                    } else {
+                        var users = firebase.database().ref('users');
+                        document.getElementById('fav_button').style.color += 'orange'
+                        var bus_stop = document.getElementById('bus_stop_name').innerText
+                        var bus_stop_name = bus_stop.split('(')[0]
+                        var bus_stop_code = bus_stop.split('(')[1]
+                        bus_stop_code = bus_stop_code.split(')')[0]
+                        console.log(bus_stops)
+
+                        var user_detail = localStorage.getItem("users")
+                        console.log(user_detail)
+                        var obj = JSON.parse(user_detail)
+                        var fav_bus_stop = obj.fav_bus_stops
+                        console.log(fav_bus_stop)
+
+                        var user_detail = localStorage.getItem("users")
+                        console.log(user_detail)
+                        var obj = JSON.parse(user_detail)
+                        var uid = obj.uid
+                        console.log(uid)
+
+                        var new_bus_stop = bus_stops + ", " + bus_stop_name
+                        console.log(new_bus_stop)
+
+                        var updates = {};
+                        updates['/users/' + uid + "/" + 'fav_bus_stop'] = new_bus_stop;
+                        firebase.database().ref().update(updates);
+                    }
+
+                })
+                // var user = firebase.database().ref('users/' + uid);
+                // user.once('value').then((snapshot) => {
+                //     if (snapshot.exists()) {
+                //         console.log(snapshot)
+                //         document.getElementById("status").innerText = "User ID has already been taken.";
+                //     } else {
+                //         document.getElementById("status").innerText = "User ID is available.";
+                //     }
+                // });
+            }
+        </script>
 </body>
 
 </html>

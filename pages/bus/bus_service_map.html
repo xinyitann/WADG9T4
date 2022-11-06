@@ -23,6 +23,10 @@
 
     <link rel="stylesheet" href="../../src/css/bus_arrival.css">
 
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
     <style>
         .green {
             color: green;
@@ -43,6 +47,14 @@
             /* The width is the width of the web page */
         }
     </style>
+
+    <script>
+        var user_detail = localStorage.getItem("users")
+        console.log(user_detail)
+        var obj = JSON.parse(user_detail)
+        var username = obj.username
+        console.log(username)
+    </script>
 
 
 </head>
@@ -66,9 +78,9 @@
                             Bus
                         </a>
                         <ul class="dropdown-menu" style="background-color:#C79E53;">
-                            <li><a class="dropdown-item fw-bold" href="pages/bus/bus_arrival.html">Bus Arrival Time</a>
+                            <li><a class="dropdown-item fw-bold" href="bus_arrival.html">Bus Arrival Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold" href="#">Bus Services</a></li>
+                            <li><a class="dropdown-item fw-bold" href="bus_service_map.html">Bus Services</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -102,7 +114,7 @@
 
 
 
-    <div class="container-fluid pt-5 py-5">
+    <div class="container pt-5 py-5 mx-auto">
 
 
         <!-- Tab panes -->
@@ -126,8 +138,12 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-success mt-2" v-on:click="get_service_sequence()">Go</button>
+                <div class="col-3">
+                    <button type="button" class="btn btn-success mt-2" v-on:click="get_service_sequence()"
+                        onclick="user_login()">Go</button>
+                    <!-- <div class="container w-100 text-center" style="height: 50px;"> -->
+                        <span id="fav" class="ms-2"></span>
+                    <!-- </div> -->
                 </div>
             </div>
 
@@ -145,9 +161,12 @@
                     <button type="button" class="btn btn-success mt-2" v-on:click="get_google_map()">Go</button>
                 </div>
             </div>
+
             <div id="map"></div>
             <div v-if="table_shown">
-                <table class="table">
+                <h3 class="text-center fw-bold display-5 text-decoration-underline" id="service_no">
+                    {{display_service_no}}</h3>
+                <table class="table mx-auto w-75">
                     <thead>
                         <tr>
                             <th scope="col">Bus Stop Code</th>
@@ -192,6 +211,107 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- <script src="../../src/js/bus_arrival.js"></script> -->
     <script src="../../src/js/bus/bus_service_map.js"></script>
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
+            authDomain: "onestopper.firebaseapp.com",
+            databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "onestopper",
+            storageBucket: "onestopper.appspot.com",
+            messagingSenderId: "64753765868",
+            appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
+            measurementId: "G-DE6MGV1BWE"
+        };
+        // Initialize Firebase
+
+        firebase.initializeApp(firebaseConfig);
+        // Initialize variables
+        // import { getDatabase, ref, onValue } from "firebase/database";
+        // import { getAuth } from "firebase/auth";
+        // import { getAuth } from "firebase/auth";
+        // const auth = firebase.auth()
+        const database = firebase.database()
+
+        // TO CHECK IF USER
+        function user_login() {
+            console.log('user_login')
+            if (user_detail != null) {
+                console.log('hree')
+                document.getElementById('fav').innerHTML =
+                    `<button type="button" class="btn btn-secondary mt-2 checked"
+            onclick="save_bus_stop()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
+                // console.log(find_all_favs())
+            }
+        }
+
+        // TO SAVE THE FAV BUS STOP
+        function save_bus_stop() {
+            var user_detail = localStorage.getItem("users")
+            console.log(user_detail)
+            var obj = JSON.parse(user_detail)
+            var uid = obj.uid
+            console.log(uid)
+            var bus_stops = ''
+            firebase.database().ref('users/' + uid).once("value", snap => {
+
+                console.log(snap.val())
+                bus_stops = snap.val().fav_bus_stop
+
+                if (bus_stops == '') {
+                    var users = firebase.database().ref('users');
+                    document.getElementById('fav_button').style.color += 'orange'
+                    var service_no = document.getElementById('service_no').innerText
+
+                    var user_detail = localStorage.getItem("users")
+                    console.log(user_detail)
+                    var obj = JSON.parse(user_detail)
+                    var fav_bus_stop = obj.fav_bus_stops
+                    console.log(fav_bus_stop)
+
+                    var user_detail = localStorage.getItem("users")
+                    console.log(user_detail)
+                    var obj = JSON.parse(user_detail)
+                    var uid = obj.uid
+                    console.log(uid)
+
+                    var updates = {};
+                    updates['/users/' + uid + "/" + 'fav_service_no'] = service_no;
+                    firebase.database().ref().update(updates);
+                } else {
+                    var users = firebase.database().ref('users');
+                    document.getElementById('fav_button').style.color += 'orange'
+                    var service_no = document.getElementById('service_no').innerText
+
+                    var user_detail = localStorage.getItem("users")
+                    console.log(user_detail)
+                    var obj = JSON.parse(user_detail)
+                    var fav_bus_stop = obj.fav_bus_stops
+                    console.log(fav_bus_stop)
+
+                    var user_detail = localStorage.getItem("users")
+                    console.log(user_detail)
+                    var obj = JSON.parse(user_detail)
+                    var uid = obj.uid
+                    console.log(uid)
+
+                    var updates = {};
+                    updates['/users/' + uid + "/" + 'fav_service_no'] = service_no;
+                    firebase.database().ref().update(updates);
+                }
+
+            })
+            // var user = firebase.database().ref('users/' + uid);
+            // user.once('value').then((snapshot) => {
+            //     if (snapshot.exists()) {
+            //         console.log(snapshot)
+            //         document.getElementById("status").innerText = "User ID has already been taken.";
+            //     } else {
+            //         document.getElementById("status").innerText = "User ID is available.";
+            //     }
+            // });
+        }
+    </script>
 
 </body>
 

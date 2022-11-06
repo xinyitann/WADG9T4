@@ -6,11 +6,15 @@ var app = Vue.createApp({
             selected_bus_stop: '',
             auto_complete_suggestion_bus: [],
             bus_stops: {},
+            bus_stops_just_name: {},
             bus_stop_hidden: '',
             selected_bus_stop_arrivals: {},
             bus_stop_location: [],
             pos: {},
-            list_of_stops: []
+            list_of_stops: [],
+            services: [],
+            bus_routes: {},
+            displayed_bus_stop_name: ''
         }
     },
 
@@ -59,16 +63,25 @@ var app = Vue.createApp({
             this.bus_stop_hidden = 'false'
             console.log(this.bus_stops[this.selected_bus_stop])
             var code = this.bus_stops[this.selected_bus_stop]
-
+            console.log(code)
+            if(code == undefined){
+                var bus_stop = this.selected_bus_stop
+                // console.log(bus_stop)
+                code = this.bus_stops_just_name[bus_stop]
+                // console.log(this.bus_stops_just_name)
+                // console.log(code)
+            }
+            this.displayed_bus_stop_name = this.selected_bus_stop
+            this.selected_bus_stop_code = code
             let api_endpoint_url = '../../src/php/bus/bus_arrival.php?BusStopCode=' + code + '&ServiceNo=a'
             axios.get(api_endpoint_url)
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
                     Object.keys(this.selected_bus_stop_arrivals).forEach(key => {
                         delete this.selected_bus_stop_arrivals[key];
                     })
-                    console.log('here')
-                    console.log(this.selected_bus_stop_arrivals)
+                    // console.log('here')
+                    // console.log(this.selected_bus_stop_arrivals)
                     var response = response.data.Services
                     next_bus_no = 0
                     // console.log(response)
@@ -85,7 +98,7 @@ var app = Vue.createApp({
                                 var diff = (time.getTime() - current.getTime()) / 1000;
                                 diff /= 60;
                                 diff = Math.abs(Math.round(diff));
-                                if (diff == 1) {
+                                if (diff <= 1) {
                                     diff = 'Arr'
                                 }
                                 var feature = res[bus_no].Feature
@@ -114,11 +127,11 @@ var app = Vue.createApp({
                             }
                             bus_big_list.push(bus_inner_list)
                         }
-                        console.log(bus_big_list)
+                        // console.log(bus_big_list)
                         var ServiceNo = res.ServiceNo
-                        console.log(ServiceNo)
+                        // console.log(ServiceNo)
                         this.selected_bus_stop_arrivals[ServiceNo] = bus_big_list
-                        console.log(this.selected_bus_stop_arrivals)
+                        // console.log(this.selected_bus_stop_arrivals)
                     }
 
                 })
@@ -282,8 +295,10 @@ var app = Vue.createApp({
                                 for (word of words) {
                                     correct_desc += word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() + ' ';
                                 }
-                                var whole = desc + " - " + road
+                                var whole = correct_desc + " - " + road
                                 this.bus_stops[whole] = value.BusStopCode
+                                var lower_desc = correct_desc.toLowerCase().trim()
+                                this.bus_stops_just_name[lower_desc] = value.BusStopCode
                             }
                             if (desc in this.bus_stop_location) {
                                 continue
@@ -312,6 +327,54 @@ var app = Vue.createApp({
                     console.log(error.message)
                 })
         },
+
+        get_bus_service() {
+            let api_endpoint_url1 = '../../src/php/bus/bus_service.php'
+            axios.get(api_endpoint_url1)
+                .then(response => {
+                    var response = response.data
+
+                    for (res of response) {
+                        var block = res.value
+                        for (value of block) {
+                            var service = value.ServiceNo
+                            if (this.services.includes(service)) {
+                                continue
+                            } else {
+                                this.services.push(service)
+                            }
+                        }
+                    }
+                    this.services = this.services.sort()
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
+        },
+
+        get_bus_routes() {
+            let api_endpoint_url1 = '../../src/php/bus/bus_route.php'
+            axios.get(api_endpoint_url1)
+                .then(response => {
+                    var response = response.data
+                    for (res of response) {
+                        var block = res.value
+                        for (value of block) {
+                            if (value.ServiceNo in this.bus_routes) {
+                                this.bus_routes[value.ServiceNo].push([value.Direction, value.BusStopCode, value.StopSequence])
+                            } else {
+                                this.bus_routes[value.ServiceNo] = []
+                                this.bus_routes[value.ServiceNo].push([value.Direction, value.BusStopCode, value.StopSequence])
+                            }
+                        }
+                    }
+
+                    // console.log(this.bus_routes)
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
+        }
     }
 
 })
