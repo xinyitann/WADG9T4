@@ -21,7 +21,7 @@
     <!-- <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>  -->
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
     <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places"></script> -->
-    <script type="module" src="./index.ts"></script>
+    <!-- <script type="module" src="./helloworld.ts"></script> -->
     <script>
         var user_detail = localStorage.getItem("users")
         console.log(user_detail)
@@ -118,7 +118,7 @@
             <div class="input-group mb-3 w-50 " >
                 <span class="input-group-text"  
                     style="background-color:#C79E53;">From</span>
-                <input id="origin-input" type="text" class="controls" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" placeholder="where are you?">
+                <input id="from" type="text" class="form-control" style="background-color:#EFECDF;" placeholder="where are you?">
             </div>
     </div>
     
@@ -127,14 +127,14 @@
             <div class="input-group mb-3 w-50 ">
                 <span class="input-group-text"
                 style="background-color:#C79E53;">To</span>
-                    <input id="destination-input" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" placeholder="where do you want to go?">
+                    <input id="to" type="text" class="form-control" style="background-color:#EFECDF;" placeholder="where do you want to go?">
             </div> 
         </div>
     </div>
 
         <div class="col-2">
             <span type="button" class="btn mt-2" style="background-color:#C79E53;"
-                onclick="getDirections()"
+                onclick="calcRoute()"
                 >Go</span>
         </div>
        
@@ -143,262 +143,45 @@
     
    
 
-</div>
+<!-- <div class="container-fluid">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label for="from" class="col-xs-2 control label">
+          <div class="col-xs-4">
+            <input type="text" id="from" placeholder="origin" class="form-control" >
+          </div>
+      </div>
 
-<div id="floating-panel">
-    <b>Start: </b>
-    <select id="start">
-      <option value="chicago, il">Chicago</option>
-      <option value="st louis, mo">St Louis</option>
-      <option value="joplin, mo">Joplin, MO</option>
-      <option value="oklahoma city, ok">Oklahoma City</option>
-      <option value="amarillo, tx">Amarillo</option>
-      <option value="gallup, nm">Gallup, NM</option>
-      <option value="flagstaff, az">Flagstaff, AZ</option>
-      <option value="winona, az">Winona</option>
-      <option value="kingman, az">Kingman</option>
-      <option value="barstow, ca">Barstow</option>
-      <option value="san bernardino, ca">San Bernardino</option>
-      <option value="los angeles, ca">Los Angeles</option>
-    </select>
-    <b>End: </b>
-    <select id="end">
-      <option value="chicago, il">Chicago</option>
-      <option value="st louis, mo">St Louis</option>
-      <option value="joplin, mo">Joplin, MO</option>
-      <option value="oklahoma city, ok">Oklahoma City</option>
-      <option value="amarillo, tx">Amarillo</option>
-      <option value="gallup, nm">Gallup, NM</option>
-      <option value="flagstaff, az">Flagstaff, AZ</option>
-      <option value="winona, az">Winona</option>
-      <option value="kingman, az">Kingman</option>
-      <option value="barstow, ca">Barstow</option>
-      <option value="san bernardino, ca">San Bernardino</option>
-      <option value="los angeles, ca">Los Angeles</option>
-    </select>
-  </div>
-  <div id="map"></div>
-  
-
-    <!-- <input id="autocomplete" placeholder="Enter place" type="text"/> -->
-
-    <!-- <div id="map" class="mx-auto"></div>
-    <script>
-        //Initialize and add the map
-        function initMap() { //displaying user position on maps
-            // default: The location of SIS, SMU
-            var lat = parseFloat(document.getElementById("lat").value);
-            var lng = parseFloat(document.getElementById("lng").value);
-            // var uluru = {lat: -25.344, lng: 131.036};
-            var loc = {lat: lat, lng: lng};
-
-            // The map, centered at SIS, SMU
-            var map = new google.maps.Map(
-                // play with the zoom value to zoom in or out
-                document.getElementById('map'), {zoom: 14, center: loc});
-            // The marker, positioned at SIS, SMU
-            var marker = new google.maps.Marker({position: loc, map: map});
-
-
-            map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 1.290, lng: 103.851 },
-                zoom: 13,
-            });
-            infoWindow = new google.maps.InfoWindow();
-
-            const locationButton = document.createElement("button");
-
-            locationButton.textContent = "Pan to Current Location";
-            locationButton.classList.add("custom-map-control-button");
-            map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-            locationButton.addEventListener("click", () => {
-                // Try HTML5 geolocation.
-                if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                    const pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    };
-
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent("Location found.");
-                    infoWindow.open(map);
-                    map.setCenter(pos);
-                    },
-                    () => {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                    }
-                );
-                } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, infoWindow, map.getCenter());
-                }
-            });
-            }
-
-            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(
-                browserHasGeolocation
-                ? "Error: The Geolocation service failed."
-                : "Error: Your browser doesn't support geolocation."
-            );
-            infoWindow.open(map);
-                    }
-
-        window.initMap = initMap;
-
-      //         function initMap() {
-      //   const map = new google.maps.Map(document.getElementById("map"), {
-      //     zoom: 4,
-      //     center: { lat: -24.345, lng: 134.46 }, // Australia.
-      //   });
-      //   const directionsService = new google.maps.DirectionsService();
-      //   const directionsRenderer = new google.maps.DirectionsRenderer({
-      //     draggable: true,
-      //     map,
-      //     panel: document.getElementById("panel"),
-      //   });
-
-      //   directionsRenderer.addListener("directions_changed", () => {
-      //     const directions = directionsRenderer.getDirections();
-
-      //     if (directions) {
-      //       computeTotalDistance(directions);
-      //     }
-      //   });
-      //   displayRoute(
-      //     "Perth, WA",
-      //     "Sydney, NSW",
-      //     directionsService,
-      //     directionsRenderer
-      //   );
-      // }
-
-      
-
-      function displayRoute(origin, destination, service, display) {
-        service
-          .route({
-            origin: origin,
-            destination: destination,
-            waypoints: [
-              { location: "Adelaide, SA" },
-              { location: "Broken Hill, NSW" },
-            ],
-            travelMode: google.maps.TravelMode.DRIVING,
-            avoidTolls: true,
-          })
-          .then((result) => {
-            display.setDirections(result);
-          })
-          .catch((e) => {
-            alert("Could not display directions due to: " + e);
-          });
-      }
-
-      function computeTotalDistance(result) {
-        let total = 0;
-        const myroute = result.routes[0];
-
-        if (!myroute) {
-          return;
-        }
-
-        for (let i = 0; i < myroute.legs.length; i++) {
-          total += myroute.legs[i].distance.value;
-        }
-
-        total = total / 1000;
-        document.getElementById("total").innerHTML = total + " km";
-      }
-
-      window.initMap = initMap;
-        function calcRoute() {
-            var start = document.getElementById('start').value;
-            var end = document.getElementById('end').value;
-            var request = {
-              origin: start,
-              destination: end,
-              travelMode: 'DRIVING'
-            };
-            directionsService.route(request, function(result, status) {
-              if (status == 'OK') {
-                directionsRenderer.setDirections(result);
-              }
-            });
-            console.log("hi1")
-          }
-
-        // function initAutocomplete(){
-        //   var input=document.getElementById('autocomplete');
-        //   var autocomplete=new google.maps.places.Autocomplete(input);
-        // }
-        let autocomplete;
-        function initAutocomplete(){
-            autocomplete= new google.maps.places.Autocomplete(
-                document.getElementById('pac-input'),
-                {
-                    types:['establishment'],
-                    componentRestrictions:{'country':['SG']},
-                    fields:['place_id','geometry','name']
-                });
-                console.log("hi")
-            autocomplete.addListener('place_changed',onPlaceChanged);
-        }
-
-        function onPlaceChanged(){
-            var place = autocomplete.getPlace();
-
-            if(!place.geometry){
-                document.getElementById('autocomplete').placeholder='Enter a place';
-            }else{
-                document.getElementById('details').innerHTML=place.name;
-            }
-        }
-
-//         function init() {
-//       var input = document.getElementById('locationTextField');
-//       var autocomplete = new google.maps.places.Autocomplete(input);
-//    }
-// google.maps.event.addDomListener(window, 'load', init);
-    </script> -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initAutocomplete" async defer>
-        </script> -->
-
-
-    
-    <!--Load the API from the specified URL
-    * The async attribute allows the browser to render the page while the API loads
-    * The key parameter will contain your own API key 
-    * The callback parameter executes the initMap() function
-    -->
-
-    <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&callback=initMap&v=weekly"
-    defer
-  ></script>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initMap&initAutocomplete"
-    async defer></script> -->
-
-    <div class="jumbotron">          
+      <div class="form-group">
+        <label for="from" class="col-xs-2 control label">
+          <div class="col-xs-4">
+            <input type="text" id="to" placeholder="destination" class="form-control" >
+          </div>
+      </div>
+    </form>
+    <div class="col-xs-offset-2 col-xs-10">
+      <button class="btn btn-info btn-lg" onclick="calcRoute();"><i class="fas fa-directions"></i>
         
-        <form>
-            <div class="form-group">
-                <!-- <label for="addr">Enter An Address</label>
-                <input type="text" class="form-control" name="addr" id="addr" placeholder="E.g. Singapore Management University" >
-                <br><button type="button" onclick="getLoc('addr')" class="btn btn-primary">Get Full Address!</button>
-                <button type="button" onclick="getLoc('postcode')" class="btn btn-primary">Get Postal Code!</button> -->
-                <!-- the following set the lat, lng values to put a marker on the map-->
-                <input type="hidden" id="lat" name="lat" value="1.2973784" />
-                <input type="hidden" id="lng" name="lng" value="103.8495219" />
-            </div>
-            <p id="display" class="lead text-center"></p>
-        </form>
+      </button>
     </div>
+  </div> -->
 
-    <script>
+  <div class="container-fluid">
+    <div id="map">
+
+    </div>
+    <div id="output">
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+    <!-- <script>
         // Ajax call
         function getLoc(action) {
             var addr = encodeURI(document.getElementById("addr").value);
@@ -499,8 +282,12 @@
         }
 
         
-    </script>
+    </script> -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBohQllg13oqNG10s28iZOiUsBw7nFWDlU&libraries=places"
+  ></script>
 
+  <script src="./src/js/map.js"></script>
 
 
 
@@ -530,29 +317,3 @@
 
 </html>
 
-<script>
-
-function getDirections() {
-    const ORIGIN = document.getElementById('origin-input').value
-    const DESTINATION = document.getElementById('destination-input').value
-    const API_KEY = 'AIzaSyDZtSoD8qYp8qe6zmcMi7ViPLRJ0DZNh9M'
-
-    let url = 'https://maps.googleapis.com/maps/api/directions/json'
-    url += `?origin=${ORIGIN}&destination=${DESTINATION}&key=${API_KEY}`
-
-    let form = new FormData();
-    form.append('origin', ORIGIN)
-    form.append('destination', DESTINATION)
-
-    let api_endpoint_url1 = './src/php/directions.php'
-    
-    axios.post(api_endpoint_url1, {form})
-    .then(response => {
-        console.log(response.data)   
-    }).catch(err => {
-        console.error("ERROR", err)
-    })
-    
-}
-
-</script>

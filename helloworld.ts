@@ -1,3 +1,6 @@
+let message: string = 'Hello World';
+console.log(message);
+
 
 
 function initMap(): void {
