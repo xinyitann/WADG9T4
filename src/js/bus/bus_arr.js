@@ -8,6 +8,9 @@ var app = Vue.createApp({
             bus_stops: {},
             bus_stop_hidden: '',
             selected_bus_stop_arrivals: {},
+            bus_stop_location: [],
+            pos: {},
+            list_of_stops: []
         }
     },
 
@@ -52,6 +55,7 @@ var app = Vue.createApp({
         },
 
         get_arrival_time_bus_stop() {
+            this.auto_complete_suggestion_bus.length =0
             this.bus_stop_hidden = 'false'
             console.log(this.bus_stops[this.selected_bus_stop])
             var code = this.bus_stops[this.selected_bus_stop]
@@ -132,8 +136,132 @@ var app = Vue.createApp({
                 return 'red'
             }
         },
-    },
+        get_user_location() {
+            if (navigator.geolocation) {
+                console.log('jere')
+                // navigator.geolocation.getCurrentPosition(this,showposition,errorCoor,{maximumAge:60000, timeout:5000, enableHighAccuracy:true})
+                navigator.geolocation.getCurrentPosition(position => {
+                    this.pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                }, () => {
+                    // Browser supports geolocation, but user has denied permission
+                    this.pos = {
+                        lat: 1.29,
+                        lng: 103.8
+                    };
+                }, {
+                    timeout: 50000
+                });
+            } else {
+                // Browser doesn't support geolocation
+                this.pos = {
+                    lat: 1.29,
+                    lng: 103.8
+                };
+            }
+            console.log(this.pos)
+        },
 
+        distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
+            var earthRadiusKm = 6371;
+
+            var dLat = this.degreesToRadians(lat2 - lat1);
+            var dLon = this.degreesToRadians(lon2 - lon1);
+
+            lat1 = this.degreesToRadians(lat1);
+            lat2 = this.degreesToRadians(lat2);
+
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return earthRadiusKm * c * 1000
+        },
+
+        degreesToRadians(degrees) {
+            return degrees * Math.PI / 180;
+        },
+
+        get_bus_stop_map() {
+            console.log('here')
+            console.log(this.bus_stop_location)
+            if (Object.keys(this.pos).length = 0) {
+                this.get_user_location()
+            }
+            for (bus_stop in this.bus_stop_location) {
+                // console.log(this.bus_stop_location[bus_stop])
+                // console.log(this.pos)
+                var lat1 = this.bus_stop_location[bus_stop].latitude
+                var long1 = this.bus_stop_location[bus_stop].longitude
+                var lat2 = this.pos.lat
+                var long2 = this.pos.lng
+                var dist = this.distanceInKmBetweenEarthCoordinates(lat1, long1, lat2, long2)
+                // console.log(dist)
+                if (dist < 500) {
+                    var list = []
+                    list.push(bus_stop.split(' - ')[0])
+                    list.push(this.bus_stop_location[bus_stop]['latitude'])
+                    list.push(this.bus_stop_location[bus_stop]['longitude'])
+                    list.push(bus_stop)
+                    this.list_of_stops.push(list)
+                }
+            }
+            console.log(this.list_of_stops)
+            window.initMap = this.initMap();
+        },
+
+        initMap() {
+            var locations = this.list_of_stops
+
+
+            var points = []
+
+            for (i = 0; i < this.list_of_stops.length; i++) {
+                var latlong = {}
+                latlong['lat'] = this.list_of_stops[i][1]
+                latlong['lng'] = this.list_of_stops[i][2]
+
+                points.push(latlong)
+            }
+            console.log(this.pos.lat)
+            var lat = this.pos.lat
+            lat = lat.toFixed(2)
+            var lng = this.pos.lng
+            lat = lng.toFixed(2)
+            document.getElementById('map').style.height = "500px"
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: this.pos,
+                // center: new google.maps.LatLng(this.pos.lat, this.pos.lng),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            var infowindow = new google.maps.InfoWindow();
+
+            var marker, i;
+
+            for (i = 0; i < this.list_of_stops.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map
+                });
+
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                        this.selected_bus_stop = locations[i][3]
+                        console.log(this.selected_bus_stop)
+                    }
+                })(marker, i));
+            }
+        }
+    },
+    created() {
+        // window.initMap = this.initMap();
+        this.get_user_location()
+    },
 
     computed: {
         get_bus_stops() {
@@ -141,7 +269,6 @@ var app = Vue.createApp({
             axios.get(api_endpoint_url1)
                 .then(response => {
                     var response = response.data
-
                     for (res of response) {
                         var block = res.value
                         for (value of block) {
@@ -158,8 +285,21 @@ var app = Vue.createApp({
                                 var whole = desc + " - " + road
                                 this.bus_stops[whole] = value.BusStopCode
                             }
+                            if (desc in this.bus_stop_location) {
+                                continue
+                            } else {
+                                var location = {}
+                                location['latitude'] = value.Latitude
+                                location['longitude'] = value.Longitude
+
+                                this.bus_stop_location[whole] = location
+                            }
                         }
                     }
+                    this.get_user_location()
+                    // console.log(this.pos)
+                    this.get_bus_stop_map()
+                    console.log(this.bus_stop_location)
                     this.bus_stops = Object.keys(this.bus_stops)
                         .sort()
                         .reduce((accumulator, key) => {
@@ -172,68 +312,7 @@ var app = Vue.createApp({
                     console.log(error.message)
                 })
         },
-
-        get_bus_routes() {
-            let api_endpoint_url1 = '../../src/php/bus/bus_route.php'
-            axios.get(api_endpoint_url1)
-                .then(response => {
-                    var response = response.data
-                    for (res of response) {
-                        var block = res.value
-                        for (value of block) {
-                            if (value.ServiceNo in this.bus_routes) {
-                                this.bus_routes[value.ServiceNo].push([value.Direction, value.BusStopCode, value.StopSequence])
-                            } else {
-                                this.bus_routes[value.ServiceNo] = []
-                                this.bus_routes[value.ServiceNo].push([value.Direction, value.BusStopCode, value.StopSequence])
-                            }
-                        }
-                    }
-
-                    console.log(this.bus_routes)
-                })
-                .catch(error => {
-                    console.log(error.message)
-                })
-        }
     }
 
 })
 app.mount("#app")
-
-
-var map;
-var service;
-var infowindow;
-
-function initialize() {
-    var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: pyrmont,
-        zoom: 15
-    });
-
-    var request = {
-        location: pyrmont,
-        radius: '500',
-        type: ['bus_station']
-    };
-
-    service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
-    console.log('here')
-    console.log(service)
-    
-}
-
-function callback(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-            createMarker(results[i]);
-            console.log('here')
-        }
-    }
-}
-
-window.initMap = initialize;
