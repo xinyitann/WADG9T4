@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Timings</title>
+    <title>Bus Arrival Time</title>
 
     <!-- Vue.js 3 CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -47,24 +47,24 @@
                             href="../../index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle pb-0" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle pb-0" href="../bus/bus.html" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Bus
                         </a>
                         <ul class="dropdown-menu" style="background-color:#C79E53;">
-                            <li><a class="dropdown-item fw-bold" href="pages/bus/bus_arrival.html">Bus Arrival Time</a>
+                            <li><a class="dropdown-item fw-bold" href="../bus/bus_arrival.html">Bus Arrival Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold" href="#">Bus Services</a></li>
+                            <li><a class="dropdown-item fw-bold" href="../bus/bus_services.html">Bus Services</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Train</a>
+                        <a class="nav-link" href="../train.html">Train</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Taxi</a>
+                        <a class="nav-link" href="taxi.html">Taxi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="car.html">Car</a>
+                        <a class="nav-link" href="../../car.html">Car</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Traffic</a>
@@ -82,6 +82,14 @@
         </div>
     </nav>
 
+    <div id="app">
+        <button v-on:click="carpark_avalibility()">click_avail</button>
+    </div>
+
+    <div id="app2">
+        <button v-on:click="get_erp_rate()">click_rates</button>
+    </div>
+    
     <!-- TITLE -->
     <h1 class="display-1 text-center fw-bold">
         Get your route now!
@@ -138,31 +146,6 @@
 
         <!-- INPUT FORM -->
 
-        <!-- <div id="app">
-            <div class="container-fluid mx-auto w-75">
-                <div class="row justify-content-center">
-                    <div class="col-4">
-                        <select v-model="selected_bus_stop" class="form-select form-select-lg mb-3"
-                            aria-label=".form-select-lg example">
-                            <option v-for="bus_stop of bus_stops" v-bind:value="bus_stop">{{bus_stop}}</option>
-                        </select>
-                    </div>
-                    <div class="col-1">
-                        <button type="button" class="btn btn-success mt-2">Go</button>
-                    </div>
-                    <div class="col-4">
-                        <select v-model="selected_service_no" class="form-select form-select-lg mb-3"
-                            aria-label=".form-select-lg example">
-                            <option v-for="service of services" v-bind:value="service">{{service}}</option>
-                        </select>
-                    </div>
-                    <div class="col-1">
-                        <button type="button" class="btn btn-success mt-2">Go</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
 
         <!-- FOOTER -->
         <div class="container-fluid text-center fs-1" style="color:#C79E53;">
@@ -187,7 +170,10 @@
         </script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <!-- <script src="../../src/js/bus_arrival.js"></script> -->
-        <script src="../../src/js/bus/bus_arr.js"></script>
+        <script src="../../src/js/erp_rates.js"></script>
+        <script src="../../src/js/carpark_avalibility.js"></script>
+        
+
 
 </body>
 
