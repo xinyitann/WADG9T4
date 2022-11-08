@@ -40,8 +40,32 @@ function calcRoute(){
   directionsService.route(request,(result,status)=>{
     if (status==google.maps.DirectionsStatus.OK){
 
+      //get distance and time
       //get distance and time 
+
       const output=document.querySelector('#output');
+      const destination = document.getElementById('to').value
+      const source = document.getElementById('from').value
+
+      output.innerHTML="<div class='alert-info'>From:"+source+"<br/>To:"+destination+".<br/> Driving distance:"+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text + ".</div>";
+
+      var toSave = {}
+      toSave['source'] = source
+      toSave['destination'] = destination
+      var route = []
+
+      for (const point of result.routes[0].overview_path) {
+        route.push({
+          lat:point.lat(),
+          lng:point.lng()
+        })
+      }
+
+      toSave['route'] = route
+
+      console.log(localStorage.getItem("users"))
+      console.log(JSON.stringify(toSave))
+
       output.innerHTML="<div class='alert-info'>From:"+document.getElementById('from').value+"<br/>To:" +document.getElementById('to').value +".<br/> Driving distance:"+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text + ".</div>";
 
       //display route
