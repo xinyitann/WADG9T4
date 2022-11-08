@@ -146,6 +146,8 @@ function calcRoute(){
 
       //get distance and time 
 
+<<<<<<< Updated upstream
+=======
       const output=document.querySelector('#output');
       const destination = document.getElementById('to').value
       const source = document.getElementById('from').value
@@ -190,10 +192,12 @@ function calcRoute(){
 
       output.innerHTML="<div class='alert-info'>From:"+document.getElementById('from').value+"<br/>To:" +document.getElementById('to').value +".<br/> Driving distance:"+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text + ".</div>";
 
+>>>>>>> Stashed changes
       //display route
       directionsRenderer.setDirections(result);
       showSteps(result);
 
+      const output=document.querySelector('#output');
       output.innerHTML="<div class='alert-info'>From: "+document.getElementById('from').value+"<br/>To: " +document.getElementById('to').value +".<br/> Driving distance: "+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text+".</div>";
     }else{
       //delete route from map 
