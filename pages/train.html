@@ -89,11 +89,14 @@
     <div class="container-fluid pt-5 py-5 d-flex align-items-center justify-content-center">
 
       <div id="app">
-        <div v-if="status==1">
-          <h2>No disruptions :) </h2>
+        {{get_station_name}}
+        <div >
+          <h2>{{Notif}} </h2>
+          
         </div>
 
-        <div v-else>
+        <!-- <div>
+           
           <table border="1">
             <tr>
               <th v-for="header of table_headers">
@@ -109,7 +112,7 @@
             </tr>
         </table>
          
-        </div>
+        </div> -->
       </div>
 
 

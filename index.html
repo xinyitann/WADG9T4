@@ -33,7 +33,7 @@
       <style>
         #map {
             height: 400px;  /* The height is 400 pixels */
-            width: 50%; 
+            
             
         }
         #pac-input{
@@ -105,7 +105,8 @@
     }else{
         document.getElementById('username').innerHTML="<h3>"+"Welcome"+"</h3>";
     }
-   }
+}
+   
 
    </script>
 
@@ -147,7 +148,7 @@
                 <option value="TRANSIT">Transit</option>
             </select> 
         </div>  
-
+        <span id="fav" class="ms-2"></span>
         <div class="output text-center">
             <div id="output">
             
@@ -182,7 +183,74 @@
   ></script>
 
   <script src="./src/js/map.js"></script>
+    <script>
+         function user_login() {
+                console.log('user_login')
+                if (user_detail != null) {
+                    console.log('hree')
+                    document.getElementById('fav').innerHTML =
+                        `<button type="button" class="btn btn-secondary mt-2 checked"
+                onclick="save_destination()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
+                    // console.log(find_all_favs())
+                }
+            }
 
+    function save_destination() {
+    var user_detail = localStorage.getItem("users")
+    console.log(user_detail)
+    var obj = JSON.parse(user_detail)
+    var uid = obj.uid
+    console.log(uid)
+    var destination = ''
+    firebase.database().ref('users/' + uid).once("value", snap => {
+
+        console.log(snap.val())
+        destination = snap.val().fav_destination
+
+        if (destination == '') {
+            var users = firebase.database().ref('users');
+            document.getElementById('fav_button').style.color += 'orange'
+            var service_no = document.getElementById('to').innerText
+
+            var user_detail = localStorage.getItem("users")
+            console.log(user_detail)
+            var obj = JSON.parse(user_detail)
+            var fav_destination = obj.fav_destination
+            console.log(fav_destination)
+
+            var user_detail = localStorage.getItem("users")
+            console.log(user_detail)
+            var obj = JSON.parse(user_detail)
+            var uid = obj.uid
+            console.log(uid)
+
+            var updates = {};
+            updates['/users/' + uid + "/" + 'fav_to'] = to;
+            firebase.database().ref().update(updates);
+        } else {
+            var users = firebase.database().ref('users');
+            document.getElementById('fav_button').style.color += 'orange'
+            var to = document.getElementById('to').innerText
+
+            var user_detail = localStorage.getItem("users")
+            console.log(user_detail)
+            var obj = JSON.parse(user_detail)
+            var fav_destination = obj.fav_destination
+            console.log(fav_destination)
+
+            var user_detail = localStorage.getItem("users")
+            console.log(user_detail)
+            var obj = JSON.parse(user_detail)
+            var uid = obj.uid
+            console.log(uid)
+
+            var updates = {};
+            updates['/users/' + uid + "/" + 'fav_to'] = to;
+            firebase.database().ref().update(updates);
+        }
+    })
+}
+    </script>
 
 
     <!-- FOOTER -->

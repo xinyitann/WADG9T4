@@ -44,7 +44,7 @@
     var email=obj.email
 
    
-</script>
+    </script>
 </head>
 <body onload="get_data()">
   <!--NAVIGATION BAR-->
@@ -152,7 +152,7 @@
 
         <script>
            function get_data(){
-    if (localStorage!=null){
+    if (user_detail!=null){
         document.getElementById('userName').value=username;
         document.getElementById('email').value=email;
     }else{
@@ -160,6 +160,9 @@
     }
    }
         </script>
+
+
+
         
         <!-- <script>
           // Your web app's Firebase configuration

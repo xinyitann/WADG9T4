@@ -36,7 +36,7 @@ function callAPI($method, $url, $data)
 
 
 $url = '';
-$url = 'http://datamall2.mytransport.sg/ltaodataservice/TrainServiceAlerts?' 
+$url = 'http://datamall2.mytransport.sg/ltaodataservice/TrainServiceAlerts';
 
 
 // var_dump($url);
@@ -45,6 +45,6 @@ $big_list = [];
 $get_data = callAPI('GET', $url, false);
 $response = json_decode($get_data, true);
 
-// var_dump($response);
+//var_dump($response);
 echo json_encode($response);
 ?>
