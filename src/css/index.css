@@ -24,17 +24,17 @@ body{
     font-weight: 300;
   }
   
-  #infowindow-content .title {
+  /* #infowindow-content .title {
     font-weight: bold;
   }
   
   #infowindow-content {
     display: none;
   }
-  
-  #map #infowindow-content {
+   */
+  /* #map #infowindow-content {
     display: inline;
-  }
+  } */
   
   /* .pac-card {
     background-color: #fff;
@@ -87,7 +87,9 @@ body{
   }
   
   #map{
-    width:80%;
-    height:400px;
-    margin:20px auto
+   
+    height:500px;
+    margin:10px auto
   }
+
+
