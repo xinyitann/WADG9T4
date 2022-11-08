@@ -1,6 +1,6 @@
 // Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
+  apiKey: "AIzaSyBhPWm941iBnBVNjMW3zV43xfoIxq7BhWM",
   authDomain: "onestopper.firebaseapp.com",
   databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "onestopper",
