@@ -32,14 +32,20 @@
     <style>
         .green {
             color: green;
+            font-weight: bold;
+            font-size: 20px;
         }
 
         .yellow {
-            color: yellow;
+            color: #CCCC00;
+            font-weight: bold;
+            font-size: 20px;
         }
 
         .red {
             color: red;
+            font-weight: bold;
+            font-size: 20px;
         }
 
         #map {
@@ -193,9 +199,9 @@
             <!-- DISPLAY ARRIVAL TABLE  -->
             <div v-if="table_shown">
                 <h3 class="fw-bold fs-1 text-decoration-underline" id="service_no">
-                    Bus Arrival Timings
+                    Bus Arrival Timings</h3>
                 
-                <table class="table mx-auto w-75 mt-5">
+                <table class="table mx-auto mt-5">
                     <thead>
                         <tr>
                             <th scope="col">Bus Stop Code</th>
