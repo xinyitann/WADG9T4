@@ -42,6 +42,9 @@
     var obj=JSON.parse(user_detail)
     var username=obj.username
     var email=obj.email
+    var busStop=obj.fav_bus_stop
+    var busService=obj.fav_bus_service
+
 
    
     </script>
@@ -121,15 +124,15 @@
           <!-- <button type="button" class="btn" onclick="deregister(document.getElementById('userName').value)">De-Register</button>  -->
           
           <div class="group">
-            <h4>Home</h4>
+            <h4>Bus Stop</h4>
          
-            <input id="home" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;">
+            <input id="busStop" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;">
             <button type="button" class="btn" onclick="updateSaved()">Update Location</button> 
           </div>
           
           <div class="group">
-            <h4>Work</h4>
-            <input id="work" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" >
+            <h4>Bus Service</h4>
+            <input id="busService" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" >
           <button type="button" class="btn" onclick="updateSaved()">Update Location</button> 
 
           </div>
@@ -155,8 +158,15 @@
     if (user_detail!=null){
         document.getElementById('userName').value=username;
         document.getElementById('email').value=email;
+        document.getElementById('busStop').value=busStop;
+        document.getElementById('busService').value=busService;
+
+        
     }else{
         document.getElementById('userName').innerText="";
+        document.getElementById('email').innerText="";
+        document.getElementById('busStop').innerText="";
+        document.getElementById('busService').value="";
     }
    }
         </script>
