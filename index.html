@@ -184,7 +184,7 @@
 
   <script src="./src/js/map.js"></script>
     <script>
-         function user_login() {
+        function user_login() {
                 console.log('user_login')
                 if (user_detail != null) {
                     console.log('hree')
@@ -274,6 +274,57 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
+            authDomain: "onestopper.firebaseapp.com",
+            databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "onestopper",
+            storageBucket: "onestopper.appspot.com",
+            messagingSenderId: "64753765868",
+            appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
+            measurementId: "G-DE6MGV1BWE"
+        };
+        // Initialize Firebase
+
+        firebase.initializeApp(firebaseConfig);
+        // Initialize variables
+        // import { getDatabase, ref, onValue } from "firebase/database";
+        // import { getAuth } from "firebase/auth";
+        // import { getAuth } from "firebase/auth";
+        // const auth = firebase.auth()
+        const database = firebase.database()
+
+        // TO CHECK IF USER
+        function user_login() {
+            console.log('user_login')
+            if (user_detail != null) {
+                console.log('hree')
+                document.getElementById('fav').innerHTML =
+                    `<button type="button" class="btn btn-secondary mt-2 checked"
+            onclick="save_bus_stop()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
+                // console.log(find_all_favs())
+            }
+        }
+
+        // TO SAVE THE FAV BUS STOP
+        function save_bus_stop() {
+            var user_detail = localStorage.getItem("users")
+            console.log(user_detail)
+            var obj = JSON.parse(user_detail)
+            var uid = obj.uid
+            console.log(uid)
+            var bus_stops = ''
+            firebase.database().ref('users/' + uid).once("value", snap => {
+
+                console.log(snap.val())
+                bus_stops = snap.val().fav_bus_stop
+
+                
+
+            })
+        }
+    </script>
 
 </body>
 

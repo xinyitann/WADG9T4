@@ -166,26 +166,12 @@ function calcRoute(){
 
       toSave['route'] = route
 
-      const useremail = JSON.parse(localStorage.getItem("users")).email
+      var useremail = JSON.parse(localStorage.getItem("users")).email
 
       toSave['email'] = useremail
 
       console.log(toSave)
 
-      var firebaseConfig = {
-        apiKey: "AIzaSyBhPWm941iBnBVNjMW3zV43xfoIxq7BhWM",
-        authDomain: "onestopper.firebaseapp.com",
-        databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "onestopper",
-        storageBucket: "onestopper.appspot.com",
-        messagingSenderId: "64753765868",
-        appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
-        measurementId: "G-DE6MGV1BWE"
-      };
-      // Initialize Firebase
-      
-      firebase.initializeApp(firebaseConfig);
-      const database = firebase.database()
       //database.ref().child('user_routes/' + useremail).set(toSave)
 
       output.innerHTML="<div class='alert-info'>From:"+document.getElementById('from').value+"<br/>To:" +document.getElementById('to').value +".<br/> Driving distance:"+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text + ".</div>";
