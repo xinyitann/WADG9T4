@@ -17,15 +17,42 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&callback=initMap"
         async defer></script>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
     <title>One-Stop Planner</title>
+
+    <style>
+        #appp .row {
+            position: flex;
+        }
+
+        #appp .row .left {
+            flex: 33%;
+            background-color: white;
+            padding: 10vh;
+        }
+
+        #appp .row .right {
+            flex: 67%;
+            height: 90vh;
+            padding: 10vh;
+        }
+
+        #map {
+            box-shadow: 2px 2px 2px 2px #999999;
+        }
+    </style>
 </head>
 
 <body id="appp">
     <!-- NAVIGATION BAR -->
-    
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#C79E53; color: #C4A872; ">
+
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#f0f0f0;">
         <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../../src/img/logo-removebg-preview.png" alt="Logo" width='75'
+                    class="d-inline-block align-text-top">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,82 +60,96 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav nav-fill w-100">
                     <li class="nav-item">
-                        <a class="nav-link active text-decoration-underline" aria-current="page" href="index.html">Home</a>
+                        <a class="nav-link nav_bar_text" aria-current="page" href="../../index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle pb-0" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle pb-0 nav_bar_text" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Bus
                         </a>
-                        <ul class="dropdown-menu" style="background-color:#C79E53;">
-                            <li><a class="dropdown-item fw-bold" href="pages/bus/bus_arrival.html">Bus Arrival Time</a></li>
-                            <li><a class="dropdown-item fw-bold" href="#">Bus Services</a></li>
+                        <ul class="dropdown-menu" style="background-color:#f0f0f0;">
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="../bus/bus_arrival.html">Bus Arrival
+                                    Time</a>
+                            </li>
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="../bus/bus_service_map.html">Bus
+                                    Services</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Train</a>
+                        <a class="nav-link nav_bar_text" href="../train.html">Train</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Taxi</a>
+                        <a class="nav-link nav_bar_text" href="#">Taxi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Car</a>
+                        <a class="nav-link nav_bar_text" href="#">Car</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/traffic/traffic_check.html">Traffic</a>
+                        <a class="nav-link active text-decoration-underline nav_bar_text"
+                            href="traffic_check.html">Traffic</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav float-end">
                     <li class="nav-item">
-                        <a href="pages/profile.html" class="nav-link"><i class="fa-sharp fa-solid fa-gear"></i></a>
+                        <a href="../profile.html" class="nav-link nav_bar_text"><i
+                                class="fa-sharp fa-solid fa-gear"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="fa-solid fa-user" data-bs-toggle="modal" 
-                            data-bs-target="#modal" onClick="login"></i></a>
+                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"
+                                data-bs-toggle="modal" data-bs-target="#modal" onClick="login"></i></a>
 
-
-                        <div class="modal" id="modal">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                          
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Login</h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    
-                                    <!-- Modal body -->
-                                    <div class="modal-body mx-auto">
-                                      <!-- <iframe id="iframe_${record.name}" width="560" height="50" src="" frameborder="0" 
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-                          
-                          
-                                        <form>
-                                              <div class="mb-3">
-                                                <label for="exampleInputEmail1" class="form-label"></label>
-                                                <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Email">
-                                                <div id="emailHelp" class="form-text"></div>
-                                              </div>
-                                              <div class="mb-3">
-                                                <label for="exampleInputPassword1" class="form-label"></label>
-                                                <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
-                                              </div>
-                                              <br>
-                                              <button type="submit" class="btn justify-content" style="background-color: #c4a872;">Go</button>
-                                            </form>
-                          
-                                            <h4 style="text-align: center">OR</h4>
-                                           <button type="submit" class="btn " style="background-color: #c4a872 ;justify-content: center; " >Sign up</button>
-                          
-                                    </div>         
-                                </div>
-                            </div>
-                          </div>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+
+    <h1 class="display-1 text-center fw-bold mt-5">
+        Traffic Conditions <img src="../../src/img/traffic/traffic-light-icon.png" style="width:160px ">
+    </h1>
+
+
+    <div class="modal" id="modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Login</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body mx-auto">
+                    <!-- <iframe id="iframe_${record.name}" width="560" height="50" src="" frameborder="0" 
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label"></label>
+                            <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp"
+                                placeholder="Email">
+                            <div id="emailHelp" class="form-text"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label"></label>
+                            <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
+                        </div>
+                        <br>
+                        <button type="submit" class="btn justify-content" style="background-color: #c4a872;">Go</button>
+                    </form>
+
+                    <h4 style="text-align: center">OR</h4>
+                    <button type="submit" class="btn " style="background-color: #c4a872 ;justify-content: center; ">Sign
+                        up</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="left">
@@ -122,142 +163,183 @@
     </div>
 
 
-</div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="container-fluid text-center fs-1">
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-instagram"></i></a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#" class="nav-link nav_bar_text "><i class="fa-brands fa-facebook-f"></i></a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-twitter"></i></a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-linkedin"></i></a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <script>
+        function initMap() {
+
+            var loc = {
+                lat: 1.2963,
+                lng: 103.8502
+            };
+            var map = new google.maps.Map(document.getElementById("map"), {
+                center: loc,
+                zoom: 12,
+            });
+
+            window.map = map
+
+            var marker = new google.maps.Marker({
+                position: loc,
+                map: window.map
+            });
+
+            let api_endpoint_url1 = '../../src/js/traffic_accident.php'
+            axios.get(api_endpoint_url1, {
+                    headers: {
+                        'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',
+                        'accept': 'application/json',
+                    }
+                })
+                .then(response => {
+                    var values = response.data[0].value
+
+
+                    for (let line of values) {
+                        var icon = {}
+                        const latlng = {
+                            lat: line.Latitude,
+                            lng: line.Longitude
+                        }
+                        console.log(line.Type)
+                        if (line.Type == 'Roadwork') {
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: window.map,
+                                icon: {
+                                    url: "../../src/img/traffic/roadwork.png",
+                                    scaledSize: new google.maps.Size(35, 28)
+                                }
+                            });
+                        }
+                        if (line.Type == 'Vehicle breakdown') {
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: window.map,
+                                icon: {
+                                    url: "../../src/img/traffic/images.png",
+                                    scaledSize: new google.maps.Size(35, 28)
+                                }
+                            });
+                        }
+                        if (line.Type == 'Accident') {
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: window.map,
+                                icon: {
+                                    url: "../../src/img/traffic/accident.png",
+                                    scaledSize: new google.maps.Size(35, 28)
+                                }
+                            });
+                        }
+                        if (line.Type == 'Unattended Vehicle') {
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: window.map,
+                                icon: {
+                                    url: "../../src/img/traffic/abandoned.png",
+                                    scaledSize: new google.maps.Size(35, 28)
+                                }
+                            });
+                        }
+                        if (line.Type == 'Diversion') {
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: window.map,
+                                icon: {
+                                    url: "../../src/img/traffic/roadwork.png",
+                                    scaledSize: new google.maps.Size(35, 28)
+                                }
+                            });
+                        }
+                        if (line.Type == 'Misc.') {
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: window.map,
+                                icon: {
+                                    url: "../../src/img/traffic/misc.png",
+                                    scaledSize: new google.maps.Size(35, 28)
+                                }
+                            });
+                        }
+                        if (line.Type == 'Road Block') {
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: window.map,
+                                icon: {
+                                    url: "../../src/img/traffic/roadblock.png",
+                                    scaledSize: new google.maps.Size(35, 28)
+                                }
+                            });
+                        }
+                        if (line.Type == 'Heavy Traffic') {
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: window.map,
+                                icon: {
+                                    url: "../../src/img/traffic/congestion.png",
+                                    scaledSize: new google.maps.Size(35, 28)
+                                }
+                            });
+                        }
+
+                        // var marker = new google.maps.Marker({position: latlng, map: window.map});
+                    }
+                    var firebaseConfig = {
+                                apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
+                                authDomain: "onestopper.firebaseapp.com",
+                                databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
+                                projectId: "onestopper",
+                                storageBucket: "onestopper.appspot.com",
+                                messagingSenderId: "64753765868",
+                                appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
+                                measurementId: "G-DE6MGV1BWE"
+                            };
+
+                            if (!firebase.apps.length) {
+                                firebase.initializeApp(firebaseConfig);
+                            } else {
+                                
+                            }
+
+                var uid = JSON.parse(localStorage.getItem("users")).uid
+
+                var ref = firebase.database().ref("/user_routes/" + uid)
+
+                ref.on("value", function(snapshot) {
+                    //CODE HERE
+                    var route = snapshot.val().route.route
+                    console.log(route)
+                }, function(error) {
+                    console.log("ERROR", error)
+                })
+                })
+        }
+    </script>
+
+
+
 
 </body>
 
 </html>
-
-
-<script>
-
-function initMap() {
-
-    var loc = {lat: 1.2963, lng: 103.8502};
-    var map = new google.maps.Map(document.getElementById("map"), {
-        center: loc,
-        zoom: 12,
-    });
-
-    window.map = map
-
-    var marker = new google.maps.Marker({position: loc, map: window.map});
-
-    let api_endpoint_url1 = '../../src/js/traffic_accident.php'
-    axios.get(api_endpoint_url1, {
-                headers: {
-                    'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',
-                    'accept': 'application/json',
-                }
-            })
-            .then(response => {
-                var values =  response.data[0].value
-
-
-                for (let line of values) {
-                    var icon = {}
-                    const latlng = {lat:line.Latitude, lng:line.Longitude}
-                    console.log(line.Type)
-                    if(line.Type == 'Roadwork'){
-                        var marker = new google.maps.Marker({
-                            position: latlng,
-                            map: window.map,
-                            icon:{
-                                url: "../../src/img/traffic/roadwork.png",
-                                scaledSize: new google.maps.Size(35,28)
-                            }});
-                    }
-                    if(line.Type == 'Vehicle breakdown'){
-                        var marker = new google.maps.Marker({
-                            position: latlng,
-                            map: window.map,
-                            icon:{
-                                url: "../../src/img/traffic/images.png",
-                                scaledSize: new google.maps.Size(35,28)
-                            }});
-                    }
-                    if(line.Type == 'Accident'){
-                        var marker = new google.maps.Marker({
-                            position: latlng,
-                            map: window.map,
-                            icon:{
-                                url: "../../src/img/traffic/accident.png",
-                                scaledSize: new google.maps.Size(35,28)
-                            }});
-                    }
-                    if(line.Type == 'Unattended Vehicle'){
-                        var marker = new google.maps.Marker({
-                            position: latlng,
-                            map: window.map,
-                            icon:{
-                                url: "../../src/img/traffic/abandoned.png",
-                                scaledSize: new google.maps.Size(35,28)
-                            }});
-                    }
-                    if(line.Type == 'Diversion'){
-                        var marker = new google.maps.Marker({
-                            position: latlng,
-                            map: window.map,
-                            icon:{
-                                url: "../../src/img/traffic/roadwork.png",
-                                scaledSize: new google.maps.Size(35,28)
-                            }});
-                    }
-                    if(line.Type == 'Misc.'){
-                        var marker = new google.maps.Marker({
-                            position: latlng,
-                            map: window.map,
-                            icon:{
-                                url: "../../src/img/traffic/misc.png",
-                                scaledSize: new google.maps.Size(35,28)
-                            }});
-                    }
-                    if(line.Type == 'Road Block'){
-                        var marker = new google.maps.Marker({
-                            position: latlng,
-                            map: window.map,
-                            icon:{
-                                url: "../../src/img/traffic/roadblock.png",
-                                scaledSize: new google.maps.Size(35,28)
-                            }});
-                    }
-                    if(line.Type == 'Heavy Traffic'){
-                        var marker = new google.maps.Marker({
-                            position: latlng,
-                            map: window.map,
-                            icon:{
-                                url: "../../src/img/traffic/congestion.png",
-                                scaledSize: new google.maps.Size(35,28)
-                            }});
-                    }
-
-                    // var marker = new google.maps.Marker({position: latlng, map: window.map});
-                }
-            })
-}
-
-</script>
-
-<style>
-
-#appp .row {
-    position: flex;
-}
-
-#appp .row .left {
-    flex: 33%;
-    background-color: white;
-    padding: 10vh;
-}
-
-#appp .row .right {
-    flex: 67%;
-    height: 90vh;
-    padding: 10vh;
-}
-
-#map {
-    box-shadow: 2px 2px 2px 2px #999999;
-}
-
-</style>
