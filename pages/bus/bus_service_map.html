@@ -72,8 +72,8 @@
 
 </head>
 
-<body onload="user_login()">
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#f0f0f0; color: rgb(112, 52, 101);">
+<body onload="check_user()">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" style="background-color:#f0f0f0; color: rgb(112, 52, 101);">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="../../src/img/logo-removebg-preview.png" alt="Logo" width='75'
@@ -144,7 +144,7 @@
 
 
             <!-- FIRST INPUT BOX -->
-            <div class="container-fluid w-md-50 mx-auto mb-5">
+            <div class="container-fluid w-50 mx-auto mb-5">
                 <h2 class="fw-bold fs-4">Search for a Bus Service:</h2>
                 <div class="row">
                     <div class="col-md-8">
@@ -171,7 +171,7 @@
 
             <!-- SECOND DROP DOWN LIST -->
 
-            <div class="container-fluid w-md-50 mx-auto mb-5" v-if="direction_dropdown">
+            <div class="container-fluid w-50 mx-auto mb-5" v-if="direction_dropdown">
                 <h2 class="fw-bold fs-4">Select a direction:</h2>
                 <div class="row">
                     <div class="col-8">
@@ -276,6 +276,13 @@
                 document.getElementById('fav').innerHTML =
                     `<button type="button" class="btn btn-secondary checked"
             onclick="save_bus_stop()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
+            }
+        }
+
+        function check_user(){
+            console.log('user_login')
+            if (user_detail != null) {
+                console.log('hree')
                 document.getElementById('profile').innerHTML = `<li class="nav-item">
                         <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
                                 class="fa-sharp fa-solid fa-gear"></i></a>
