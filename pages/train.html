@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../src/css/index.css">
     <link rel="stylesheet" href="../src/css/train.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    
+
 
     <style>
         .green {
@@ -37,10 +37,18 @@
         }
     </style>
 
+    <script>
+        var user_detail = localStorage.getItem("users")
+        console.log(user_detail)
+        var obj = JSON.parse(user_detail)
+        var username = obj.username
+        console.log(username)
+    </script>
+
 
 </head>
 
-<body>
+<body onload="user_login()">
     <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#f0f0f0;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -82,7 +90,7 @@
                         <a class="nav-link nav_bar_text" href="traffic/traffic_check.html">Traffic</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav float-end">
+                <ul class="navbar-nav float-end" id="profile">
                     <li class="nav-item">
                         <a href="./profile.html" class="nav-link nav_bar_text"><i
                                 class="fa-sharp fa-solid fa-gear"></i></a>
@@ -154,6 +162,23 @@
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
         <script src="../src/js/train.js"></script>
+
+        <script>
+            function user_login() {
+                console.log('user_login')
+                if (user_detail != null) {
+                    console.log('hree')
+                    document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                                class="fa-sharp fa-solid fa-gear"></i></a>
+                    </li>`
+                } else {
+                    document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                    </li>`
+                }
+            }
+        </script>
 
 </body>
 
