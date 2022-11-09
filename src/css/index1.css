@@ -1,7 +1,7 @@
 html, body {
   width: 100%;
   height: 100%;
-  background: white;
+  background: rgba(112, 51, 101, 0.35);
 
   display: flex;
   justify-content: center;
@@ -18,15 +18,17 @@ html, body {
 #content_container {
   width: 30%;
   height: 70%;
+  
 }
 
 #form_container {
   width: 100%;
   height: 100%;
 
-  background-color: rgb(112 52 101 / 68%);
-  box-shadow: 0 0 50px -20px #000;
+  background-color:white;
+  /* box-shadow: 0 0 50px -20px #000; */
   border-radius: 2%;
+  
 
   overflow: hidden;
 }
@@ -46,13 +48,14 @@ html, body {
 
   border-bottom: 1px solid transparent;
   border-image: white;
-  background: #000;
+  /* background: #000; */
+  
 }
 
 #form_header {
   display: inline-block;
   font-size: 15px;
-  font-family: Bowlby One SC;
+  font-family: Poppins;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -79,8 +82,10 @@ html, body {
 #form_content_inner_container {
   width: 75%;
   height: 100%;
+  border-color:  hsla(311, 37%, 32%);
 
   float: left;
+  
 
 }
 
@@ -92,7 +97,7 @@ input {
   margin-bottom: 20px;
 
   background: #000;
-  font-family: Montserrat;
+  font-family: Poppins;
   font-weight: 500;
   color: #fff;
   font-size: 12px;
@@ -108,7 +113,7 @@ input {
   height: 10%;
 
   background-image: white;
-  color: #fff;
+  color: hsla(311, 37%, 32%);
 
   float: left;
 
@@ -119,11 +124,13 @@ input {
   width: 45%;
   height: 100%;
   float: left;
+  border-color:  hsla(311, 37%, 32%);
+  border-width: 2px;
 
-  background: transparent;
-  color: inherit;
+  background:hsla(311, 37%, 32%);
+  color: white;
 
-  font-family: Montserrat;
+  font-family: Poppins;
   letter-spacing: 1px;
   font-weight: 900;
   font-size: 12px;
@@ -133,4 +140,9 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.form-control{
+  border-color:  hsla(311, 37%, 32%);
+  border-width: 2px;
 }
