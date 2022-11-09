@@ -72,8 +72,8 @@
 
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#f0f0f0; color: rgb(112, 52, 101);">
+<body onload="check_user()">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" style="background-color:#f0f0f0; color: rgb(112, 52, 101);">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="../../src/img/logo-removebg-preview.png" alt="Logo" width='75'
@@ -114,7 +114,7 @@
                         <a class="nav-link nav_bar_text" href="../traffic/traffic_check.html">Traffic</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav float-end">
+                <ul class="navbar-nav float-end" id="profile">
                     <li class="nav-item">
                         <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
                                 class="fa-sharp fa-solid fa-gear"></i></a>
@@ -147,7 +147,7 @@
             <div class="container-fluid w-50 mx-auto mb-5">
                 <h2 class="fw-bold fs-4">Search for a Bus Service:</h2>
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-md-8">
                         <input type="text" class="form-control" aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_service_no"
                             @keyup="auto_complete_bus_service_search()" placeholder="Enter a Service No">
@@ -161,7 +161,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <button type="button" class="btn btn-success" v-on:click="get_service_sequence()"
                             onclick="user_login()">Go</button>
                         <span id="fav" class="ms-2"></span>
@@ -200,7 +200,7 @@
             <div v-if="table_shown">
                 <h3 class="fw-bold fs-1 text-decoration-underline" id="service_no">
                     Bus Arrival Timings</h3>
-                
+
                 <table class="table mx-auto mt-5">
                     <thead>
                         <tr>
@@ -276,7 +276,21 @@
                 document.getElementById('fav').innerHTML =
                     `<button type="button" class="btn btn-secondary checked"
             onclick="save_bus_stop()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
-                // console.log(find_all_favs())
+            }
+        }
+
+        function check_user(){
+            console.log('user_login')
+            if (user_detail != null) {
+                console.log('hree')
+                document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                                class="fa-sharp fa-solid fa-gear"></i></a>
+                    </li>`
+            } else {
+                document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                    </li>`
             }
         }
 
