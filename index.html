@@ -1,3 +1,4 @@
+@@ -1,45 +1,46 @@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +21,7 @@
     <!-- This is the authentication API from Firebase Realtime Database -->
     <!-- <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>  -->
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
     <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places"></script> -->
     <!-- <script type="module" src="./helloworld.ts"></script> -->
     <script>
@@ -43,18 +45,7 @@
         
       </style>
     <title>One-Stop Planner</title>
-</head>
-
-<body onload="get_data()">
-    <!-- NAVIGATION BAR -->
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#C79E53; color: #C4A872; ">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav nav-fill w-100">
+@ -58,296 +59,352 @@
                     <li class="nav-item">
                         <a class="nav-link active text-decoration-underline" aria-current="page" href="index.html">Home</a>
                     </li>
@@ -137,6 +128,11 @@
             <span type="button" class="btn mt-2" style="background-color:#C79E53;"
                 onclick="calcRoute()"
                 >Go</span>
+        </div>
+        <div class="col-2">
+            <span type="button" class="btn mt-2" style="background-color:#C79E53;"
+                onclick="save_route_in_db()"
+                >Save</span>
         </div>
 
         <div class="dropdown row justify-content-md-center">
@@ -274,47 +270,102 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
-            authDomain: "onestopper.firebaseapp.com",
-            databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "onestopper",
-            storageBucket: "onestopper.appspot.com",
-            messagingSenderId: "64753765868",
-            appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
-            measurementId: "G-DE6MGV1BWE"
-        };
-        // Initialize Firebase
+    
 
-        firebase.initializeApp(firebaseConfig);
-        // Initialize variables
-        // import { getDatabase, ref, onValue } from "firebase/database";
-        // import { getAuth } from "firebase/auth";
-        // import { getAuth } from "firebase/auth";
-        // const auth = firebase.auth()
-        const database = firebase.database()
-        function save_routee(){
-            var toSave = {}
-            toSave['source'] = source
-            toSave['destination'] = destination
+<script>
+    var map=new google.maps.Map(document.getElementById('map'),mapOptions)
+
+    //create a directions service object
+
+    var directionsService = new google.maps.DirectionsService();
+
+    //create a directionsRenderer object which we will use to display route
+    var rendererOptions = {
+        map: map
+    }
+
+    var directionsRenderer=new google.maps.DirectionsRenderer(rendererOptions);
+
+        //bind the directionsRenderer to the map 
+
+    directionsRenderer.setMap(map);
+
+    // Instantiate an info window to hold step text.
+    stepDisplay = new google.maps.InfoWindow();
+
+
+function save_route_in_db(){
+
+    var request ={
+        origin:document.getElementById('from').value,
+        destination:document.getElementById('to').value,
+        travelMode: google.maps.TravelMode[document.getElementById("mode").value],
+        unitSystem:google.maps.UnitSystem.METRIC
+    }
+
+    directionsService.route(request,(result,status)=>{
+        if (status==google.maps.DirectionsStatus.OK){
+
             var route = []
 
             for (const point of result.routes[0].overview_path) {
                 route.push({
-                lat:point.lat(),
-                lng:point.lng()
+                
+                    lat:point.lat(),
+                    lng:point.lng()
                 })
             }
 
-            toSave['route'] = route
+            
+            var toSave = {
+                origin: document.getElementById('from').value,
+                destination: document.getElementById('to').value,
+                route: route
+            }
 
+            var uid = JSON.parse(localStorage.getItem("users")).uid
             var useremail = JSON.parse(localStorage.getItem("users")).email
 
             toSave['email'] = useremail
 
-            console.log(toSave)
-                }
+            
+            var updates1 = {};
+            updates1['/user_routes/' + uid + "/route"] = toSave;
+
+            var firebaseConfig = {
+                apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
+                authDomain: "onestopper.firebaseapp.com",
+                databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
+                projectId: "onestopper",
+                storageBucket: "onestopper.appspot.com",
+                messagingSenderId: "64753765868",
+                appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
+                measurementId: "G-DE6MGV1BWE"
+            };
+
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            } else {
+                
+            }
+
+            console.log("abcde")
+
+            firebase.database().ref().update(updates1);
+        } else {
+
+            console.log("else loop runs")
+      //delete route from map 
+        directionsRenderer.setDirections({routes:[]});
+
+        //center map in spain 
+        map.setCenter(myLatLng);
+
+        //show error msg
+        output.innerHTML="<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve distance </div>"
+        }
+    })
+    }   
         // TO CHECK IF USER
         function user_login() {
             console.log('user_login')
