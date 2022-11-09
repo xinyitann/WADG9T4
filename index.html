@@ -294,7 +294,27 @@
         // import { getAuth } from "firebase/auth";
         // const auth = firebase.auth()
         const database = firebase.database()
+        function save_routee(){
+            var toSave = {}
+            toSave['source'] = source
+            toSave['destination'] = destination
+            var route = []
 
+            for (const point of result.routes[0].overview_path) {
+                route.push({
+                lat:point.lat(),
+                lng:point.lng()
+                })
+            }
+
+            toSave['route'] = route
+
+            var useremail = JSON.parse(localStorage.getItem("users")).email
+
+            toSave['email'] = useremail
+
+            console.log(toSave)
+                }
         // TO CHECK IF USER
         function user_login() {
             console.log('user_login')
