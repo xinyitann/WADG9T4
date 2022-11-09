@@ -23,6 +23,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
     <!-- This is the API from Firebase Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
 
     <!-- <script src="../../src/js/index.js"></script> -->
@@ -71,8 +72,12 @@
 </head>
 
 <body onload="user_login()">
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:rgb(112, 52, 101); color: #C4A872;">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#f0f0f0; color: rgb(112, 52, 101);">
         <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../../src/img/logo-removebg-preview.png" alt="Logo" width='75'
+                    class="d-inline-block align-text-top">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -80,39 +85,41 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav nav-fill w-100">
                     <li class="nav-item">
-                        <a class="nav-link active text-decoration-underline" aria-current="page"
-                            href="../../index.html">Home</a>
+                        <a class="nav-link nav_bar_text" aria-current="page" href="../../index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle pb-0" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle pb-0 active text-decoration-underline nav_bar_text" href="#"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Bus
                         </a>
-                        <ul class="dropdown-menu" style="background-color:rgb(112, 52, 101)">
-                            <li><a class="dropdown-item fw-bold" href="bus_arrival.html">Bus Arrival Time</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus_arrival.html">Bus Arrival
+                                    Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold" href="bus_service_map.html">Bus Services</a></li>
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus_service_map.html">Bus
+                                    Services</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../train.html">Train</a>
+                        <a class="nav-link nav_bar_text" href="../train.html">Train</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Taxi</a>
+                        <a class="nav-link nav_bar_text" href="#">Taxi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../car.html">Car</a>
+                        <a class="nav-link nav_bar_text" href="../car.html">Car</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../traffic/traffic_check.html">Traffic</a>
+                        <a class="nav-link nav_bar_text" href="../traffic/traffic_check.html">Traffic</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav float-end">
-                    <li class="nav-itget_bus_stopsem">
-                        <a href="../profile.html" class="nav-link"><i class="fa-sharp fa-solid fa-gear"></i></a>
+                    <li class="nav-item">
+                        <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                                class="fa-sharp fa-solid fa-gear"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a href="../../login.html" class="nav-link"><i class="fa-solid fa-user"></i></a>
+                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
                     </li>
                 </ul>
             </div>

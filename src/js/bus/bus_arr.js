@@ -221,7 +221,7 @@ var app = Vue.createApp({
                 }
             }
             console.log(this.list_of_stops)
-            window.initMap = this.initMap();
+            // window.initMap = this.initMap();
         },
 
         initMap() {
