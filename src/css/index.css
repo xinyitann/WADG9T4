@@ -1,8 +1,13 @@
 body{
-    font-family: 'Agrandir';
-    background-color: #EFECDF;
-    color: #C79E53;
+    font-family: 'Poppins';
+    background-color: rgb(249, 254, 252);
+    /* color: black; */
 }
+
+.nav_bar_text{
+  color:rgb(112, 52, 101);
+}
+
 
 #map {
     height: 100%;

@@ -28,13 +28,18 @@
         .red {
             color: red;
         }
+
+        .navbar-nav .nav-link.active,
+        .navbar-nav .show>.nav-link {
+            color: rgb(112, 52, 101);
+        }
     </style>
 
 
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#C79E53; color: #C4A872;">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#f0f0f0;">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,59 +48,61 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav nav-fill w-100">
                     <li class="nav-item">
-                        <a class="nav-link active text-decoration-underline" aria-current="page"
-                            href="../index.html">Home</a>
+                        <a class="nav-link nav_bar_text" aria-current="page" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle pb-0" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle pb-0 nav_bar_text" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Bus
                         </a>
                         <ul class="dropdown-menu" style="background-color:#C79E53;">
-                            <li><a class="dropdown-item fw-bold" href="pages/bus/bus_arrival.html">Bus Arrival Time</a>
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="pages/bus/bus_arrival.html">Bus
+                                    Arrival Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold" href="#">Bus Services</a></li>
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="pages/bus/bus_service_map.html">Bus
+                                    Services</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Train</a>
+                        <a class="nav-link nav_bar_text active text-decoration-underline" href="#">Train</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Taxi</a>
+                        <a class="nav-link nav_bar_text" href="#">Taxi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./car.html">Car</a>
+                        <a class="nav-link nav_bar_text" href="./car.html">Car</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./traffic/traffic_check.html">Traffic</a>
+                        <a class="nav-link nav_bar_text" href="./traffic/traffic_check.html">Traffic</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav float-end">
                     <li class="nav-item">
-                        <a href="./profile.html" class="nav-link"><i class="fa-sharp fa-solid fa-gear"></i></a>
+                        <a href="./profile.html" class="nav-link nav_bar_text"><i class="fa-sharp fa-solid fa-gear"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a href="../login.html" class="nav-link"><i class="fa-solid fa-user"></i></a>
+                        <a href="../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- TITLE -->
-    <h1 class="display-1 text-center fw-bold">
-        Train Disruptions
+    <h1 class="display-1 text-center fw-bold mt-5">
+        Train Disruptions <img src="../src/img/train/mrt.png" style="width:300px ">
     </h1>
 
     <div class="container-fluid pt-5 py-5 d-flex align-items-center justify-content-center">
 
-      <div id="app">
-        {{get_station_name}}
-        <div >
-          <h2>{{Notif}} </h2>
-          
-        </div>
+        <div id="app">
+            {{get_station_name}}
+            <div>
+                <h2>{{Notif}} </h2>
+            </div>
 
-        <!-- <div>
+            <img src="../src/img/train/mrt_map.jpg" style="width: 500px;">
+
+            <!-- <div>
            
           <table border="1">
             <tr>
@@ -113,23 +120,23 @@
         </table>
          
         </div> -->
-      </div>
+        </div>
 
 
         <!-- FOOTER -->
         <div class="fixed-bottom container-fluid text-center fs-1" style="color:#C79E53;">
             <ul class="list-inline">
                 <li class="list-inline-item">
-                    <a href="#" class="nav-link"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-instagram"></i></a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#" class="nav-link"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-facebook-f"></i></a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#" class="nav-link"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-twitter"></i></a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#" class="nav-link"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-linkedin"></i></a>
                 </li>
             </ul>
         </div>
@@ -138,7 +145,7 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
         </script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        
+
         <script src="../src/js/train.js"></script>
 
 </body>

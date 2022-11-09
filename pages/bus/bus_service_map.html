@@ -18,6 +18,8 @@
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWyI5hJe5X7W9Svu7sVQCsUt3Q9JVdOqk&callback=initMap">
     </script>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
 
     <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
 
@@ -46,6 +48,11 @@
             width: 100%;
             /* The width is the width of the web page */
         }
+
+        .navbar-nav .nav-link.active,
+        .navbar-nav .show>.nav-link {
+            color: rgb(112, 52, 101);
+        }
     </style>
 
     <script>
@@ -60,8 +67,12 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#C79E53; color: #C4A872;">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#f0f0f0; color: rgb(112, 52, 101);">
         <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../../src/img/logo-removebg-preview.png" alt="Logo" width='75'
+                    class="d-inline-block align-text-top">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -69,47 +80,49 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav nav-fill w-100">
                     <li class="nav-item">
-                        <a class="nav-link active text-decoration-underline" aria-current="page"
-                            href="../../index.html">Home</a>
+                        <a class="nav-link nav_bar_text" aria-current="page" href="../../index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle pb-0" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle pb-0 active text-decoration-underline nav_bar_text" href="#"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Bus
                         </a>
-                        <ul class="dropdown-menu" style="background-color:#C79E53;">
-                            <li><a class="dropdown-item fw-bold" href="bus_arrival.html">Bus Arrival Time</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus_arrival.html">Bus Arrival
+                                    Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold" href="bus_service_map.html">Bus Services</a></li>
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus_service_map.html">Bus
+                                    Services</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../train.html">Train</a>
+                        <a class="nav-link nav_bar_text" href="../train.html">Train</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Taxi</a>
+                        <a class="nav-link nav_bar_text" href="#">Taxi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../car.html">Car</a>
+                        <a class="nav-link nav_bar_text" href="../car.html">Car</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../traffic/traffic_check.html">Traffic</a>
+                        <a class="nav-link nav_bar_text" href="../traffic/traffic_check.html">Traffic</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav float-end">
                     <li class="nav-item">
-                        <a href="../profile.html" class="nav-link"><i class="fa-sharp fa-solid fa-gear"></i></a>
+                        <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                                class="fa-sharp fa-solid fa-gear"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a href="../../login.html" class="nav-link"><i class="fa-solid fa-user"></i></a>
+                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- TITLE -->
-    <h1 class="display-1 text-center fw-bold">
-        Bus Arrival Timings
+    <h1 class="display-1 text-center fw-bold mt-5">
+        Bus Services <img src="../../src/img/bus/bus_image.png" style="width:160px ">
     </h1>
 
 
@@ -122,51 +135,67 @@
             {{get_bus_stops}}
             {{get_bus_service}}
             {{get_bus_routes}}
-            <h2 class="fw-bold display-3 text-center">Bus Service</h2>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-8">
-                    {{get_bus_service}}
-                    <input type="text" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_service_no"
-                        @keyup="auto_complete_bus_service_search()">
-                    <div v-show="auto_complete_suggestion_service.length > 0">
-                        <ul id="search">
-                            <li v-for="suggestion of auto_complete_suggestion_service"
-                                v-on:click="fill_bus_service(suggestion)">
-                                {{suggestion}}</li>
-                        </ul>
+
+
+            <!-- FIRST INPUT BOX -->
+            <div class="container-fluid w-50 mx-auto mb-5">
+                <h2 class="fw-bold fs-4">Search for a Bus Service:</h2>
+                <div class="row">
+                    <div class="col-8">
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_service_no"
+                            @keyup="auto_complete_bus_service_search()" placeholder="Enter a Service No">
+
+
+                        <div v-show="auto_complete_suggestion_service.length > 0">
+                            <ul id="search">
+                                <li v-for="suggestion of auto_complete_suggestion_service"
+                                    v-on:click="fill_bus_service(suggestion)">
+                                    {{suggestion}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-success" v-on:click="get_service_sequence()"
+                            onclick="user_login()">Go</button>
+                        <span id="fav" class="ms-2"></span>
                     </div>
                 </div>
-                <div class="col-3">
-                    <button type="button" class="btn btn-success mt-2" v-on:click="get_service_sequence()"
-                        onclick="user_login()">Go</button>
-                    <!-- <div class="container w-100 text-center" style="height: 50px;"> -->
-                        <span id="fav" class="ms-2"></span>
-                    <!-- </div> -->
+            </div>
+
+            <!-- SECOND DROP DOWN LIST -->
+
+            <div class="container-fluid w-50 mx-auto mb-5" v-if="direction_dropdown">
+                <h2 class="fw-bold fs-4">Select a direction:</h2>
+                <div class="row">
+                    <div class="col-8">
+                        <select v-model="direction" class="form-select form-select-lg mb-3"
+                            aria-label=".form-select-lg example">
+                            <option v-for="(value, key) of bus_direction_points" v-bind:value="key">
+                                {{Object.keys(value)[0]}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-success mt-2" v-on:click="get_google_map()">Go</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="row" v-if="direction_dropdown">
-                <div class="col-1"></div>
-                <div class="col-8">
-                    <select v-model="direction" class="form-select form-select-lg mb-3"
-                        aria-label=".form-select-lg example">
-                        <option v-for="(value, key) of bus_direction_points" v-bind:value="key">
-                            {{Object.keys(value)[0]}}
-                        </option>
-                    </select>
-                </div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-success mt-2" v-on:click="get_google_map()">Go</button>
-                </div>
-            </div>
-
-            <div id="map"></div>
+            <!-- DISPLAY SERVICE NO -->
             <div v-if="table_shown">
                 <h3 class="text-center fw-bold display-5 text-decoration-underline" id="service_no">
                     {{display_service_no}}</h3>
-                <table class="table mx-auto w-75">
+            </div>
+
+            <!-- DISPLAY MAP -->
+            <div id="map"></div>
+            <!-- DISPLAY ARRIVAL TABLE  -->
+            <div v-if="table_shown">
+                <h3 class="fw-bold fs-1 text-decoration-underline" id="service_no">
+                    Bus Arrival Timings
+                
+                <table class="table mx-auto w-75 mt-5">
                     <thead>
                         <tr>
                             <th scope="col">Bus Stop Code</th>
@@ -188,19 +217,19 @@
 
 
     <!-- FOOTER -->
-    <div class="container-fluid text-center fs-1" style="color:#C79E53;">
+    <div class="container-fluid text-center fs-1">
         <ul class="list-inline">
             <li class="list-inline-item">
-                <a href="#" class="nav-link"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-instagram"></i></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="nav-link"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="nav-link nav_bar_text "><i class="fa-brands fa-facebook-f"></i></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="nav-link"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-twitter"></i></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="nav-link"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-linkedin"></i></a>
             </li>
         </ul>
     </div>
@@ -239,7 +268,7 @@
             if (user_detail != null) {
                 console.log('hree')
                 document.getElementById('fav').innerHTML =
-                    `<button type="button" class="btn btn-secondary mt-2 checked"
+                    `<button type="button" class="btn btn-secondary checked"
             onclick="save_bus_stop()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
                 // console.log(find_all_favs())
             }
