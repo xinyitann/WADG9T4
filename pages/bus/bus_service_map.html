@@ -73,11 +73,11 @@
 </head>
 
 <body onload="check_user()">
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" style="background-color:#e5dfdf; color: rgb(112, 52, 101);">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top"
+        style="background-color:#e5dfdf; color: rgb(112, 52, 101);">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../../src/img/logo2.png" alt="Logo" width='90'
-                    class="d-inline-block align-text-top">
+                <img src="../../src/img/logo2.png" alt="Logo" width='90' class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -142,19 +142,68 @@
             {{get_bus_service}}
             {{get_bus_routes}}
 
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <h2 class="fw-bold fs-4">Search for a Bus Service:</h2>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-4">
+
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_service_no"
+                        @keyup="auto_complete_bus_service_search()" placeholder="Enter a Service No"
+                        style="border-color: hsla(311, 37%, 32%); border-width: 2px;">
+
+
+                    <div v-show="auto_complete_suggestion_service.length > 0">
+                        <ul id="search">
+                            <li v-for="suggestion of auto_complete_suggestion_service"
+                                v-on:click="fill_bus_service(suggestion)">
+                                {{suggestion}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <a href="#arr_timings">
+                        <button type="button" class="btn btn-success" v-on:click="get_service_sequence()"
+                            onclick="user_login()">Go</button>
+                        <span id="fav" class="ms-2"></span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="row justify-content-center mb-5" v-if="direction_dropdown">
+                <div class="col-md-4">
+                    <select v-model="direction" class="form-select form-select-lg mb-3" id="dropdown"
+                        aria-label=".form-select-lg example">
+                        <option v-for="(value, key) of bus_direction_points" v-bind:value="key" id="dropdown-list">
+                            {{Object.keys(value)[0]}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <a href="#arr_timings">
+                        <button type="button" class="btn btn-success mt-2" v-on:click="get_google_map()">Go</button>
+                    </a>
+                </div>
+            </div>
 
             <!-- FIRST INPUT BOX -->
-            <div class="container-fluid w-50 mx-auto mb-5">
+            <!-- <div class="container-fluid w-50 mx-auto mb-5">
                 <h2 class="fw-bold fs-4">Search for a Bus Service:</h2>
                 <div class="row">
                     <div class="col-md-8">
                         <input type="text" class="form-control" aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_service_no"
-                            @keyup="auto_complete_bus_service_search()" placeholder="Enter a Service No" style="border-color: hsla(311, 37%, 32%); border-width: 2px;">
+                            @keyup="auto_complete_bus_service_search()" placeholder="Enter a Service No"
+                            style="border-color: hsla(311, 37%, 32%); border-width: 2px;">
 
 
                         <div v-show="auto_complete_suggestion_service.length > 0">
-                            <ul id="search" >
+                            <ul id="search">
                                 <li v-for="suggestion of auto_complete_suggestion_service"
                                     v-on:click="fill_bus_service(suggestion)">
                                     {{suggestion}}</li>
@@ -167,11 +216,11 @@
                         <span id="fav" class="ms-2"></span>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- SECOND DROP DOWN LIST -->
 
-            <div class="container-fluid w-50 mx-auto mb-5" v-if="direction_dropdown">
+            <!-- <div class="container-fluid w-50 mx-auto mb-5" v-if="direction_dropdown">
                 <h2 class="fw-bold fs-4">Select a direction:</h2>
                 <div class="row">
                     <div class="col-8">
@@ -186,7 +235,7 @@
                         <button type="button" class="btn btn-success mt-2" v-on:click="get_google_map()">Go</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- DISPLAY SERVICE NO -->
             <div v-if="table_shown">
@@ -269,17 +318,17 @@
         const database = firebase.database()
 
         // TO CHECK IF USER
-        function user_login() {
-            console.log('user_login')
-            if (user_detail != null) {
-                console.log('hree')
-                document.getElementById('fav').innerHTML =
-                    `<button type="button" class="btn btn-secondary checked"
-            onclick="save_bus_stop()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
-            }
-        }
+        // function user_login() {
+        //     console.log('user_login')
+        //     if (user_detail != null) {
+        //         console.log('hree')
+        //         document.getElementById('fav').innerHTML =
+        //             `<button type="button" class="btn btn-secondary checked"
+        //     onclick="save_bus_stop()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
+        //     }
+        // }
 
-        function check_user(){
+        function check_user() {
             console.log('user_login')
             if (user_detail != null) {
                 console.log('hree')

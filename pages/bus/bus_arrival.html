@@ -18,7 +18,7 @@
 
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWyI5hJe5X7W9Svu7sVQCsUt3Q9JVdOqk&libraries=places&callback=initMap">
-        </script>
+    </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
     <!-- This is the API from Firebase Realtime Database -->
@@ -81,8 +81,7 @@
         style="background-color:#e5dfdf; color: rgb(112, 52, 101);">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../../src/img/logo2.png" alt="Logo" width='90'
-                    class="d-inline-block align-text-top">
+                <img src="../../src/img/logo2.png" alt="Logo" width='90' class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -138,56 +137,22 @@
 
     <div class="container-fluid pt-5 py-5">
 
-        <!-- Tab panes -->
         <div id="app">
             {{get_bus_stops}}
 
-
-            <!-- MAP -->
-
-
-
-            <!-- INPUT BOX -->
-            <div class="container-fluid w-50 mx-auto mb-5">
-                <h2 class="fw-bold fs-4">Search for a Bus Stop:</h2>
-                <div class="row">
-                    <div class="col-8">
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_bus_stop"
-                            @keyup="auto_complete_bus_stop_search()" placeholder="Enter a bus stop name"
-                            style="border-color: hsla(311, 37%, 32%); border-width: 2px;">
-                        <div v-show="auto_complete_suggestion_bus.length > 0">
-                            <ul id="search">
-                                <li v-for="suggestion of auto_complete_suggestion_bus"
-                                    v-on:click="fill_bus_stops(suggestion)">
-                                    {{suggestion}}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <a href="#arr_timings">
-                            <button type="button" class="btn btn-success"
-                                v-on:click="get_arrival_time_bus_stop()">Go</button>
-                        </a>
-                    </div>
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <h2 class="fw-bold fs-4">Search for a Bus Stop:</h2>
                 </div>
             </div>
 
-            <div class="container-fluid w-75 mx-auto mb-5">
-                <h2 class="fw-bold fs-4">See bus stops close to you:</h2>
-                <div id="map"></div>
-            </div>
-            <!-- <button type="button" class="btn btn-success mt-2" v-on:click="get_bus_stop_map()">View Bus Stop in
-                Map</button> -->
-
-            <!-- <h2 class="fw-bold display-3 text-center">Bus Stops</h2>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-8">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-4">
 
                     <input type="text" class="form-control" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_bus_stop"
-                        @keyup="auto_complete_bus_stop_search()">
+                        @keyup="auto_complete_bus_stop_search()" placeholder="Enter a bus stop name"
+                        style="border-color: hsla(311, 37%, 32%); border-width: 2px;">
                     <div v-show="auto_complete_suggestion_bus.length > 0">
                         <ul id="search">
                             <li v-for="suggestion of auto_complete_suggestion_bus"
@@ -196,12 +161,22 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-success mt-2"
-                        v-on:click="get_arrival_time_bus_stop()">Go</button>
+                <div class="col-md-1">
+                    <a href="#arr_timings">
+                        <button type="button" class="btn btn-success"
+                            v-on:click="get_arrival_time_bus_stop()">Go</button>
+                    </a>
                 </div>
-            </div> -->
+            </div>
 
+            <div class="row mb-5 justify-content-center">
+                <div class="col-md-8">
+                    <h2 class="fw-bold fs-4">See bus stops close to you:</h2>
+                </div>
+                <div class="col-md-8">
+                    <div id="map"></div>
+                </div>
+            </div>
             <div v-show="bus_stop_hidden.length > 0" id="arr_timings">
                 <h3 class="text-center fw-bold fs-4" id="bus_stop_name">
                     {{displayed_bus_stop_name}} ({{selected_bus_stop_code}})</h3>
@@ -213,14 +188,14 @@
                 </div>
                 <div class="container-fluid w-75 mx-auto">
                     <div class="row" v-for="(value, key) of selected_bus_stop_arrivals">
-                        <div class="col-4 text-center display-6 my-5 fw-bold">
+                        <div class="col-md-4 text-center display-6 my-5 fw-bold">
                             {{key}}
                         </div>
                         <div class="col-8">
                             <table class="table mx-auto mt-5">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Timings</th>
+                                        <th scope="col">Timings (min)</th>
                                         <th scope="col">Wheelchair accessible?</th>
                                         <th scope="col">Bus type</th>
                                     </tr>
@@ -268,7 +243,7 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-            </script>
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <!-- <script src="../../src/js/bus_arrival.js"></script> -->
         <script src="../../src/js/bus/bus_arr.js"></script>
