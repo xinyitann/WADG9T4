@@ -113,10 +113,11 @@ function login() {
         
         console.log(snap.val())
         console.log(user_data)
+        localStorage.setItem("users",JSON.stringify(snap.val()) );
+        window.location.replace("./index.html");
         
       })
-      localStorage.setItem("users",JSON.stringify(user_data) );
-       window.location.replace("./index.html");
+
 
     })
     .catch(function (error) {
