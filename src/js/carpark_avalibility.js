@@ -24,7 +24,7 @@ var app = Vue.createApp({
                     console.log("SUCCESS")
                     console.log(response)
                     for(res of response.data) {
-
+                        //console.log(response.data)
                     }
 
                 })
