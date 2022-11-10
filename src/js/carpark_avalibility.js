@@ -2,13 +2,14 @@ var app = Vue.createApp({
 
     data() {
         return {
-            vehicleType: '',
-            dayType: '',
-            startTime: '',
-            endTime: '',
-            zoneID: '',
-            chargeAmt: '',
-            effectiveDate: ''
+                carparkID: '',
+                area: '',
+                development: [],
+                location: [],
+                available_lots: '',
+                bus_stop_hidden: '',
+                lotType: '',
+                agency: '',
         }
     },
 
