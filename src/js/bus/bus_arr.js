@@ -208,7 +208,7 @@ var app = Vue.createApp({
                 var lat1 = this.bus_stop_location[bus_stop].latitude
                 var long1 = this.bus_stop_location[bus_stop].longitude
                 var lat2 = this.pos.lat
-                var long2 = this.pos.lng
+                var long2 = this.pos.lng//wya
                 var dist = this.distanceInKmBetweenEarthCoordinates(lat1, long1, lat2, long2)
                 // console.log(dist)
                 if (dist < 500) {
@@ -217,6 +217,7 @@ var app = Vue.createApp({
                     list.push(this.bus_stop_location[bus_stop]['latitude'])
                     list.push(this.bus_stop_location[bus_stop]['longitude'])
                     list.push(bus_stop)
+                    console.log(list)
                     this.list_of_stops.push(list)
                 }
             }

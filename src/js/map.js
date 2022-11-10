@@ -150,7 +150,7 @@ function calcRoute(){
       const destination = document.getElementById('to').value
       const source = document.getElementById('from').value
 
-      output.innerHTML="<div class='alert-info fs-3'><b>From: </b>"+source+"<br/><b>To: </b>"+destination+".<br/> <b>Driving distance: </b>"+result.routes[0].legs[0].distance.text+".<br/><b>Duration: </b> "+result.routes[0].legs[0].duration.text + ".</div>";
+      output.innerHTML="<div class='alert-info'>From:"+source+"<br/>To:"+destination+".<br/> Driving distance:"+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text + ".</div>";
 
       var toSave = {}
       toSave['source'] = source
@@ -174,13 +174,13 @@ function calcRoute(){
 
       //database.ref().child('user_routes/' + useremail).set(toSave)
 
-      output.innerHTML="<div class='alert-info fs-3'><b>From:</b>"+document.getElementById('from').value+"<br/><b>To:</b>" +document.getElementById('to').value +".<br/><b> Driving distance:</b>"+result.routes[0].legs[0].distance.text+".<br/><b>Duration:</b> "+result.routes[0].legs[0].duration.text + ".</div>";
+      output.innerHTML="<div class='alert-info'>From:"+document.getElementById('from').value+"<br/>To:" +document.getElementById('to').value +".<br/> Driving distance:"+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text + ".</div>";
 
       //display route
       directionsRenderer.setDirections(result);
       showSteps(result);
 
-      output.innerHTML="<div class='alert-info fs-3'><b>From:</b>"+document.getElementById('from').value+"<br/><b>To:</b>" +document.getElementById('to').value +".<br/><b> Driving distance:</b>"+result.routes[0].legs[0].distance.text+".<br/><b>Duration:</b> "+result.routes[0].legs[0].duration.text + ".</div>";
+      output.innerHTML="<div class='alert-info'>From: "+document.getElementById('from').value+"<br/>To: " +document.getElementById('to').value +".<br/> Driving distance: "+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text+".</div>";
     }else{
       //delete route from map 
       directionsRenderer.setDirections({routes:[]});
@@ -198,7 +198,7 @@ function calcRoute(){
     // info window. Also attach the marker to an array so we
     // can keep track of it and remove it when calculating new
     // routes.
-    steps.innerHTML="<b>Directions:</b> <br>"
+    steps.innerHTML=""
     var myRoute = directionResult.routes[0].legs[0];
     for (var i = 0; i < myRoute.steps.length; i++) {
         var marker = new google.maps.Marker({
@@ -207,7 +207,7 @@ function calcRoute(){
         });
         attachInstructionText(marker, myRoute.steps[i].instructions);
         markerArray[i] = marker;
-        steps.innerHTML+= "<li>" + myRoute.steps[i].instructions+"</li>"
+        steps.innerHTML+= myRoute.steps[i].instructions+"<br>"
     }
   }
   
