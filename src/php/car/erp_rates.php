@@ -37,9 +37,8 @@ function callAPI($method, $url, $data,$skip)
     return $result;
 }
 
-
 $big_list = [];
-$get_data = callAPI('GET', '  http://datamall2.mytransport.sg/ltaodataservice/ERPRates', false, 0);
+$get_data = callAPI('GET', 'http://datamall2.mytransport.sg/ltaodataservice/ERPRates', false, 0);
 $response = json_decode($get_data, true);
 array_push($big_list,$response);
 $num = 500;

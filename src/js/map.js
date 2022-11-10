@@ -213,6 +213,7 @@ function calcRoute(){
         markerArray[i] = marker;
         steps.innerHTML+= "<li>" + myRoute.steps[i].instructions+"</li>"
     }
+    steps.innerHTML+="<br><a href='pages/traffic/traffic_check.html'><button class='btn btn-success btn-lg'>Check Traffic</button></a>"
   }
   
   function attachInstructionText(marker, text) {
