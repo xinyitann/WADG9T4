@@ -39,17 +39,21 @@
         }
 
         #appp .row .left {
-            flex: 33%;
+            flex: 31%;
             background-color: white;
-            padding: 10vh;
+            padding: 5vh;
         }
 
-        #appp .row .right {
-            flex: 67%;
+        #appp .row .middle {
+            flex: 49%;
             height: 90vh;
-            padding: 10vh;
+            padding: 5vh;
         }
-
+        #appp .row .right {
+            flex: 20%;
+            height: 90vh;
+            padding: 5vh;
+        }
         #map {
             box-shadow: 2px 2px 2px 2px #999999;
         }
@@ -118,9 +122,12 @@
     </nav>
 
 
+
     <h1 class="display-6 text-center fw-bold mt-5">
         Traffic Conditions <img src="../../src/img/traffic/traffic-light-icon.png" style="width:60px ">
     </h1>
+
+
 
 
     <div class="modal" id="modal">
@@ -164,14 +171,55 @@
     </div>
 
     <div class="row">
-        <div class="left" id="left1">
-            There are no obstructions on your path rn
+                
+        <div class="left" >
+            
+            <div class="card" >
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align:center; font-weight:bold;" id="left1">There are no obstructions on your path right now</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                    <p class="card-text"></p>
+                    <button type="button" class="btn btn-success" href="../../index.html">Home</button>
+                    
+                </div>
+            </div>
         </div>
-        <div>
+
             <button type="button" id="button2" onclick="get_user_location()"></button>
+        </div> 
+        <div class="middle">
+            <div id="map"></div>
         </div>
         <div class="right">
-            <div id="map"></div>
+            <div id="legend">
+                <div class="card" >
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align:center; font-weight:bold;">Legend</h5>
+                        <br>
+                            <img src="../../src/img/traffic/roadblock.png" style="width:20px">:roadblock
+                        </br>
+                        <br>
+                            <img src="../../src/img/traffic/roadwork_color.png" style="width:20px">:roadwork
+                        </br>
+                        <br>
+                            <img src="../../src/img/traffic/breakdown_color.png" style="width:20px">:breakdown
+                        </br>
+                        <row>
+                            <img src="../../src/img/traffic/accident_color.png" style="width:20px">:accident
+                        </row>
+                        <br>
+                            <img src="../../src/img/traffic/abandoned.png" style="width:20px">:abandoned car
+                        </br> 
+                        <br>
+                            <img src="../../src/img/traffic/misc.png" style="width:20px">:misc
+                        </br>
+                        <br>
+                            <img src="../../src/img/traffic/congestion-removebg-preview.png" style="width:20px">:congestion
+                        </br>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -200,6 +248,9 @@
 
 
     <script>
+        function go_home(){
+            "http://www.w3schools.com"
+        }
         function get_user_location() {
             if (navigator.geolocation) {
                 console.log('jere')
