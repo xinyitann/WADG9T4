@@ -155,10 +155,33 @@
                     onclick="save_route_in_db()">Save</span>
             </div>
 
-            <div class="col-12">
+            <div class="col-12" >
                 <div id="output">
                 </div>
             </div>
+
+            <div data-bs-spy="scroll"  data-bs-smooth-scroll="true" class="col-12 p-3 bg-light rounded-4" id="scrollbox" > 
+                <ol id="steps" class="fs-5" >
+
+                </ol>
+            </div>
+<!-- 
+            <div class="col-12">
+
+                  <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
+                    <h4 id="scrollspyHeading1">First heading</h4>
+                    <p>...</p>
+                    <h4 id="scrollspyHeading2">Second heading</h4>
+                    <p>...</p>
+                    <h4 id="scrollspyHeading3">Third heading</h4>
+                    <p>...</p>
+                    <h4 id="scrollspyHeading4">Fourth heading</h4>
+                    <p>...</p>
+                    <h4 id="scrollspyHeading5">Fifth heading</h4>
+                    <p>...</p>
+                  </div>
+
+            </div> -->
 
 
         </div>
@@ -167,34 +190,6 @@
         </div>
     </div>
 
-    <div class="container" id="app">
-        <span id="fav" class="ms-2"></span>
-        <div class="output text-center">
-            <div id="output">
-            </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-4">
-
-
-                <ol id="steps" class="fs-4">
-
-                </ol>
-
-            </div>
-
-            <div class="col-8">
-                <div id="map"></div>
-            </div>
-
-
-
-        </div>
-
-    </div>
-    <!-- </div> -->
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBohQllg13oqNG10s28iZOiUsBw7nFWDlU&libraries=places">
     </script>

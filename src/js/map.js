@@ -184,7 +184,7 @@ function calcRoute() {
       directionsRenderer.setDirections(result);
       showSteps(result);
 
-      output.innerHTML = "<div class='alert-info fs-4'><br><b>Driving distance: </b>" + result.routes[0].legs[0].distance.text + "<br/><b>Duration: </b> " + result.routes[0].legs[0].duration.text + "</div>";
+      output.innerHTML = "<div class='alert-info fs-4'><br><b>Driving distance: </b>" + result.routes[0].legs[0].distance.text + "<br/><b>Duration: </b> " + result.routes[0].legs[0].duration.text + "</div><br>";
     } else {
       //delete route from map 
       directionsRenderer.setDirections({ routes: [] });
@@ -202,7 +202,7 @@ function calcRoute() {
     // info window. Also attach the marker to an array so we
     // can keep track of it and remove it when calculating new
     // routes.
-    steps.innerHTML = "<b>Directions:</b> <br>"
+    steps.innerHTML = "<b>Directions:</b> <br><br>"
     var myRoute = directionResult.routes[0].legs[0];
     for (var i = 0; i < myRoute.steps.length; i++) {
       var marker = new google.maps.Marker({
@@ -211,9 +211,9 @@ function calcRoute() {
       });
       attachInstructionText(marker, myRoute.steps[i].instructions);
       markerArray[i] = marker;
-      steps.innerHTML += "<li>" + myRoute.steps[i].instructions + "</li>"
+      steps.innerHTML += "<li>" + myRoute.steps[i].instructions + "</li><hr>"
     }
-    steps.innerHTML += "<br><a href='pages/traffic/traffic_check.html'><button class='btn btn-success btn-lg'>Check Traffic</button></a>"
+    // steps.innerHTML += "<br><a href='pages/traffic/traffic_check.html'><button class='btn btn-success btn-lg'>Check Traffic</button></a>"
   }
 
   function attachInstructionText(marker, text) {
