@@ -49,7 +49,7 @@
 </head>
 
 <body onload="user_login()">
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold" style="background-color:#f0f0f0;">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" style="background-color:#f0f0f0;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="../src/img/logo-removebg-preview.png" alt="Logo" width='75'
@@ -104,15 +104,16 @@
     </nav>
     <!-- TITLE -->
     <h1 class="display-1 text-center fw-bold mt-5">
-        Train Disruptions <img src="../src/img/train/mrt.png" style="width:300px ">
+        Train Disruptions <img src="../src/img/train/train.png" style="width:150px ">
     </h1>
 
     <div class="container-fluid pt-5 py-5 d-flex align-items-center justify-content-center">
 
         <div id="app">
             {{get_station_name}}
-            <div>
+            <div class="alert alert-success p-5" role="alert">
                 <h2>{{Notif}} </h2>
+               
             </div>
 
             <img src="../src/img/train/mrt_map.jpg" style="width: 500px;">
