@@ -16,8 +16,8 @@ var app2 = Vue.createApp({
         
         get_erp_rate() {
             console.log("yes")
-
-            let api_endpoint_url = '../../src/php/car/erp.php' 
+            
+            let api_endpoint_url = '../src/php/car/erp_rates.php' 
             axios.get(api_endpoint_url)
                 .then(response => {
                     console.log("SUCCESS")
