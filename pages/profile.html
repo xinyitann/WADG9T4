@@ -35,12 +35,13 @@
     var user_detail = localStorage.getItem("users")
     console.log(user_detail)
     var obj = JSON.parse(user_detail)
+    var uid = obj.uid
     var username = obj.username
     var email = obj.email
     var busStop = obj.fav_bus_stop
-    var busService = obj.fav_bus_service
+    var busService = obj.fav_service_no
 
-    var user_routes=localStorage.getItem("user_routes")
+    var user_routes = localStorage.getItem("user_routes")
     console.log(user_routes)
   </script>
 </head>
@@ -91,7 +92,8 @@
         <div class="group">
           <h4>User name</h4>
           <input id="userName" type='text' class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default" style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;" />
+            aria-describedby="inputGroup-sizing-default"
+            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;" />
         </div>
 
 
@@ -107,7 +109,8 @@
           <h4>Email</h4>
 
           <input id="email" type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default" style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
+            aria-describedby="inputGroup-sizing-default"
+            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
           <button type="button" class="btn " onclick="updateEmail()">Update Email</button>
         </div>
         <!-- <button type="button" class="btn" onclick="updateEmail()">Update Email</button> -->
@@ -121,14 +124,16 @@
           <h4>Bus Stop</h4>
 
           <input id="busStop" type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default" style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
+            aria-describedby="inputGroup-sizing-default"
+            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
           <button type="button" class="btn" onclick="updateSaved()">Update Location</button>
         </div>
 
         <div class="group">
           <h4>Bus Service</h4>
           <input id="busService" type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default" style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
+            aria-describedby="inputGroup-sizing-default"
+            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
           <button type="button" class="btn" onclick="updateSaved()">Update Location</button>
 
         </div>
@@ -152,10 +157,20 @@
       <script>
         function get_data() {
           if (user_detail != null) {
-            document.getElementById('userName').value = username;
-            document.getElementById('email').value = email;
-            document.getElementById('busStop').value = busStop;
-            document.getElementById('busService').value = busService;
+            firebase.database().ref('users/' + uid).once("value", snap => {
+
+              console.log(snap.val())
+              var detail=snap.val()
+              document.getElementById('userName').value = detail.username;
+              document.getElementById('email').value = detail.email;
+              document.getElementById('busStop').value = detail.fav_bus_stop;
+              document.getElementById('busService').value = detail.fav_service_no;
+
+            })
+            // document.getElementById('userName').value = username;
+            // document.getElementById('email').value = email;
+            // document.getElementById('busStop').value = busStop;
+            // document.getElementById('busService').value = busService;
 
 
           } else {
