@@ -50,9 +50,9 @@
   <!--NAVIGATION BAR-->
   <div class="sticky-top p-3">
     <a href="../index.html">
-      <img src="../src/img/logo-removebg-preview.png" alt="Logo" width='150' class="position-absolute top-0 start-0">
+      <img src="../src/img/logo2.png" alt="Logo" width='150' class="position-absolute top-0 start-0">
     </a>
-    <h1 class="display-2 text-center fw-bold mt-2">
+    <h1 class="display-6 text-center fw-bold mt-2">
       Profile<i class="fa-solid fa-user ms-5"></i>
     </h1>
   </div>
@@ -90,10 +90,11 @@
       <div class="container overflow-auto" id="app">
 
         <div class="group">
-          <h4>User name</h4>
-          <input id="userName" type='text' class="form-control" aria-label="Sizing example input"
+          <h4 class="fs-4">User name</h4>
+          <!-- <input id="userName" type='text' class="form-control" aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
-            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;" />
+            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;" /> -->
+          <label id="userName" class="fs-5"></label><br>
         </div>
 
 
@@ -107,11 +108,21 @@
         <br>
         <div class="group">
           <h4>Email</h4>
-
-          <input id="email" type="text" class="form-control" aria-label="Sizing example input"
+          <div class="row">
+            <div class="col-6">
+              <input id="email" type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+                style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
+            </div>
+            <div class="col-2">
+              <button type="button" class="btn" style="background-color:rgb(112, 52, 101); color:white"
+                onclick="updateEmail()">Update Email</button>
+            </div>
+          </div>
+          <!-- <input id="email" type="text" class="form-control" aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
-            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
-          <button type="button" class="btn " onclick="updateEmail()">Update Email</button>
+            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;"> -->
+
         </div>
         <!-- <button type="button" class="btn" onclick="updateEmail()">Update Email</button> -->
 
@@ -121,20 +132,22 @@
         <!-- <button type="button" class="btn" onclick="deregister(document.getElementById('userName').value)">De-Register</button>  -->
 
         <div class="group">
-          <h4>Bus Stop</h4>
+          <h4 class="fs-4">Bus Stop</h4>
 
-          <input id="busStop" type="text" class="form-control" aria-label="Sizing example input"
+          <!-- <input id="busStop" type="text" class="form-control" aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
-          <button type="button" class="btn" onclick="updateSaved()">Update Location</button>
+          <button type="button" class="btn" onclick="updateSaved()">Update Location</button> -->
+          <label id="busStop" class="fs-5"></label><br>
         </div>
 
         <div class="group">
-          <h4>Bus Service</h4>
-          <input id="busService" type="text" class="form-control" aria-label="Sizing example input"
+          <h4 class="fs-4">Bus Service</h4>
+          <!-- <input id="busService" type="text" class="form-control" aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
-          <button type="button" class="btn" onclick="updateSaved()">Update Location</button>
+          <button type="button" class="btn" onclick="updateSaved()">Update Location</button> -->
+          <label id="busService" class="fs-5"></label><br>
 
         </div>
 
@@ -160,11 +173,12 @@
             firebase.database().ref('users/' + uid).once("value", snap => {
 
               console.log(snap.val())
-              var detail=snap.val()
-              document.getElementById('userName').value = detail.username;
+              var detail = snap.val()
+              console.log(detail.username)
+              document.getElementById('userName').innerText = detail.username;
               document.getElementById('email').value = detail.email;
-              document.getElementById('busStop').value = detail.fav_bus_stop;
-              document.getElementById('busService').value = detail.fav_service_no;
+              document.getElementById('busStop').innerText = detail.fav_bus_stop;
+              document.getElementById('busService').innerText = detail.fav_service_no;
 
             })
             // document.getElementById('userName').value = username;
