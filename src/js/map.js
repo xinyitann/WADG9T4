@@ -151,7 +151,6 @@ function calcRoute(){
       const source = document.getElementById('from').value
 
       output.innerHTML="<div class='alert-info fs-3'><b>From: </b>"+source+"<br/><b>To: </b>"+destination+".<br/> <b>Driving distance: </b>"+result.routes[0].legs[0].distance.text+".<br/><b>Duration: </b> "+result.routes[0].legs[0].duration.text + ".</div>";
-
       var toSave = {}
       toSave['source'] = source
       toSave['destination'] = destination
@@ -163,12 +162,17 @@ function calcRoute(){
           lng:point.lng()
         })
       }
-
+      // console.log('inside showsteps')
       toSave['route'] = route
 
-      var useremail = JSON.parse(localStorage.getItem("users")).email
+      if (user_detail != null) {
+        var useremail = JSON.parse(localStorage.getItem("users")).email
 
-      toSave['email'] = useremail
+        toSave['email'] = useremail
+      }
+      
+
+      
 
       console.log(toSave)
 

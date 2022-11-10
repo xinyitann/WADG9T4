@@ -1,44 +1,44 @@
-body{
-    font-family: 'Poppins';
-    background-color: white;
-    /* color: black; */
+body {
+  font-family: 'Poppins';
+  background-color: white;
+  /* color: black; */
+  /* background-image: url('../img/train/train.png');
+    background-repeat: repeat; */
 }
 
-.nav_bar_text{
-  color:rgb(112, 52, 101);
+.nav_bar_text {
+  color: rgb(112, 52, 101);
 }
 
 
 #map {
-    height: 100%;
-  }
-  
-  /* 
+  height: 100%;
+}
+
+/* 
    * Optional: Makes the sample page fill the window. 
    */
-  html,
-  body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  #description {
-    /* font-family: 'Open Sans'; */
-    font-size: 15px;
-    font-weight: 300;
-  }
-  
-  
-  
-  #target {
-    width: 345px;
-  }
-  
-  #map{
-   
-    height:500px;
-    margin:10px auto
-  }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#description {
+  /* font-family: 'Open Sans'; */
+  font-size: 15px;
+  font-weight: 300;
+}
 
 
+
+#target {
+  width: 345px;
+}
+
+#map {
+
+  height: 500px;
+  margin: 10px auto
+}
