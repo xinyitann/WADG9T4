@@ -9,7 +9,7 @@
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="src/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-
+ 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script type="module" src="src/js/index.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
@@ -113,6 +113,8 @@
     </div>
 
     <!--TEXT BOX-->
+<!-- <div class="container"  style="background:url(./src/img/transport-backgrounf.jpg); background-repeat: repeat-y;"> -->
+
 
     <div class="container-fluid w-75 mx-auto mb-2">
         <div class="row justify-content-center">
@@ -168,44 +170,6 @@
 
 
     <div class="container" id="app">
-        <!-- <div class="row align-items-start">
-            <div class="col-10">
-                <div class="row justify-content-md-center" style="color:rgb(112, 52, 101);">
-                    <div class="input-group mb-3 w-50 ">
-                        <span class="input-group-text" style="background-color:rgb(112, 52, 101); color:white"">From</span>
-                        <input id="from" type="text" class="form-control" style="background-color:#f0f0f0;"
-                            placeholder="where are you?">
-                    </div>
-                </div>
-
-
-                <div class="row justify-content-md-center">
-                    <div class="input-group mb-3 w-50 ">
-                        <span class="input-group-text" style="background-color:rgb(112, 52, 101); color:white">To</span>
-                        <input id="to" type="text" class="form-control" style="background-color:#f0f0f0;"
-                            placeholder="where do you want to go?">
-                    </div>
-                </div>
-            </div> -->
-
-        <!-- <div class="col-2">
-            <span type="button" class="btn mt-2" style="background-color:rgb(112, 52, 101); color:white"
-                onclick="calcRoute()">Go</span>
-        </div>
-        <div class="col-2">
-            <span type="button" class="btn mt-2" style="background-color:rgb(112, 52, 101); color:white"
-                onclick="save_route_in_db()">Save</span>
-        </div> -->
-
-        <!-- <div class="dropdown row justify-content-md-center">
-
-            <select id="mode" class="form-control" style="width:200px">
-                <option value="DRIVING">Driving</option>
-                <option value="WALKING">Walking</option>
-                <option value="BICYCLING">Bicycling</option>
-                <option value="TRANSIT">Transit</option>
-            </select>
-        </div> -->
         <span id="fav" class="ms-2"></span>
         <div class="output text-center">
             <div id="output">
@@ -233,7 +197,7 @@
 
     </div>
     </div>
-
+<!-- </div> -->
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBohQllg13oqNG10s28iZOiUsBw7nFWDlU&libraries=places">
     </script>
@@ -244,13 +208,13 @@
             if (user_detail != null) {
                 document.getElementById('username').innerText = "Welcome " + username;
                 document.getElementById('profile').innerHTML = `<li class="nav-item">
-                        <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                        <a href="./pages/profile.html" class="nav-link nav_bar_text justify-content-center"><i
                                 class="fa-sharp fa-solid fa-gear"></i></a>
                     </li>`
             } else {
                 document.getElementById('username').innerText = "Welcome";
                 document.getElementById('profile').innerHTML = `<li class="nav-item">
-                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                        <a href="./login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
                     </li>`
             }
         }
