@@ -167,7 +167,9 @@
         <div class="left" id="left1">
             There are no obstructions on your path rn
         </div>
-
+        <div >
+            <button type="button" id="button2" onclick="get_user_location()"></button>
+        </div>
         <div class="right">
             <div id="map"></div>
         </div>
@@ -198,7 +200,34 @@
 
 
     <script>
-        
+        function get_user_location() {
+            if (navigator.geolocation) {
+                console.log('jere')
+                pos = {}
+                // navigator.geolocation.getCurrentPosition(this,showposition,errorCoor,{maximumAge:60000, timeout:5000, enableHighAccuracy:true})
+                navigator.geolocation.getCurrentPosition(position => {
+                    pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                }, () => {
+                    // Browser supports geolocation, but user has denied permission
+                    pos = {
+                        lat: 1.29,
+                        lng: 103.8
+                    };
+                }, {
+                    timeout: 50000
+                });
+            } else {
+                // Browser doesn't support geolocation
+                pos = {
+                    lat: 1.29,
+                    lng: 103.8
+                };
+            }
+            console.log(pos)
+        }
         function initMap() {
 
             var loc = {
