@@ -18,7 +18,7 @@
 
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWyI5hJe5X7W9Svu7sVQCsUt3Q9JVdOqk&libraries=places&callback=initMap">
-    </script>
+        </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
     <!-- This is the API from Firebase Realtime Database -->
@@ -36,7 +36,7 @@
         }
 
         .yellow {
-            color: #CCCC00;
+            color: #d6a730;
             font-weight: bold;
             font-size: 20px;
         }
@@ -78,10 +78,10 @@
 
 <body onload="user_login()">
     <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top"
-        style="background-color:#f0f0f0; color: rgb(112, 52, 101);">
+        style="background-color:#e5dfdf; color: rgb(112, 52, 101);">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../../src/img/logo-removebg-preview.png" alt="Logo" width='75'
+                <img src="../../src/img/logo2.png" alt="Logo" width='90'
                     class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -132,8 +132,8 @@
         </div>
     </nav>
     <!-- TITLE -->
-    <h1 class="display-1 text-center fw-bold mt-5">
-        Bus Services <img src="../../src/img/bus/bus.png" style="width:160px ">
+    <h1 class="display-6 text-center fw-bold mt-5">
+        Bus Arrivals <img src="../../src/img/bus/bus.png" style="width:160px ">
     </h1>
 
     <div class="container-fluid pt-5 py-5">
@@ -173,7 +173,7 @@
                 </div>
             </div>
 
-            <div class="container-fluid w-50 mx-auto mb-5">
+            <div class="container-fluid w-75 mx-auto mb-5">
                 <h2 class="fw-bold fs-4">See bus stops close to you:</h2>
                 <div id="map"></div>
             </div>
@@ -203,7 +203,7 @@
             </div> -->
 
             <div v-show="bus_stop_hidden.length > 0" id="arr_timings">
-                <h3 class="text-center fw-bold display-5 text-decoration-underline" id="bus_stop_name">
+                <h3 class="text-center fw-bold fs-4" id="bus_stop_name">
                     {{displayed_bus_stop_name}} ({{selected_bus_stop_code}})</h3>
                 <div class="container w-100 text-center" style="height: 50px;">
                     <button type="button" class="btn btn-primary mt-2 mx-4" v-on:click="get_arrival_time_bus_stop()"><i
@@ -268,7 +268,7 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-        </script>
+            </script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <!-- <script src="../../src/js/bus_arrival.js"></script> -->
         <script src="../../src/js/bus/bus_arr.js"></script>
