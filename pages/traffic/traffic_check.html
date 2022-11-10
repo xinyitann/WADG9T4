@@ -25,8 +25,12 @@
         <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&callback=initMap"
         async defer></script>
+        
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
+    
+    <script>
+        var values_outside = []
+        </script>       
     <title>One-Stop Planner</title>
 
     <style>
@@ -160,8 +164,8 @@
     </div>
 
     <div class="row">
-        <div class="left">
-            this is left
+        <div class="left" id="left1">
+            There are no obstructions on your path rn
         </div>
 
         <div class="right">
@@ -194,6 +198,7 @@
 
 
     <script>
+        
         function initMap() {
 
             var loc = {
@@ -221,8 +226,9 @@
                 })
                 .then(response => {
                     var values = response.data[0].value
-
-
+                    
+                    values_outside = values
+                    
                     for (let line of values) {
                         var icon = {}
                         const latlng = {
@@ -312,8 +318,8 @@
                         }
 
                         // var marker = new google.maps.Marker({position: latlng, map: window.map});
-                    }
-                })  
+                    }//end of for loop
+
                     var firebaseConfig = {
                                 apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
                                 authDomain: "onestopper.firebaseapp.com",
@@ -336,16 +342,44 @@
                 var ref = firebase.database().ref("/user_routes/" + uid)
 
                 ref.on("value", function(snapshot) {
-                    //CODE HERE
+                    //gkdflkgodfkgfglkdfg
                     var route = snapshot.val().route.route
-                    console.log("this is route ")
-                    console.log(route)
+                    console.log("this is value outside ")
+                    //console.log(route)
+                    console.log(values_outside)
+                    var accident_in_route = []
+                    var numba_of_stiff = 0
                     for(obje of route){
-                        console.log(indexx)
+                        
+                        // console.log(obje)
+                        var route_lat = obje.lat
+                        var round_route_lat = route_lat.toFixed(5)
+                        var route_lng = obje.lng
+                        var round_route_lng = route_lng.toFixed(5)
+                        // console.log(round_route_lat)
+                        // console.log(round_route_lng)
+                        for(var vall of values_outside ){
+                            var vall_latitude = vall.Latitude
+                            var vall_longititude = vall.Longitude
+                            var round_vall_lat = vall_latitude.toFixed(5)
+                            var round_vall_lng = vall_longititude.toFixed(5)
+                            if(round_route_lat == round_vall_lat && round_vall_lng == round_route_lng){
+                                numba_of_stiff += 1
+                                
+
+                            }
+                        }
+                        
+                    }
+                    var error_msg = "there are" + numba_of_stiff +  "accidents/roadworks in your path!"
+                    if(numba_of_stiff > 0){
+                        document.getElementById("left1").innerHTML = error_msg
                     }
                 }, function(error) {
                     console.log("ERROR", error)
                 })
+                })  
+                    
         }
     </script>
 
