@@ -150,11 +150,11 @@
                     <div class="col-md-8">
                         <input type="text" class="form-control" aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_service_no"
-                            @keyup="auto_complete_bus_service_search()" placeholder="Enter a Service No">
+                            @keyup="auto_complete_bus_service_search()" placeholder="Enter a Service No" style="border-color: hsla(311, 37%, 32%); border-width: 2px;">
 
 
                         <div v-show="auto_complete_suggestion_service.length > 0">
-                            <ul id="search">
+                            <ul id="search" >
                                 <li v-for="suggestion of auto_complete_suggestion_service"
                                     v-on:click="fill_bus_service(suggestion)">
                                     {{suggestion}}</li>
@@ -175,9 +175,9 @@
                 <h2 class="fw-bold fs-4">Select a direction:</h2>
                 <div class="row">
                     <div class="col-8">
-                        <select v-model="direction" class="form-select form-select-lg mb-3"
+                        <select v-model="direction" class="form-select form-select-lg mb-3" id="dropdown"
                             aria-label=".form-select-lg example">
-                            <option v-for="(value, key) of bus_direction_points" v-bind:value="key">
+                            <option v-for="(value, key) of bus_direction_points" v-bind:value="key" id="dropdown-list">
                                 {{Object.keys(value)[0]}}
                             </option>
                         </select>
