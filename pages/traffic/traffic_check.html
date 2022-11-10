@@ -338,7 +338,11 @@
                 ref.on("value", function(snapshot) {
                     //CODE HERE
                     var route = snapshot.val().route.route
+                    console.log("this is route ")
                     console.log(route)
+                    for(obje of route){
+                        console.log(indexx)
+                    }
                 }, function(error) {
                     console.log("ERROR", error)
                 })
