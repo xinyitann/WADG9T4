@@ -22,6 +22,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
     <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places"></script> -->
     <!-- <script type="module" src="./helloworld.ts"></script> -->
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script>
         var user_detail = localStorage.getItem("users")
         console.log(user_detail)
@@ -65,7 +66,7 @@
                 <ul class="navbar-nav nav-fill w-100">
                     <li class="nav-item">
                         <a class="nav-link nav_bar_text active text-decoration-underline" aria-current="page"
-                            href="../../index.html">Home</a>
+                            href="index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle pb-0  nav_bar_text" href="#" role="button"
@@ -73,15 +74,15 @@
                             Bus
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus_arrival.html">Bus Arrival
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="pages/bus/bus_arrival.html">Bus Arrival
                                     Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus_service_map.html">Bus
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="pages/bus/bus_service_map.html">Bus
                                     Services</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="../train.html">Train</a>
+                        <a class="nav-link nav_bar_text" href="pages/train.html">Train</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav_bar_text" href="#">Taxi</a>
@@ -90,7 +91,7 @@
                         <a class="nav-link nav_bar_text" href="../car.html">Car</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="../traffic/traffic_check.html">Traffic</a>
+                        <a class="nav-link nav_bar_text" href="pages/traffic/traffic_check.html">Traffic</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav float-end" id="profile">
@@ -242,8 +243,15 @@
         function get_data() {
             if (user_detail != null) {
                 document.getElementById('username').innerText = "Welcome " + username;
+                document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                                class="fa-sharp fa-solid fa-gear"></i></a>
+                    </li>`
             } else {
                 document.getElementById('username').innerText = "Welcome";
+                document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                    </li>`
             }
         }
 
