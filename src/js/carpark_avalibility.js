@@ -2,7 +2,14 @@ var app = Vue.createApp({
 
     data() {
         return {
-            
+                carparkID: '',
+                area: '',
+                development: [],
+                location: [],
+                available_lots: '',
+                bus_stop_hidden: '',
+                lotType: '',
+                agency: '',
         }
     },
 
@@ -17,7 +24,7 @@ var app = Vue.createApp({
                     console.log("SUCCESS")
                     console.log(response)
                     for(res of response.data) {
-
+                        //console.log(response.data)
                     }
 
                 })
