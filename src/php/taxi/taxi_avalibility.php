@@ -23,7 +23,7 @@ function callAPI($method, $url, $data,$skip)
     // OPTIONS:
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-        'accountkey: 3+qMwmsMR1+Y4uxlex3DvA==',
+        'accountkey: 5ptxG22hRBS/7/tow7/Mww==',
         'Content-Type: application/json',
     ));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -33,13 +33,14 @@ function callAPI($method, $url, $data,$skip)
     if (!$result) {
         die("Connection Failure");
     }
+    
     curl_close($curl);
     return $result;
 }
 
 
 $big_list = [];
-$get_data = callAPI('GET', ' http://datamall2.mytransport.sg/ltaodataservice/Taxi-Availability', false, 0);
+$get_data = callAPI('GET', 'http://datamall2.mytransport.sg/ltaodataservice/Taxi-Availability', false, 0);
 $response = json_decode($get_data, true);
 array_push($big_list,$response);
 $num = 500;
