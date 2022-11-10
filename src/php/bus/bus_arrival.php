@@ -58,7 +58,7 @@ if($_GET['ServiceNo'] == 'a'){
 
 // var_dump($url);
 
-$big_list = [];
+$big_list = []; 
 $get_data = callAPI('GET', $url, false);
 $response = json_decode($get_data, true);
 
