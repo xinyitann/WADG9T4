@@ -2,7 +2,13 @@ var app2 = Vue.createApp({
 
     data() {
         return {
-            
+            vehicleType: '',
+            dayType: '',
+            startTime: '',
+            endTime: '',
+            zoneID: '',
+            chargeAmt: '',
+            effectiveDate: ''
         }
     },
 
