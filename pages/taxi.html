@@ -50,12 +50,18 @@
             text-align: center;
             }
 
-            th {
+        th {
             text-align: center;
-            }
-            table, th, td {
-  border: 1px solid;
-}
+        }
+        
+        table, th, td {
+            border: 1px solid;
+        }
+
+        #taxi_table {
+            padding: 30px;
+        }
+
     </style>
 
 
@@ -112,7 +118,7 @@
 
 <body>
     <div id="message"></div>
-    <div id="taxi_table"></div>
+    
     <div id="map" class="mx-auto"></div>
     <script>
         //Initialize and add the map
@@ -180,19 +186,21 @@
                                 str += `<tr><td>${i+1}</td>`
                                 str += `<td>${r.Latitude}</td></tr>`
                                 i++
-                            }
-                            
-                            let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=${r.Latitude},${r.Longitude}&key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo";
-                            fetch(url)
+                                let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${r.Latitude},${r.Longitude}&key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo`;
+                                fetch(url)
                                 .then(response => response.json())
                                 .then(data => {
-                                    console.log(data)
+                                    console.log(data.results)
                                 })
+                            }
+                            
+                            
                             
                         }
                     }
                     str += `
                             </table>`
+                    str = ""
                     document.getElementById("taxi_table").innerHTML = str
                 })
                 .catch(error => {
@@ -226,6 +234,8 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initMap&initAutocomplete"
     async defer></script>
+
+    <div id="taxi_table"></div>
 
     <div class="jumbotron">             
         <form>
