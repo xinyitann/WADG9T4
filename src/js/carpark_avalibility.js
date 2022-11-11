@@ -77,27 +77,27 @@ var app = Vue.createApp({
         },
         get_carpark_map() {
             console.log('here')
-            console.log(this.bus_stop_location)
+            console.log(this.carpark_list)
             if (Object.keys(this.pos).length = 0) {
                 this.get_user_location()
             }
-            for (bus_stop in this.bus_stop_location) {
+            for (carpark in this.carpark_list) {
                 // console.log(this.bus_stop_location[bus_stop])
                 // console.log(this.pos)
-                var lat1 = this.bus_stop_location[bus_stop].latitude
-                var long1 = this.bus_stop_location[bus_stop].longitude
+                var lat1 = this.carpark_list[carpark].latitude
+                var long1 = this.carpark_list[carpark].longitude
                 var lat2 = this.pos.lat
                 var long2 = this.pos.lng//wya
                 var dist = this.distanceInKmBetweenEarthCoordinates(lat1, long1, lat2, long2)
                 // console.log(dist)
                 if (dist < 500) {
                     var list = []
-                    list.push(bus_stop.split(' - ')[0])
-                    list.push(this.bus_stop_location[bus_stop]['latitude'])
-                    list.push(this.bus_stop_location[bus_stop]['longitude'])
-                    list.push(bus_stop)
-                    console.log(list)
-                    this.list_of_stops.push(list)
+                    list.push(carpark.split(' - ')[0])
+                list.push(this.carpark_list[carpark]['latitude'])
+                list.push(this.carpark_list[carpark]['longitude'])
+                list.push(carpark)
+                console.log(list)
+                this.list_of_stops.push(list)
                 }
             }
             console.log(this.list_of_stops)
