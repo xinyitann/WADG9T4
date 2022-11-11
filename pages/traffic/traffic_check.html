@@ -253,7 +253,7 @@
         }
         function get_user_location() {
             if (navigator.geolocation) {
-                console.log('jere')
+                
                 pos = {}
                 // navigator.geolocation.getCurrentPosition(this,showposition,errorCoor,{maximumAge:60000, timeout:5000, enableHighAccuracy:true})
                 navigator.geolocation.getCurrentPosition(position => {
@@ -306,7 +306,7 @@
             })
                 .then(response => {
                     var values = response.data[0].value
-                    console.log(values)
+                    
                     values_outside = values
 
                     for (let line of values) {
@@ -315,7 +315,7 @@
                             lat: line.Latitude,
                             lng: line.Longitude
                         }
-                        console.log(line.Type)
+                        // console.log(line.Type)
                         if (line.Type == 'Roadwork') {
                             var marker = new google.maps.Marker({
                                 position: latlng,
@@ -424,8 +424,8 @@
                     ref.on("value", function (snapshot) {
                         //gkdflkgodfkgfglkdfg
                         var route = snapshot.val().route.route
-                        console.log("this is value outside ")
-                        //console.log(route)
+                        
+                        console.log(route)
                         console.log(values_outside)
                         var accident_in_route = []
                         var numba_of_stiff = 0
@@ -433,16 +433,16 @@
 
                             // console.log(obje)
                             var route_lat = obje.lat
-                            var round_route_lat = route_lat.toFixed(5)
+                            var round_route_lat = route_lat.toFixed(3)
                             var route_lng = obje.lng
-                            var round_route_lng = route_lng.toFixed(5)
-                            // console.log(round_route_lat)
-                            // console.log(round_route_lng)
+                            var round_route_lng = route_lng.toFixed(3)
+                            console.log(round_route_lat)
+                            console.log(round_route_lng)
                             for (var vall of values_outside) {
                                 var vall_latitude = vall.Latitude
                                 var vall_longititude = vall.Longitude
-                                var round_vall_lat = vall_latitude.toFixed(5)
-                                var round_vall_lng = vall_longititude.toFixed(5)
+                                var round_vall_lat = vall_latitude.toFixed(3)
+                                var round_vall_lng = vall_longititude.toFixed(3)
                                 if (round_route_lat == round_vall_lat && round_vall_lng == round_route_lng) {
                                     numba_of_stiff += 1
 

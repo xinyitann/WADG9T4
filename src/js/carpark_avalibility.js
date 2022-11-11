@@ -66,6 +66,7 @@ var app = Vue.createApp({
                         } else {
                             this.location[car_id] = car_park
                         }
+                        console.log("rjdks")
                         console.log(this.location)
                     }
 
