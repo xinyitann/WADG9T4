@@ -162,6 +162,8 @@
         
 
         <div id="message"></div>
+        <div id="check" style="justify-content: center; display: flex;">
+        </div> 
         <div id="car_table"></div>
         <div id="map" class="mx-auto"></div>
         <script>
@@ -243,6 +245,8 @@
                                             //console.log(res.value)
                                             document.getElementById("message").innerHTML =
                                                 "<h1>Below are the available Car Parks near you</h1>"
+                                            document.getElementById("check").innerHTML =
+                                                `<a href ="traffic/traffic_check.html" class="btn btn-outline-success">Check Traffic Here</a>`
                                             for (r of res.value) {
                                                 // console.log(r.Longitude)
                                                 // console.log(r.Latitude)
