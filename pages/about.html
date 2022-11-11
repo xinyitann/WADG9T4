@@ -4,81 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bus Arrival Time</title>
+    <title>About Us</title>
 
-    <!-- Vue.js 3 CDN -->
-    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.30/vue.global.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../src/css/index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="../src/css/index.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="icon" href="../src/img/logo3.png" type="image/icon type">
 
-    <link rel="stylesheet" href="../../src/css/bus_arrival.css">
 
-    
+    <!-- <script src="../../src/js/index.js"></script> -->
 
     <style>
-        .green {
-            color: green;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .yellow {
-            color: #d6a730;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .red {
-            color: red;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        #map {
-            /* height: 500px; */
-            /* The height is 400 pixels */
-            width: 100%;
-            /* The width is the width of the web page */
-        }
-
-        .c {
-            color: orange;
-        }
-
         .navbar-nav .nav-link.active,
         .navbar-nav .show>.nav-link {
             color: rgb(113, 84, 66);
         }
 
-        #profile_pic {
-            border-radius: 50%;
-            height: 200px;
-            width: 200px;
-            border: 5px solid rgb(113, 84, 66);
-           
-            
+        .card-img-top {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
         }
-
-        #about_us{
-            padding: 30px;
-        }
-        .caption {
-            display: block;
-        }
-        #words {
-            margin-left: 30px;
-        }
-        
-
     </style>
-
-   
-
-
-
+    <script>
+        var user_detail = localStorage.getItem("users")
+        console.log(user_detail)
+        var obj = JSON.parse(user_detail)
+        var username = obj.username
+        console.log(username)
+    </script>
 </head>
 
 <body onload="user_login()">
@@ -86,7 +42,7 @@
         style="background-color:#f7f7f7; color: rgb(113, 84, 66);">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../../src/img/logo3.png" alt="Logo" width='90' class="d-inline-block align-text-top">
+                <img src="../src/img/logo3.png" alt="Logo" width='90' class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,7 +51,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav nav-fill w-100">
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" aria-current="page" href="../../index.html">Home</a>
+                        <a class="nav-link nav_bar_text" aria-current="page" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle pb-0 active text-decoration-underline nav_bar_text" href="#"
@@ -103,24 +59,21 @@
                             Bus
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus_arrival.html">Bus Arrival
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus/bus_arrival.html">Bus Arrival
                                     Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus_service_map.html">Bus
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus/bus_service_map.html">Bus
                                     Services</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="../train.html">Train</a>
+                        <a class="nav-link nav_bar_text" href="taxi.html">Taxi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="../taxi.html">Taxi</a>
+                        <a class="nav-link nav_bar_text" href="car.html">Car</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="../car.html">Car</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="../traffic/traffic_check.html">Traffic</a>
+                        <a class="nav-link nav_bar_text" href="traffic/traffic_check.html">Traffic</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav float-end" id="profile">
@@ -136,76 +89,148 @@
         </div>
     </nav>
     <!-- TITLE -->
-    <h1 id="about_us" class="display-6 text-center fw-bold mt-5">
-        About Us <img src="../../src/img/bus/bus.png" style="width:160px ">
+    <h1 class="display-6 text-center fw-bold mt-5">
+        About Us <img src="../src/img/about us.png" style="width:60px ">
     </h1>
-
     <div class="container">
-        <div class="row justify-content-evenly mx-3 my-3">
-        <div class="col">
-            <img id="profile_pic" src="../src/img/about/nic.jpg" alt="Avatar">
-            <figcaption id="words">name goes here</figcaption>
-            <figcaption id="words">Caption goes here</figcaption>
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="../src/img/xy.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Tan Xin Yi</h5>
+                        <h6 class="card-subtitle mb-2 text-muted fst-italic">"This is my cup of care. Oh, look its
+                            empty?" ~ unknown</h6>
+                        <p class="card-text">
+                            <ul>
+                                <li>Fastest Route</li>
+                                <li>Login / Register</li>
+                                <li>Styling</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="../src/img/balveen.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Balveen Kaur</h5>
+                        <h6 class="card-subtitle mb-2 text-muted  fst-italic">"You thought I was gonna fail but I'm fine, sorry" ~ BTS</h6>
+                        <p class="card-text">
+                            <ul>
+                                <li>Bus Arrival / Service</li>
+                                <li>Profile Page</li>
+                                <li>Styling</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="../src/img/nic.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Nicholas Chua</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Fav quote?</h6>
+                        <p class="card-text">
+                            <ul>
+                                <li>Traffic</li>
+                                <li>Traffic in Route</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-    
-        <div class="col">
-            <img id="profile_pic" src="../src/img/about/xy.jpg" alt="Avatar">
-            <figcaption id="words">name goes here</figcaption>
-            <figcaption id="words">Caption goes here</figcaption>
-        </div>
-        <div class="col">
-            <img id="profile_pic" src="../src/img/about/haj.jpg" alt="Avatar">
-            <figcaption id="words">name goes here</figcaption>
-            <figcaption id="words">Caption goes here</figcaption>
+
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="../src/img/haj.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Hajarah Parveen</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Fav quote?</h6>
+                        <p class="card-text">
+                            <ul>
+                                <li>Car</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="../src/img/uk.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Utkarsh Kajaria</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Fav quote?</h6>
+                        <p class="card-text">
+                            <ul>
+                                <li>Taxi</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row justify-content-evenly mx-3 my-3">
-        <div class="col-4">
-            <img id="profile_pic" src="../src/img/about/balveen.jpg" alt="Avatar">
-            <figcaption id="words">name goes here</figcaption>
-            <figcaption id="words">Caption goes here</figcaption>
-        </div>
-        <div class="col-4">
-            <img id="profile_pic" src="../src/img/about/uk.jpg" alt="Avatar">
-            <figcaption id="words">name goes here</figcaption>
-            <figcaption id="words">Caption goes here</figcaption>
-        </div>
+
+
+
+    <!-- FOOTER -->
+    <div class="row fs-5 text-center bg-light justify-content-center pt-2">
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <a href="../../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
+            </li>
+            <li class="list-inline-item">
+                <a href="../about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
+            </li>
+        </ul>
+        <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
     </div>
-        
-        
-    </div>
-
-    <div class="container-fluid pt-5 pt-5">
-        <!-- FOOTER -->
-        <!-- <div class="container-fluid text-center fs-1 bg-light"> -->
-        <div class="row fs-5 text-center bg-light justify-content-center pt-2">
-            <ul class="list-inline">
-                <li class="list-inline-item">
-                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
-                </li>
-            </ul>
-            <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <!-- <script src="../../src/js/bus_arrival.js"></script> -->
-        <script src="../../src/js/bus/bus_arr.js"></script>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
 
-        
+    <script>
+        window.addEventListener("scroll", function () {
+            if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+                document.getElementById("header").style.boxShadow = "2px 2px 2px 2px #e5dfdf";
+            } else {
+                document.getElementById("header").style.boxShadow = "none";
+            }
+        });
+        // TO CHECK IF USER LOGIN
+        function user_login() {
+            console.log('user_login')
+            if (user_detail != null) {
+                console.log('hree')
+                document.getElementById('fav').innerHTML =
+                    `<button type="button" class="btn btn-secondary mt-2 checked"
+                onclick="save_bus_stop()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
+                // console.log(find_all_favs())
+                document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                                class="fa-sharp fa-solid fa-gear"></i></a>
+                    </li>`
+            } else {
+                document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                    </li>`
+            }
+        }
+    </script>
 </body>
 
 </html>
