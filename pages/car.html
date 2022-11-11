@@ -235,7 +235,7 @@
                                 infoWindow.setContent("Location found.");
                                 infoWindow.open(map);
                                 map.setCenter(pos);
-                                let api_endpoint_url = '../src/php/taxi/taxi_availability.php'
+                                let api_endpoint_url = '../src/php/car/carpark_avalibility.php'
                                 axios.get(api_endpoint_url)
                                     .then(response => {
                                         //console.log(response)
