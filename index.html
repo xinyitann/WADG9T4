@@ -23,6 +23,7 @@
     <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places"></script> -->
     <!-- <script type="module" src="./helloworld.ts"></script> -->
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="src/js/traffic2.js"></script>
     <script>
         var user_detail = localStorage.getItem("users")
         console.log(user_detail)
@@ -150,7 +151,7 @@
 
             <div class="col-12">
                 <span type="button" class="btn btn-lg" style="background-color:rgb(112, 52, 101); color:white"
-                    onclick="calcRoute();save_route_in_db()">Go</span>
+                    onclick="calcRoute();save_route_in_db(); showSteps2()">Go</span>
                 <span type="button" class="btn btn-lg" style="background-color:rgb(112, 52, 101); color:white"
                     onclick="editMap()">Save</span>
             </div>
@@ -165,6 +166,17 @@
 
                 </ol>
             </div>
+            <div class="col-12" >
+                <div id="output">
+                </div>
+            </div>
+    <div class="row justify-content-left ms-5">
+        <div id="accident_map">
+
+        </div>
+    </div>
+
+    
 <!-- 
             <div class="col-12">
 
@@ -429,6 +441,30 @@
 
             })
         }
+        function showSteps2() {
+            // For each step, place a marker, and add the text to the marker's
+            // info window. Also attach the marker to an array so we
+            // can keep track of it and remove it when calculating new
+            // routes.
+            let spare_traffic2 = accident_coord()
+            console.log(spare_traffic2)
+            for (var coord of spare_traffic2) {
+                
+            var marker = new google.maps.Marker({
+                position: coord,
+                map: map
+            });
+            }
+            console.log("showsteps 2")
+            // steps.innerHTML += "<br><a href='pages/traffic/traffic_check.html'><button class='btn btn-success btn-lg'>Check Traffic</button></a>"
+        }
+
+        function attachInstructionText(marker, text) {
+            google.maps.event.addListener(marker, 'click', function () {
+            stepDisplay.setContent(text);
+            stepDisplay.open(map, marker);
+            });
+        }
         function editMap() {
             var check1 = []
             // var loc = {
@@ -510,7 +546,18 @@
                         check1.push(latlng1)
                     }
                 }
-
+            }
+            console.log("check1", check1)
+            for(var checks of check1){
+                var marker = new google.maps.Marker({
+                    position: checks,
+                    //map: window.map,
+                    map: map,
+                    icon: {
+                        url: "src/img/traffic/roadwork_color.png",
+                        scaledSize: new google.maps.Size(35, 35)
+                    }
+                });
             }
             // var error_msg = "there are" + numba_of_stiff + "accidents/roadworks in your path!"
             // if (numba_of_stiff > 0) {
@@ -613,7 +660,6 @@
 
         
     })
-
 }
     </script>
 

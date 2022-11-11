@@ -30,12 +30,12 @@ function register() {
 
   // Validate input fields
   if (validate_email(email) == false || validate_password(password) == false) {
-    alert('Email or Password is Outta Line!!')
+    alert('Email or Password is not valid!')
     return
     // Don't continue running the code
   }
   if (validate_field(username) == false) {
-    alert('One or More Extra Fields is Outta Line!!')
+    alert('One or More Extra Fields is not valid!')
     return
   }
 
@@ -82,7 +82,7 @@ function login() {
 
   // Validate input fields
   if (validate_email(email) == false || validate_password(password) == false) {
-    alert('Email or Password is Outta Line!!')
+    alert('Email or Password is not valid!')
     return
     // Don't continue running the code
   }
