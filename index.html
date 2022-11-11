@@ -34,7 +34,7 @@
 
     <style>
         #map {
-            height: 600px;
+            height: 750px;
             /* The height is 400 pixels */
         }
 
@@ -114,22 +114,19 @@
     </div>
 
     <!--TEXT BOX-->
-    <!-- <div class="container"  style="background:url(./src/img/transport-backgrounf.jpg); background-repeat: repeat-y;"> -->
 
 
-    <!-- <div class="container-fluid ms-5 mb-2"> -->
-
-    <div class="row justify-content-left ms-5">
-        <div class="col-4">
+    <div class="row justify-content-center mx-3">
+        <div class="col-md-4">
             <div class="row justify-content-md-center" style="color:rgb(112, 52, 101);">
-                <div class="input-group mb-3 input-group-lg">
+                <div class="input-group mb-4 input-group-lg">
                     <span class="input-group-text" style="background-color:rgb(112, 52, 101); color:white">From</span>
                     <input id="from" type="text" class="form-control" style="background-color:#e5dfdf;"
                         placeholder="where are you?">
                 </div>
             </div>
             <div class="col-12">
-                <div class="input-group mb-3 input-group-lg">
+                <div class="input-group mb-4 input-group-lg">
                     <span class="input-group-text" style="background-color:rgb(112, 52, 101); color:white">To</span>
                     <input id="to" type="text" class="form-control" style="background-color:#e5dfdf;"
                         placeholder="where do you want to go?">
@@ -141,63 +138,73 @@
 
             </div>
             <div class="col-12">
-                <select id="mode" class="form-select form-select-lg mb-3">
+                <select id="mode" class="form-select form-select-lg mb-4">
                     <option value="DRIVING">Driving</option>
                     <option value="WALKING">Walking</option>
                     <option value="BICYCLING">Bicycling</option>
                     <option value="TRANSIT">Transit</option>
                 </select>
             </div>
+            
+            <!--centered GO button-->
 
-            <div class="col-12">
-                <span type="button" class="btn btn-lg" style="background-color:rgb(112, 52, 101); color:white"
-                    onclick="calcRoute();save_route_in_db(); showSteps2()">Go</span>
-                <span type="button" class="btn btn-lg" style="background-color:rgb(112, 52, 101); color:white"
-                    onclick="editMap()">Save</span>
+            <div class="col-12 mx-auto my-2">
+                <!-- <div class="row">
+                    <div class="col-5">
+                    </div>
+                    <div class="col-2"> -->
+                <span type="button" class="btn btn-lg" style="background-color:rgb(112, 52, 101); color:white" data-bs-toggle="collapse" data-bs-target="#stepAndButton" role="button"
+
+                onclick="calcRoute();save_route_in_db(); showSteps2()">Go</span>
+
             </div>
-
-            <div class="col-12" >
-                <div id="output">
+                    <!-- <div class="col-5"> 
+                    </div>
                 </div>
-            </div>
-
-            <div data-bs-spy="scroll"  data-bs-smooth-scroll="true" class="col-12 p-3 bg-light rounded-4" id="scrollbox" > 
-                <ol id="steps" class="fs-5" >
-
-                </ol>
-            </div>
-            <div class="col-12" >
-                <div id="output">
-                </div>
-            </div>
-    <div class="row justify-content-left ms-5">
-        <div id="accident_map">
-
-        </div>
-    </div>
-
-    
-<!-- 
-            <div class="col-12">
-
-                  <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
-                    <h4 id="scrollspyHeading1">First heading</h4>
-                    <p>...</p>
-                    <h4 id="scrollspyHeading2">Second heading</h4>
-                    <p>...</p>
-                    <h4 id="scrollspyHeading3">Third heading</h4>
-                    <p>...</p>
-                    <h4 id="scrollspyHeading4">Fourth heading</h4>
-                    <p>...</p>
-                    <h4 id="scrollspyHeading5">Fifth heading</h4>
-                    <p>...</p>
-                  </div>
-
             </div> -->
 
+            <!--direction-->
+            <div class="col-12" >
+                <div id="output">
+                </div>
+            </div>
+
+            <!--steps-->
+            <div id="stepAndButton" class="collapse">
+                <div data-bs-spy="scroll"  data-bs-smooth-scroll="true" class="col-12 p-3 bg-light rounded-4 order-md-last" id="scrollbox" > 
+                    <ol id="steps" class="fs-5" >
+                    </ol>
+                </div>
+
+                <!--centered GET TRAFFIC STATUS button-->
+                <div class="col-12 mx-auto my-3">
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-8">
+                            <span type="button" class="btn btn-lg" style="background-color:rgb(112, 52, 101); color:white"
+                            onclick="editMap()">Get Traffic Status</span>
+        
+                        </div>
+                        <div class="col-2"> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row justify-content-left ms-5">
+                <div id="accident_map">
+
+                </div>
+            </div>
+
+
 
         </div>
-        <div class="col-7">
+        <div class="col-md-7">
             <div id="map"></div>
         </div>
     </div>

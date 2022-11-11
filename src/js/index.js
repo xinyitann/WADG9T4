@@ -76,9 +76,9 @@ function register() {
 // Set up our login function
 function login() {
   // Get all our input fields
-  email = document.getElementById('email').value
-  password = document.getElementById('password').value
-  username = document.getElementById('username').value
+  email = document.getElementById('email2').value
+  password = document.getElementById('password2').value
+  username = document.getElementById('username2').value
 
   // Validate input fields
   if (validate_email(email) == false || validate_password(password) == false) {
