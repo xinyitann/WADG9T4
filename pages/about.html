@@ -13,9 +13,6 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="icon" href="../src/img/logo3.png" type="image/icon type">
 
-
-    <!-- <script src="../../src/js/index.js"></script> -->
-
     <style>
         .navbar-nav .nav-link.active,
         .navbar-nav .show>.nav-link {
@@ -54,7 +51,7 @@
                         <a class="nav-link nav_bar_text" aria-current="page" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle pb-0 active text-decoration-underline nav_bar_text" href="#"
+                        <a class="nav-link dropdown-toggle pb-0 nav_bar_text" href="#"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Bus
                         </a>
@@ -76,7 +73,7 @@
                         <a class="nav-link nav_bar_text" href="traffic/traffic_check.html">Traffic</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav float-end" id="profile">
+                <ul class="navbar-nav text-center" id="profile">
                     <!-- <li class="nav-item">
                         <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
                                 class="fa-sharp fa-solid fa-gear"></i></a>
@@ -116,7 +113,8 @@
                     <img src="../src/img/balveen.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Balveen Kaur</h5>
-                        <h6 class="card-subtitle mb-2 text-muted  fst-italic">"You thought I was gonna fail but I'm fine, sorry" ~ BTS</h6>
+                        <h6 class="card-subtitle mb-2 text-muted  fst-italic">"You thought I was gonna fail but I'm
+                            fine, sorry" ~ BTS</h6>
                         <p class="card-text">
                             <ul>
                                 <li>Bus Arrival / Service</li>
@@ -216,13 +214,9 @@
             console.log('user_login')
             if (user_detail != null) {
                 console.log('hree')
-                document.getElementById('fav').innerHTML =
-                    `<button type="button" class="btn btn-secondary mt-2 checked"
-                onclick="save_bus_stop()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
-                // console.log(find_all_favs())
                 document.getElementById('profile').innerHTML = `<li class="nav-item">
-                        <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
-                                class="fa-sharp fa-solid fa-gear"></i></a>
+                        <a href="profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                                class="fa-sharp fa-solid fa-gear display-1"></i></a>
                     </li>`
             } else {
                 document.getElementById('profile').innerHTML = `<li class="nav-item">
