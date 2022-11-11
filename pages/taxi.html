@@ -36,13 +36,6 @@
             width: 75%;
             padding-bottom: 200px;
         }
-
-        h1 {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            text-align: center;
-        }
-
         .center {
             margin-left: auto;
             margin-right: auto;
@@ -64,30 +57,30 @@
 
         .navbar-nav .nav-link.active,
         .navbar-nav .show>.nav-link {
-            color: rgb(112, 52, 101);
+            color: rgb(113, 84, 66);
         }
 
         .custom-map-control-button {
-    background: rgb(112, 52, 101);
-    border-radius: 999px;
-    box-shadow: rgb(112, 52, 101) 0 10px 20px -10px;
-    box-sizing: border-box;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 24px;
-    opacity: 1;
-    outline: 0 solid transparent;
-    padding: 8px 18px;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: fit-content;
-    word-break: break-word;
-    border: 0;
-} 
+            background: rgb(113, 84, 66);
+            border-radius: 999px;
+            box-shadow: rgb(113, 84, 66) 0 10px 20px -10px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 24px;
+            opacity: 1;
+            outline: 0 solid transparent;
+            padding: 8px 18px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: fit-content;
+            word-break: break-word;
+            border: 0;
+        }
     </style>
 
 
@@ -101,11 +94,11 @@
         var username = obj.username
         console.log(username)
     </script>
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" style="background-color:#f0f0f0;">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" id="header"
+        style="background-color:#f7f7f7; color: rgb(113, 84, 66);">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../src/img/logo-removebg-preview.png" alt="Logo" width='75'
-                    class="d-inline-block align-text-top">
+                <img src="../src/img/logo3.png" alt="Logo" width='90' class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,13 +110,13 @@
                         <a class="nav-link nav_bar_text" aria-current="page" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle pb-0 nav_bar_text" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle pb-0 active text-decoration-underline nav_bar_text" href="#"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Bus
                         </a>
-                        <ul class="dropdown-menu" style="background-color:#f0f0f0;">
-                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus/bus_arrival.html">Bus
-                                    Arrival Time</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus/bus_arrival.html">Bus Arrival
+                                    Time</a>
                             </li>
                             <li><a class="dropdown-item fw-bold nav_bar_text" href="bus/bus_service_map.html">Bus
                                     Services</a></li>
@@ -133,7 +126,7 @@
                         <a class="nav-link nav_bar_text" href="train.html">Train</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text active text-decoration-underline" href="#">Taxi</a>
+                        <a class="nav-link nav_bar_text" href="taxi.html">Taxi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav_bar_text" href="car.html">Car</a>
@@ -143,13 +136,13 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav float-end" id="profile">
-                    <li class="nav-item">
-                        <a href="../profile.html" class="nav-link nav_bar_text"><i
-                                class="fa-sharp fa-solid fa-gear"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
-                    </li>
+                    <!-- <li class="nav-item">
+                <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                        class="fa-sharp fa-solid fa-gear"></i></a>
+            </li>
+            <li class="nav-item">
+                <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+            </li> -->
                 </ul>
             </div>
         </div>
@@ -157,7 +150,7 @@
 
     <body>
         <h1 class="display-6 text-center fw-bold mt-5">
-            Taxis near you
+            Taxis Near You <img src="../src/img/taxi.png" style="width:160px ">
         </h1>
         <div id="message"></div>
         <div id="taxi_table"></div>
@@ -269,7 +262,7 @@
                                         }
                                         str += `
                             </table>`
-                            str = ''
+                                        str = ''
                                         document.getElementById("taxi_table").innerHTML = str
                                     })
                                     .catch(error => {
@@ -422,22 +415,24 @@
 
 
         <!-- FOOTER -->
-        <div class="container-fluid text-center fs-1" style="color:#C79E53;">
+        <div class="row fs-5 text-center bg-light justify-content-center pt-2">
             <ul class="list-inline">
                 <li class="list-inline-item">
-                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="../../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
                 </li>
             </ul>
+            <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
         </div>
+    
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
         </script>

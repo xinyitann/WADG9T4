@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bus Arrival Time</title>
+    <title>Bus Services</title>
 
     <!-- Vue.js 3 CDN -->
     <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
@@ -57,7 +57,7 @@
 
         .navbar-nav .nav-link.active,
         .navbar-nav .show>.nav-link {
-            color: rgb(112, 52, 101);
+            color: rgb(113, 84, 66);
         }
     </style>
 
@@ -73,11 +73,11 @@
 </head>
 
 <body onload="check_user()">
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top"
-        style="background-color:#e5dfdf; color: rgb(112, 52, 101);">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" id="header"
+        style="background-color:#f7f7f7; color: rgb(113, 84, 66);">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../../src/img/logo2.png" alt="Logo" width='90' class="d-inline-block align-text-top">
+                <img src="../../src/img/logo3.png" alt="Logo" width='90' class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +105,7 @@
                         <a class="nav-link nav_bar_text" href="../train.html">Train</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="#">Taxi</a>
+                        <a class="nav-link nav_bar_text" href="../taxi.html">Taxi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav_bar_text" href="../car.html">Car</a>
@@ -115,13 +115,13 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav float-end" id="profile">
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
                                 class="fa-sharp fa-solid fa-gear"></i></a>
                     </li>
                     <li class="nav-item">
                         <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -154,7 +154,7 @@
                     <input type="text" class="form-control" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_service_no"
                         @keyup="auto_complete_bus_service_search()" placeholder="Enter a Service No"
-                        style="border-color: hsla(311, 37%, 32%); border-width: 2px;">
+                        style="border-color: rgb(113, 84, 66); border-width: 2px;">
 
 
                     <div v-show="auto_complete_suggestion_service.length > 0">
@@ -167,7 +167,7 @@
                 </div>
                 <div class="col-md-1">
                     <a href="#arr_timings">
-                        <button type="button" class="btn btn-success" v-on:click="get_service_sequence()"
+                        <button type="button" class="btn" v-on:click="get_service_sequence()" style="background:rgb(113, 84, 66); color:white"
                             onclick="user_login()">Go</button>
                         <span id="fav" class="ms-2"></span>
                     </a>
@@ -186,7 +186,7 @@
                 </div>
                 <div class="col-md-1">
                     <a href="#arr_timings">
-                        <button type="button" class="btn btn-success mt-2" v-on:click="get_google_map()">Go</button>
+                        <button type="button" class="btn mt-2" v-on:click="get_google_map()" style="background:rgb(113, 84, 66); color:white">Go</button>
                     </a>
                 </div>
             </div>
@@ -199,7 +199,7 @@
                         <input type="text" class="form-control" aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_service_no"
                             @keyup="auto_complete_bus_service_search()" placeholder="Enter a Service No"
-                            style="border-color: hsla(311, 37%, 32%); border-width: 2px;">
+                            style="border-color: rgb(113, 84, 66); border-width: 2px;">
 
 
                         <div v-show="auto_complete_suggestion_service.length > 0">
@@ -272,21 +272,22 @@
 
 
     <!-- FOOTER -->
-    <div class="container-fluid text-center fs-1">
+    <div class="row fs-5 text-center bg-light justify-content-center pt-2">
         <ul class="list-inline">
             <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-instagram"></i></a>
+                <a href="../../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text "><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
             </li>
         </ul>
+        <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

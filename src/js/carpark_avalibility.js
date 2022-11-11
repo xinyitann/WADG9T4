@@ -77,30 +77,30 @@ var app = Vue.createApp({
         },
         get_carpark_map() {
             console.log('here')
-            console.log(this.bus_stop_location)
+            console.log(this.carpark_list)
             if (Object.keys(this.pos).length = 0) {
                 this.get_user_location()
             }
-            for (bus_stop in this.bus_stop_location) {
+            for (car_park in this.carpark_list) {
                 // console.log(this.bus_stop_location[bus_stop])
                 // console.log(this.pos)
-                var lat1 = this.bus_stop_location[bus_stop].latitude
-                var long1 = this.bus_stop_location[bus_stop].longitude
+                var lat1 = this.carpark_list[car_park].latitude
+                var long1 = this.carpark_list[car_park].longitude
                 var lat2 = this.pos.lat
                 var long2 = this.pos.lng//wya
                 var dist = this.distanceInKmBetweenEarthCoordinates(lat1, long1, lat2, long2)
                 // console.log(dist)
                 if (dist < 500) {
                     var list = []
-                    list.push(bus_stop.split(' - ')[0])
-                    list.push(this.bus_stop_location[bus_stop]['latitude'])
-                    list.push(this.bus_stop_location[bus_stop]['longitude'])
-                    list.push(bus_stop)
-                    console.log(list)
-                    this.list_of_stops.push(list)
+                    list.push(car_park.split(' - ')[0])
+                list.push(this.carpark_list[carpark]['latitude'])
+                list.push(this.carpark_list[carpark]['longitude'])
+                list.push(car_park)
+                console.log(list)
+                this.car_park.push(list)
                 }
             }
-            console.log(this.list_of_stops)
+            console.log(this.carpark_list)
             window.initMap = this.initMap();
         }
 

@@ -19,9 +19,9 @@
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom:10px;
-    border-left:  hsla(311, 37%, 32%) 2px solid;
-    border-right:  hsla(311, 37%, 32%) 2px solid;
-    border-bottom:  hsla(311, 37%, 32%) 2px solid;
+    border-left:  rgb(113, 84, 66) 2px solid;
+    border-right:  rgb(113, 84, 66) 2px solid;
+    border-bottom:  rgb(113, 84, 66) 2px solid;
 }
 
 #search li{
@@ -34,11 +34,11 @@
 }
 
 #dropdown{
-    border:  hsla(311, 37%, 32%) 2px solid;
+    border:  rgb(113, 84, 66) 2px solid;
 }
 
 #dropdown-list{
-    border-left:  hsla(311, 37%, 32%) 2px solid;
-    border-right:  hsla(311, 37%, 32%) 2px solid;
-    border-bottom:  hsla(311, 37%, 32%) 2px solid;
+    border-left:  rgb(113, 84, 66) 2px solid;
+    border-right:  rgb(113, 84, 66) 2px solid;
+    border-bottom:  rgb(113, 84, 66) 2px solid;
 }
