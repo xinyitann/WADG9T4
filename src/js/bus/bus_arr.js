@@ -60,9 +60,11 @@ var app = Vue.createApp({
 
         get_arrival_time_bus_stop() {
             document.getElementById('fav_button').style.color = ''
+            document.getElementById('fav_button').disabled = false
             console.log(document.getElementById('fav_button').style.color )
             this.auto_complete_suggestion_bus.length =0
             this.bus_stop_hidden = 'false'
+            console.log(this.bus_stops)
             console.log(this.bus_stops[this.selected_bus_stop])
             var code = this.bus_stops[this.selected_bus_stop]
             console.log(code)
