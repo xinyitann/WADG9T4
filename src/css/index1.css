@@ -2,7 +2,7 @@ html, body {
   width: 100%;
   height: 100%;
   background-image: url("../../src/img/ryoji-iwata-IBaVuZsJJTo-unsplash.jpg");
-
+  font-family: Poppins !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,7 +55,7 @@ html, body {
 #form_header {
   display: inline-block;
   font-size: 15px;
-  font-family: Poppins;
+  font-family: Poppins !important;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -70,21 +70,21 @@ html, body {
   width: 100%;
   height: 90%;
 
-  float: left;
+ 
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  padding-top: 30px;
+  padding-top: 70px;
 }
 
 #form_content_inner_container {
   width: 75%;
   height: 100%;
-  border-color:  hsla(311, 37%, 32%);
+  border-color:  rgb(113, 84, 66);
 
-  float: left;
+
   
 
 }
@@ -100,7 +100,7 @@ input {
   font-family: Poppins;
   font-weight: 500;
   color: #fff;
-  font-size: 12px;
+  /* font-size: 12px; */
 
   border-bottom: 2px solid transparent;
   border-top-left-radius: 2%;
@@ -108,26 +108,26 @@ input {
   border-image: black;
 }
 
-#button_container {
+.button_container {
   width: 100%;
   height: 10%;
 
   background-image: white;
-  color: hsla(311, 37%, 32%);
+  color: rgb(113, 84, 66);
 
   float: left;
 
   margin-top: 5px;
 }
 
-#button_container button {
+.button_container button {
   width: 45%;
   height: 100%;
   float: left;
-  border-color:  hsla(311, 37%, 32%);
+  border-color:   rgb(113, 84, 66) !important;
   border-width: 2px;
 
-  background:hsla(311, 37%, 32%);
+  background: rgb(113, 84, 66);
   color: white;
 
   font-family: Poppins;
@@ -143,6 +143,10 @@ input {
 }
 
 .form-control{
-  border-color:  hsla(311, 37%, 32%);
+  border-color:  rgb(113, 84, 66);
   border-width: 2px;
+}
+
+.nav_bar_text {
+  color: rgb(113, 84, 66) !important;
 }
