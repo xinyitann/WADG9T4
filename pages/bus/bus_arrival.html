@@ -164,7 +164,7 @@
                 <div class="col-md-1">
                     <a href="#arr_timings">
                         <button type="button" class="btn" style="background:rgb(113, 84, 66); color:white"
-                            v-on:click="get_arrival_time_bus_stop()">Go</button>
+                            v-on:click="get_arrival_time_bus_stop();" onclick="check_fav()">Go</button>
                     </a>
                 </div>
             </div>
@@ -185,6 +185,8 @@
                             class="fa-solid fa-rotate-right"></i>
                         Refresh</button>
                     <span id="fav"></span>
+                    <br>
+                    <span id="msg" class="mt-1 bg-danger"></span>
                 </div>
                 <div class="container-fluid w-75 mx-auto">
                     <div class="row" v-for="(value, key) of selected_bus_stop_arrivals">
@@ -299,6 +301,53 @@
                 }
             }
 
+            function check_fav() {
+                var user_detail = localStorage.getItem("users")
+                console.log(user_detail)
+                var obj = JSON.parse(user_detail)
+                var uid = obj.uid
+                console.log(uid)
+                var bus_stops = ''
+                firebase.database().ref('users/' + uid).once("value", snap => {
+
+                    console.log(snap.val())
+                    bus_stops = snap.val().fav_bus_stop
+                    console.log(bus_stops)
+                    if (bus_stops == undefined) {
+                    } else {
+                        var users = firebase.database().ref('users');
+                        var bus_stop_name = document.getElementById('name').value
+
+                        var user_detail = localStorage.getItem("users")
+                        console.log(user_detail)
+                        var obj = JSON.parse(user_detail)
+                        var uid = obj.uid
+                        console.log(uid)
+
+                        var split_bus = bus_stops.split(',')
+                        console.log(split_bus)
+                        var exists = false
+                        for (bus_already of split_bus) {
+                            console.log(bus_already)
+                            console.log(bus_stop_name)
+                            if (bus_already == bus_stop_name) {
+                                document.getElementById('fav_button').style.color += 'orange'
+                            }
+                        }
+                    }
+
+                })
+                // var user = firebase.database().ref('users/' + uid);
+                // user.once('value').then((snapshot) => {
+                //     if (snapshot.exists()) {
+                //         console.log(snapshot)
+                //         document.getElementById("status").innerText = "User ID has already been taken.";
+                //     } else {
+                //         document.getElementById("status").innerText = "User ID is available.";
+                //     }
+                // });
+            }
+
             // TO SAVE THE FAV BUS STOP
             function save_bus_stop() {
                 var user_detail = localStorage.getItem("users")
@@ -311,14 +360,11 @@
 
                     console.log(snap.val())
                     bus_stops = snap.val().fav_bus_stop
-
-                    if (bus_stops == '') {
+                    console.log(bus_stops)
+                    if (bus_stops == undefined) {
                         var users = firebase.database().ref('users');
                         document.getElementById('fav_button').style.color += 'orange'
-                        var bus_stop = document.getElementById('bus_stop_name').innerText
-                        var bus_stop_name = bus_stop.split('(')[0]
-                        var bus_stop_code = bus_stop.split('(')[1]
-                        bus_stop_code = bus_stop_code.split(')')[0]
+                        var bus_stop_name = document.getElementById('name').value
 
 
                         var user_detail = localStorage.getItem("users")
@@ -339,16 +385,13 @@
                     } else {
                         var users = firebase.database().ref('users');
                         document.getElementById('fav_button').style.color += 'orange'
-                        var bus_stop = document.getElementById('bus_stop_name').innerText
-                        var bus_stop_name = bus_stop.split('(')[0]
-                        var bus_stop_code = bus_stop.split('(')[1]
-                        bus_stop_code = bus_stop_code.split(')')[0]
+                        var bus_stop_name = document.getElementById('name').value
                         console.log(bus_stops)
 
                         var user_detail = localStorage.getItem("users")
                         console.log(user_detail)
                         var obj = JSON.parse(user_detail)
-                        var fav_bus_stop = obj.fav_bus_stops
+                        var fav_bus_stop = obj.fav_bus_stop
                         console.log(fav_bus_stop)
 
                         var user_detail = localStorage.getItem("users")
@@ -357,12 +400,27 @@
                         var uid = obj.uid
                         console.log(uid)
 
-                        var new_bus_stop = bus_stops + ", " + bus_stop_name
-                        console.log(new_bus_stop)
+                        var split_bus = bus_stops.split(',')
+                        console.log(split_bus)
+                        var exists = false
+                        for (bus_already of split_bus) {
+                            if (bus_already == new_bus_stop) {
+                                console.log('it exists')
+                                exists = true
+                            }
+                        }
+                        if (exists == false) {
+                            if (split_bus.length >= 10) {
+                                document.getElementById('msg').innerText = 'You currently have 10 favourite bus stops. Please go to profile to review them'
+                            } else {
+                                var new_bus_stop = bus_stops + ", " + bus_stop_name
+                                console.log(new_bus_stop)
 
-                        var updates = {};
-                        updates['/users/' + uid + "/" + 'fav_bus_stop'] = new_bus_stop;
-                        firebase.database().ref().update(updates);
+                                var updates = {};
+                                updates['/users/' + uid + "/" + 'fav_bus_stop'] = new_bus_stop;
+                                firebase.database().ref().update(updates);
+                            }
+                        }
                     }
 
                 })
