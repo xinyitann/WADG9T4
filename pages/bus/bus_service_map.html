@@ -24,6 +24,7 @@
     <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
 
     <link rel="stylesheet" href="../../src/css/bus_arrival.css">
+    <link rel="icon" href="../../src/img/logo3.png" type="image/icon type">
 
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
     <!-- This is the API from Firebase Realtime Database -->
@@ -102,9 +103,6 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="../train.html">Train</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link nav_bar_text" href="../taxi.html">Taxi</a>
                     </li>
                     <li class="nav-item">
@@ -167,8 +165,8 @@
                 </div>
                 <div class="col-md-1">
                     <a href="#arr_timings">
-                        <button type="button" class="btn" v-on:click="get_service_sequence()" style="background:rgb(113, 84, 66); color:white"
-                            onclick="user_login()">Go</button>
+                        <button type="button" class="btn" v-on:click="get_service_sequence()"
+                            style="background:rgb(113, 84, 66); color:white" onclick="user_login()">Go</button>
                         <span id="fav" class="ms-2"></span>
                     </a>
                 </div>
@@ -186,7 +184,8 @@
                 </div>
                 <div class="col-md-1">
                     <a href="#arr_timings">
-                        <button type="button" class="btn mt-2" v-on:click="get_google_map()" style="background:rgb(113, 84, 66); color:white">Go</button>
+                        <button type="button" class="btn mt-2" v-on:click="get_google_map()"
+                            style="background:rgb(113, 84, 66); color:white">Go</button>
                     </a>
                 </div>
             </div>
@@ -278,7 +277,7 @@
                 <a href="../../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
+                <a href="../about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
             </li>
             <li class="list-inline-item">
                 <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
@@ -298,6 +297,13 @@
     <script src="../../src/js/bus/bus_service_map.js"></script>
 
     <script>
+        window.addEventListener("scroll", function () {
+            if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+                document.getElementById("header").style.boxShadow = "2px 2px 2px 2px #e5dfdf";
+            } else {
+                document.getElementById("header").style.boxShadow = "none";
+            }
+        });
         var firebaseConfig = {
             apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
             authDomain: "onestopper.firebaseapp.com",

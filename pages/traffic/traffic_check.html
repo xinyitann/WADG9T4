@@ -14,7 +14,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -26,11 +26,11 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&callback=initMap"
         async defer></script>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
+    <link rel="icon" href="../../src/img/logo3.png" type="image/icon type">
     <script>
         var values_outside = []
     </script>
-    <title>One-Stop Planner</title>
+    <title>Traffic Check</title>
 
     <style>
         #appp .row {
@@ -56,17 +56,29 @@
         #map {
             box-shadow: 2px 2px 2px 2px #999999;
         }
+
+        .navbar-nav .nav-link.active,
+        .navbar-nav .show>.nav-link {
+            color: rgb(113, 84, 66);
+        }
     </style>
+
+    <script>
+        var user_detail = localStorage.getItem("users")
+        console.log(user_detail)
+        var obj = JSON.parse(user_detail)
+        var username = obj.username
+        console.log(username)
+    </script>
 </head>
 
 <body id="appp">
     <!-- NAVIGATION BAR -->
-
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" style="background-color:#e5dfdf;">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" id="header"
+        style="background-color:#f7f7f7; color: rgb(113, 84, 66);">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../../src/img/logo2.png" alt="Logo" width='90'
-                    class="d-inline-block align-text-top">
+                <img src="../../src/img/logo3.png" alt="Logo" width='90' class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,43 +94,38 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Bus
                         </a>
-                        <ul class="dropdown-menu" style="background-color:#e5dfdf;">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item fw-bold nav_bar_text" href="../bus/bus_arrival.html">Bus Arrival
                                     Time</a>
                             </li>
                             <li><a class="dropdown-item fw-bold nav_bar_text" href="../bus/bus_service_map.html">Bus
-                                    Services</a>
-                            </li>
+                                    Services</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="../train.html">Train</a>
+                        <a class="nav-link nav_bar_text" href="../taxi.html">Taxi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="#">Taxi</a>
+                        <a class="nav-link nav_bar_text" href="../car.html">Car</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="#">Car</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-decoration-underline nav_bar_text"
+                        <a class="nav-link nav_bar_text active text-decoration-underline"
                             href="traffic_check.html">Traffic</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav float-end">
-                    <li class="nav-item">
-                        <a href="../profile.html" class="nav-link nav_bar_text"><i
-                                class="fa-sharp fa-solid fa-gear"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"
-                                data-bs-toggle="modal" data-bs-target="#modal" onClick="login"></i></a>
-
-                    </li>
+                <ul class="navbar-nav float-end" id="profile">
+                    <!-- <li class="nav-item">
+                    <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                            class="fa-sharp fa-solid fa-gear"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                </li> -->
                 </ul>
             </div>
         </div>
     </nav>
+
 
 
 
@@ -173,76 +180,101 @@
         <!-- <div >
             <button type="button" id="button2" onclick="get_user_location()"></button>
         </div> -->
-        
-            <div class="col-md-9">
-                <div id="map"></div>
-            </div>
-        
+
+        <div class="col-md-9">
+            <div id="map"></div>
+        </div>
+
         <div class="col-md-3">
-        <div class="right">
-            <div id="legend">
-                <div class="card" >
-                    <div class="card-body">
-                        <h5 class="card-title" style="text-align:center; font-weight:bold;">Legend</h5>
-                        <br>
+            <div class="right">
+                <div id="legend">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" style="text-align:center; font-weight:bold;">Legend</h5>
+                            <br>
                             <img src="../../src/img/traffic/roadblock.png" style="width:40px"> : roadblock
-                        </br>
-                        <br>
+                            </br>
+                            <br>
                             <img src="../../src/img/traffic/roadwork_color.png" style="width:40px"> : roadwork
-                        </br>
-                        <br>
+                            </br>
+                            <br>
                             <img src="../../src/img/traffic/breakdown_color.png" style="width:40px"> : breakdown
-                        </br>
-                        <row>
-                            <img src="../../src/img/traffic/accident_color.png" style="width:40px"> : accident
-                        </row>
-                        <br>
+                            </br>
+                            <row>
+                                <img src="../../src/img/traffic/accident_color.png" style="width:40px"> : accident
+                            </row>
+                            <br>
                             <img src="../../src/img/traffic/abandoned.png" style="width:40px"> : abandoned car
-                        </br> 
-                        <br>
+                            </br>
+                            <br>
                             <img src="../../src/img/traffic/misc.png" style="width:40px"> : misc
-                        </br>
-                        <br>
-                            <img src="../../src/img/traffic/congestion-removebg-preview.png" style="width:40px"> : congestion
-                        </br>
-                        
+                            </br>
+                            <br>
+                            <img src="../../src/img/traffic/congestion-removebg-preview.png" style="width:40px"> :
+                            congestion
+                            </br>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
 
-    </div>
+
 
     <!-- FOOTER -->
-    <div class="container-fluid text-center fs-1">
+    <div class="row fs-5 text-center bg-light justify-content-center pt-2 mt-3">
         <ul class="list-inline">
             <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-instagram"></i></a>
+                <a href="../../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text "><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="../about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
             </li>
         </ul>
+        <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
     </div>
 
 
 
     <script>
-        function go_home(){
+        window.addEventListener("load", function () {
+            if (user_detail != null) {
+                console.log('hree')
+                console.log(document.getElementById('profile'))
+                document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                                class="fa-sharp fa-solid fa-gear"></i></a>
+                    </li>`
+            } else {
+                document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                    </li>`
+            }
+        });
+        window.addEventListener("scroll", function () {
+            if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+                document.getElementById("header").style.boxShadow = "2px 2px 2px 2px #e5dfdf";
+            } else {
+                document.getElementById("header").style.boxShadow = "none";
+            }
+        });
+
+        function go_home() {
             "http://www.w3schools.com"
         }
+
         function get_user_location() {
             if (navigator.geolocation) {
-                
+
                 pos = {}
                 // navigator.geolocation.getCurrentPosition(this,showposition,errorCoor,{maximumAge:60000, timeout:5000, enableHighAccuracy:true})
                 navigator.geolocation.getCurrentPosition(position => {
@@ -268,6 +300,7 @@
             }
             console.log(pos)
         }
+
         function initMap() {
 
             var loc = {
@@ -288,14 +321,14 @@
 
             let api_endpoint_url1 = '../../src/js/traffic_accident.php'
             axios.get(api_endpoint_url1, {
-                headers: {
-                    'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',
-                    'accept': 'application/json',
-                }
-            })
+                    headers: {
+                        'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',
+                        'accept': 'application/json',
+                    }
+                })
                 .then(response => {
                     var values = response.data[0].value
-                    
+
                     values_outside = values
 
                     for (let line of values) {
@@ -387,7 +420,7 @@
                         }
 
                         // var marker = new google.maps.Marker({position: latlng, map: window.map});
-                    }//end of for loop
+                    } //end of for loop
 
                     var firebaseConfig = {
                         apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
@@ -413,7 +446,7 @@
                     ref.on("value", function (snapshot) {
                         //gkdflkgodfkgfglkdfg
                         var route = snapshot.val().route.route
-                        
+
                         console.log(route)
                         console.log(values_outside)
                         var accident_in_route = []
@@ -432,7 +465,8 @@
                                 var vall_longititude = vall.Longitude
                                 var round_vall_lat = vall_latitude.toFixed(3)
                                 var round_vall_lng = vall_longititude.toFixed(3)
-                                if (round_route_lat == round_vall_lat && round_vall_lng == round_route_lng) {
+                                if (round_route_lat == round_vall_lat && round_vall_lng ==
+                                    round_route_lng) {
                                     numba_of_stiff += 1
                                 }
                             }
