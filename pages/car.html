@@ -104,7 +104,7 @@
     <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" style="background-color:#f0f0f0;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../src/img/logo-removebg-preview.png" alt="Logo" width='75'
+                <img src="../src/img/logo2.png" alt="Logo" width='90'
                     class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -162,7 +162,7 @@
         
 
         <div id="message"></div>
-        <div id="taxi_table"></div>
+        <div id="car_table"></div>
         <div id="map" class="mx-auto"></div>
         <script>
             //Initialize and add the map
@@ -187,7 +187,7 @@
                 var str = `<table class="center">
                 <tr>
                     <th>Number</th>
-                    <th>Taxi</th>
+                    <th>Car</th>
                 </tr>`
 
                 var lat = parseFloat(document.getElementById("lat").value);
@@ -242,7 +242,7 @@
                                         for (res of response.data) {
                                             //console.log(res.value)
                                             document.getElementById("message").innerHTML =
-                                                "<h1>Below are the available Taxi Stands near you</h1>"
+                                                "<h1>Below are the available Car Parks near you</h1>"
                                             for (r of res.value) {
                                                 // console.log(r.Longitude)
                                                 // console.log(r.Latitude)
@@ -272,7 +272,7 @@
                                         str += `
                             </table>`
                             str = ''
-                                        document.getElementById("taxi_table").innerHTML = str
+                                        document.getElementById("car_table").innerHTML = str
                                     })
                                     .catch(error => {
                                         console.log(error.message)
@@ -441,7 +441,7 @@
     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!-- <script src="../src/js/taxi/taxi_availability.js"></script>  -->
+<!-- <script src="../src/js/carpark_avalibility.js"></script>  -->
 
 </body>
 
