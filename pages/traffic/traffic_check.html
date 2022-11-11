@@ -37,7 +37,7 @@
             position: flex;
         }
 
-        #appp .row .left {
+        /* #appp .row .left {
             flex: 31%;
             background-color: white;
             padding: 4vh;
@@ -52,7 +52,7 @@
             flex: 20%;
             height: 90vh;
             padding: 4vh;
-        }
+        } */
         #map {
             box-shadow: 2px 2px 2px 2px #999999;
         }
@@ -170,57 +170,47 @@
     </div>
 
     <div class="row">
-                
-        <div class="left" >
-            
-            <div class="card" >
-                <div class="card-body">
-                    <h5 class="card-title" style="text-align:center; font-weight:bold;" id="left1">There are no obstructions on your path right now</h5>
-                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                    <p class="card-text"></p>
-                    <button type="button" class="btn btn-success" href="../../index.html">Home</button>
-                    
-                </div>
-            </div>
-        </div>
         <!-- <div >
             <button type="button" id="button2" onclick="get_user_location()"></button>
         </div> -->
-        <div class="middle">
-            <div id="map"></div>
-        </div>
+        
+            <div class="col-md-9">
+                <div id="map"></div>
+            </div>
+        
+        <div class="col-md-3">
         <div class="right">
             <div id="legend">
                 <div class="card" >
                     <div class="card-body">
                         <h5 class="card-title" style="text-align:center; font-weight:bold;">Legend</h5>
                         <br>
-                            <img src="../../src/img/traffic/roadblock.png" style="width:40px">:roadblock
+                            <img src="../../src/img/traffic/roadblock.png" style="width:40px"> : roadblock
                         </br>
                         <br>
-                            <img src="../../src/img/traffic/roadwork_color.png" style="width:40px">:roadwork
+                            <img src="../../src/img/traffic/roadwork_color.png" style="width:40px"> : roadwork
                         </br>
                         <br>
-                            <img src="../../src/img/traffic/breakdown_color.png" style="width:40px">:breakdown
+                            <img src="../../src/img/traffic/breakdown_color.png" style="width:40px"> : breakdown
                         </br>
                         <row>
-                            <img src="../../src/img/traffic/accident_color.png" style="width:40px">:accident
+                            <img src="../../src/img/traffic/accident_color.png" style="width:40px"> : accident
                         </row>
                         <br>
-                            <img src="../../src/img/traffic/abandoned.png" style="width:40px">:abandoned car
+                            <img src="../../src/img/traffic/abandoned.png" style="width:40px"> : abandoned car
                         </br> 
                         <br>
-                            <img src="../../src/img/traffic/misc.png" style="width:40px">:misc
+                            <img src="../../src/img/traffic/misc.png" style="width:40px"> : misc
                         </br>
                         <br>
-                            <img src="../../src/img/traffic/congestion-removebg-preview.png" style="width:40px">:congestion
+                            <img src="../../src/img/traffic/congestion-removebg-preview.png" style="width:40px"> : congestion
                         </br>
                         
                     </div>
                 </div>
             </div>
         </div>
-
+    </div>
     </div>
 
 
