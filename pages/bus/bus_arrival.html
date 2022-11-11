@@ -60,7 +60,7 @@
 
         .navbar-nav .nav-link.active,
         .navbar-nav .show>.nav-link {
-            color: rgb(112, 52, 101);
+            color: rgb(113, 84, 66);
         }
     </style>
 
@@ -77,11 +77,11 @@
 </head>
 
 <body onload="user_login()">
-    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top"
-        style="background-color:#e5dfdf; color: rgb(112, 52, 101);">
+    <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" id="header"
+        style="background-color:#f7f7f7; color: rgb(113, 84, 66);">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../../src/img/logo2.png" alt="Logo" width='90' class="d-inline-block align-text-top">
+                <img src="../../src/img/logo3.png" alt="Logo" width='90' class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,7 +109,7 @@
                         <a class="nav-link nav_bar_text" href="../train.html">Train</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="#">Taxi</a>
+                        <a class="nav-link nav_bar_text" href="../taxi.html">Taxi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav_bar_text" href="../car.html">Car</a>
@@ -135,7 +135,7 @@
         Bus Arrivals <img src="../../src/img/bus/bus.png" style="width:160px ">
     </h1>
 
-    <div class="container-fluid pt-5 py-5">
+    <div class="container-fluid pt-5 pt-5">
 
         <div id="app">
             {{get_bus_stops}}
@@ -152,7 +152,7 @@
                     <input type="text" class="form-control" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-default" id="name" v-model="selected_bus_stop"
                         @keyup="auto_complete_bus_stop_search()" placeholder="Enter a bus stop name"
-                        style="border-color: hsla(311, 37%, 32%); border-width: 2px;">
+                        style="border-color: rgb(113, 84, 66); border-width: 2px;">
                     <div v-show="auto_complete_suggestion_bus.length > 0">
                         <ul id="search">
                             <li v-for="suggestion of auto_complete_suggestion_bus"
@@ -225,7 +225,40 @@
         </div>
 
         <!-- FOOTER -->
-        <div class="container-fluid text-center fs-1">
+        <!-- <div class="container-fluid text-center fs-1 bg-light"> -->
+        <div class="row fs-5 text-center bg-light justify-content-center pt-2">
+            <!-- <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-instagram"></i></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text "><i class="fa-brands fa-facebook-f"></i></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-twitter"></i></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-linkedin"></i></a>
+                </li>
+            </ul> -->
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
+                </li>
+            </ul>
+            <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
+        </div>
+
+        <!-- <div class="container-fluid text-center fs-1">
             <ul class="list-inline">
                 <li class="list-inline-item">
                     <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-instagram"></i></a>
@@ -240,7 +273,7 @@
                     <a href="#" class="nav-link nav_bar_text"><i class="fa-brands fa-linkedin"></i></a>
                 </li>
             </ul>
-        </div>
+        </div> -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
         </script>
@@ -251,6 +284,13 @@
 
 
         <script>
+            window.addEventListener("scroll", function () {
+                if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+                    document.getElementById("header").style.boxShadow = "2px 2px 2px 2px #e5dfdf";
+                } else {
+                    document.getElementById("header").style.boxShadow = "none";
+                }
+            });
             var firebaseConfig = {
                 apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
                 authDomain: "onestopper.firebaseapp.com",
