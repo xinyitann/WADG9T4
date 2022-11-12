@@ -20,26 +20,10 @@
     <link rel="icon" href="../src/img/logo3.png" type="image/icon type">
 
     <style>
-        .green {
-            color: green;
-        }
-
-        .yellow {
-            color: yellow;
-        }
-
-        .red {
-            color: red;
-        }
-
         #map {
             height: 600px;
             width: 75%;
             padding-bottom: 200px;
-        }
-        .center {
-            margin-left: auto;
-            margin-right: auto;
         }
 
         td {
@@ -230,8 +214,8 @@
                                         //console.log(response)
                                         for (res of response.data) {
                                             //console.log(res.value)
-                                            document.getElementById("message").innerHTML =
-                                                "<h1>Below are the available Taxis near you</h1>"
+                                            // document.getElementById("message").innerHTML =
+                                            //     "<h1>Below are the available Taxis near you</h1>"
                                             for (r of res.value) {
                                                 // console.log(r.Longitude)
                                                 // console.log(r.Latitude)
