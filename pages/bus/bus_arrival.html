@@ -18,7 +18,7 @@
 
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWyI5hJe5X7W9Svu7sVQCsUt3Q9JVdOqk&libraries=places&callback=initMap">
-    </script>
+        </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
     <!-- This is the API from Firebase Realtime Database -->
@@ -99,10 +99,12 @@
                             Bus
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_arrival.html">Bus Arrival
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_arrival.html">Bus
+                                    Arrival
                                     Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_service_map.html">Bus
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center"
+                                    href="bus_service_map.html">Bus
                                     Services</a></li>
                         </ul>
                     </li>
@@ -254,13 +256,13 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-        </script>
+            </script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <!-- <script src="../../src/js/bus_arrival.js"></script> -->
         <script src="../../src/js/bus/bus_arr.js"></script>
 
 
-
+    </div>
         <script>
             window.addEventListener("scroll", function () {
                 if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
@@ -321,7 +323,7 @@
                     console.log(snap.val())
                     bus_stops = snap.val().fav_bus_stop
                     console.log(bus_stops)
-                    if (bus_stops == undefined) {} else {
+                    if (bus_stops == undefined) { } else {
                         var users = firebase.database().ref('users');
                         var bus_stop_name = document.getElementById('name').value
 
@@ -429,14 +431,14 @@
                                                 </div>
                                             </div>
                                         </div>`
-                                        console.log(document.getElementById('msg').innerHTML)
+                                console.log(document.getElementById('msg').innerHTML)
                                 document.getElementById('msg').innerHTML = str
                                 setTimeout(
                                     function () {
                                         document.getElementById('msg').innerHTML = ''
                                     }, 5000);
 
-                                
+
                                 document.getElementById('msg').innerHTML = str
                             } else {
                                 document.getElementById('fav_button').style.color += 'orange'

@@ -21,10 +21,10 @@
     </script>
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <style>
-            .container-fluid{
-                width:40%;
+            /* .container-fluid{
+                width:auto
                 
-            }
+            } */
 
             /* .navbar-nav .nav-link.active,
         .navbar-nav .show>.nav-link {
@@ -51,57 +51,76 @@
             color:rgb(113, 84, 66);
             border-color: rgb(113, 84, 66);
         }
+        
 
 
         </style>
         
     </head>
     <body>
+        <div class="container">
 
-        <div class="container-fluid  mx-auto rounded-4 position-absolute top-50 start-50 translate-middle bg-light py-3">
-            <div class="row">
-                <div class="col-10">
-                    <ul class="nav nav-tabs " role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" data-bs-toggle="tab" href="#register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"data-bs-toggle="tab"  href="#login">Login</a>
-                        </li>
-                    </ul>
     
-                    <div class="tab-content">
-                        <div id="register" class="container tab-pane active"><br>
-                            <input type="text" id="username" placeholder="Enter your user name" class="form-control mb-5">
-                            <input type="email" id="email" placeholder="Enter your email" class="form-control mb-5">
-                            <input type="password" id="password" placeholder="Enter your password"
-                                class="form-control mb-5">
-    
-                            <div class="button_container">
-    
-                                <button class="btn" style="background-color:rgb(113,84,66); color: white;" onclick="register()">Register</button>
+        <div class="row justify-content-center">
+            <!-- <div class="col-md-3">
+
+            </div> -->
+            <div class="col-12 col-md-6">
+                <div class="container-fluid  mx-auto rounded-4  bg-light py-3">
+                    <div class="row">
+                        <div class="col-10">
+                            <ul class="nav nav-tabs " role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" data-bs-toggle="tab" href="#register">Register</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"data-bs-toggle="tab"  href="#login">Login</a>
+                                </li>
+                            </ul>
+            
+                            <div class="tab-content">
+                                <div id="register" class="container tab-pane active"><br>
+                                    <input type="text" id="username" placeholder="Enter your user name" class="form-control mb-5">
+                                    <input type="email" id="email" placeholder="Enter your email" class="form-control mb-5">
+                                    <input type="password" id="password" placeholder="Enter your password"
+                                        class="form-control mb-5">
+            
+                                    <div class="button_container">
+            
+                                        <button class="btn" style="background-color:rgb(113,84,66); color: white;" onclick="register()">Register</button>
+                                    </div>
+                                </div>
+            
+                                <div id="login" class="container tab-pane fade"><br>
+                                    <input type="text" id="username2" placeholder="Enter your user name" class="form-control mb-5">
+                                    <input type="email" id="email2" placeholder="Enter your email" class="form-control mb-5">
+                                    <input type="password" id="password2" placeholder="Enter your password"
+                                        class="form-control mb-5">
+            
+                                    <div class="button_container" >
+                                        <button class="btn float-start" style="background-color:rgb(113,84,66) ; color: white;" onclick="login()">Login</button>
+                                    </div>
+                                </div>
+                                <!--google-->
+            
                             </div>
                         </div>
-    
-                        <div id="login" class="container tab-pane fade"><br>
-                            <input type="text" id="username2" placeholder="Enter your user name" class="form-control mb-5">
-                            <input type="email" id="email2" placeholder="Enter your email" class="form-control mb-5">
-                            <input type="password" id="password2" placeholder="Enter your password"
-                                class="form-control mb-5">
-    
-                            <div class="button_container" >
-                                <button class="btn float-start" style="background-color:rgb(113,84,66) ; color: white;" onclick="login()">Login</button>
-                            </div>
+            
+                        <div class="col-2">
+                            <a href="index.html"><button type="button" class="btn-close float-end" aria-label="Close"></button></a>
                         </div>
-    
                     </div>
                 </div>
-    
-                <div class="col-2">
-                    <a href="index.html"><button type="button" class="btn-close float-end" aria-label="Close"></button></a>
-                </div>
+                
             </div>
+            <!-- <div class="col-md-3">
+                
+            </div> -->
+
         </div>
+    </div>
+
+
     </body>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
