@@ -91,19 +91,8 @@
 
         <div class="group">
           <h4 class="fs-4">User name</h4>
-          <!-- <input id="userName" type='text' class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;" /> -->
           <label id="userName" class="fs-5"></label><br>
         </div>
-
-
-        <!-- <button type="button" class="btn"  onclick="checkIfUserExists(document.getElementById('userName').value)">Available?</button> -->
-
-
-        <!-- <h4>Name</h4>
-            <input id="fullName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="background-color:#EFECDF;" :placeholder="name"> -->
-        <!-- <button type="button" class="btn"  onclick="updateName()">Update Name</button> -->
 
         <br>
         <div class="group">
@@ -112,51 +101,25 @@
             <div class="col-6">
               <input id="email" type="text" class="form-control" aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
-                style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
+                style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px; color: black;">
             </div>
             <div class="col-2">
               <button type="button" class="btn" style="background-color:rgb(112, 52, 101); color:white"
                 onclick="updateEmail()">Update Email</button>
             </div>
           </div>
-          <!-- <input id="email" type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;"> -->
 
         </div>
-        <!-- <button type="button" class="btn" onclick="updateEmail()">Update Email</button> -->
-
-
-        <!-- <button type="button" class="btn" onclick="register()">Register</button> 
-          <button type="button" class="btn" onclick="login()">Login</button>  -->
-        <!-- <button type="button" class="btn" onclick="deregister(document.getElementById('userName').value)">De-Register</button>  -->
 
         <div class="group">
           <h4 class="fs-4">Bus Stop</h4>
-
-          <!-- <input id="busStop" type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
-          <button type="button" class="btn" onclick="updateSaved()">Update Location</button> -->
-          <label id="busStop" class="fs-5"></label><br>
+          <ol id="busStop" class="fs-5"></ol><br>
         </div>
-
-        <div class="group">
-          <h4 class="fs-4">Bus Service</h4>
-          <!-- <input id="busService" type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px;">
-          <button type="button" class="btn" onclick="updateSaved()">Update Location</button> -->
-          <label id="busService" class="fs-5"></label><br>
-
-        </div>
-
-
-
 
         <p id="status"></p>
         <p id="latest"></p>
       </div>
+
 
 
 
@@ -177,8 +140,17 @@
               console.log(detail.username)
               document.getElementById('userName').innerText = detail.username;
               document.getElementById('email').value = detail.email;
-              document.getElementById('busStop').innerText = detail.fav_bus_stop;
-              document.getElementById('busService').innerText = detail.fav_service_no;
+              var all_favs = detail.fav_bus_stop
+              var all_favs_list = all_favs.split(',')
+              console.log(all_favs_list)
+              var str = ''
+              var num = 0
+              for (fav of all_favs_list) {
+                str += `<li>${fav} <button type="button" class="btn"
+                onclick="delete_fav(this)" id =${num}><i class="fa-solid fa-trash-can fs-5"></i></button></li>`
+                num++
+              }
+              document.getElementById('busStop').innerHTML = str;
 
             })
             // document.getElementById('userName').value = username;
@@ -194,158 +166,44 @@
             document.getElementById('busService').value = "";
           }
         }
-      </script>
 
-
-
-
-      <!-- <script>
-          // Your web app's Firebase configuration
-          // You can find yours at Firebase -> Project Overview -> Project Settings
-          // -> SDK setup and configuration -> CDN
-        //   const firebaseConfig = {
-        //   apiKey: "AIzaSyC6FeItoMxFnT9yIv5F8zukSMvhnZrH0YU",
-        //   authDomain: "onestopper.firebaseapp.com",
-        //   databaseURL: "https://onestopper-default-rtdb.asia-southeast1.firebasedatabase.app",
-        //   projectId: "onestopper",
-        //   storageBucket: "onestopper.appspot.com",
-        //   messagingSenderId: "64753765868",
-        //   appId: "1:64753765868:web:2f5a596f8d4a62d0e9c4c9",
-        //   measurementId: "G-DE6MGV1BWE"
-        // };
-        //   // Initialize Firebase
-        //   firebase.initializeApp(firebaseConfig);
-        
-          var users = firebase.database().ref('users');
-          users.on('child_added', (snapshot) =>{
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
-            today = mm + '/' + dd + '/' + yyyy;
-            document.getElementById("latest").innerText = "Last edited " + today;
-          });
-        
-        //The following example demostrates how to read data
-        function checkIfUserExists(userName) {
-          var user = firebase.database().ref('users/' + userName);
-          user.once('value').then((snapshot) => {
-            if(snapshot.exists()) {
-              console.log(snapshot.val())
-              console.log(snapshot.val().name)
-              document.getElementById("name").value=snapshot.val().name
-              document.getElementById("status").innerText = "User name has already been taken.";
+        function delete_fav(here) {
+          firebase.database().ref('users/' + uid).once("value", snap => {
+            bus_stops = snap.val().fav_bus_stop
+            var users = firebase.database().ref('users');
+            var bus_stop_id = here.id
+            var all_favs_list = bus_stops.split(', ')
+            console.log(all_favs_list)
+            var str = ''
+            var num = 0
+            for (fav of all_favs_list) {
+              if (num == bus_stop_id) {
+                var bus_stop_name = fav
+              }
+              num++
             }
-            else {
-              document.getElementById("status").innerText = "User name is available.";
+            console.log(bus_stop_name)
+            var new_bus_stop = ''
+            for (fav of all_favs_list) {
+              if (fav != bus_stop_name) {
+                if (new_bus_stop == '') {
+                  new_bus_stop = fav
+                } else {
+                  console.log('here')
+                  new_bus_stop = new_bus_stop + ", " + fav
+                }
+
+              }
             }
-          });
-        }
-        
-        //The following example demostrates how to add data
-        function register() {
-          var userName = document.getElementById("userName").value;
-          var fullName = document.getElementById("fullName").value;
-          var email = document.getElementById("email").value;
-          var saved = document.getElementById("saved").value;
-          writeUserDataWithCompletion(userName,fullName,email,saved);
-        }
-        
-        //The following writes the data
-        function writeUserDataWithCompletion(userName,fullName, email,saved) {
-          firebase.database().ref('users/' + userName).set({
-            userName: userName,
-            fullName:fullName,
-            email: email,
-            saved:saved
-          }, function(error) {
-            if (error) {
-              document.getElementById("status").innerText = "User Registration Failed!";
-            } else {
-              document.getElementById("status").innerText = "User Registration Done!";
-            }
-          });
-        }
-        
-        //The following example demostrates how to delete data
-        function deregister(userName) {
-          firebase.database().ref('users/' + userName).remove()
-          .then(function() {
-            document.getElementById("status").innerText = "Remove succeeded.";
+            console.log(new_bus_stop)
+
+            var updates = {};
+            updates['/users/' + uid + "/" + 'fav_bus_stop'] = new_bus_stop;
+            firebase.database().ref().update(updates);
+            get_data()
           })
-          .catch(function(error) {
-            document.getElementById("status").innerText = "Remove Failed.";
-          });
         }
-        
-        function updateEmail() {
-          var userName = document.getElementById("userName").value;
-          var fullName = document.getElementById("fullName").value;
-          var email = document.getElementById("email").value;
-          var saved = document.getElementById("saved").value;
-          var updates = {};
-          updates['/users/' + userName + "/" + 'userName'] = userName;
-          updates['/users/' + userName + "/" + 'fullName'] = fullName;
-          updates['/users/' + userName + "/" + 'email'] = email;
-          updates['/users/' + userName + "/" + 'saved'] = saved;
-          firebase.database().ref().update(updates);
-        }
-
-        function updateSaved() {
-          var userName = document.getElementById("userName").value;
-          var name = document.getElementById("name").value;
-          var email = document.getElementById("email").value;
-          var saved = document.getElementById("saved").value;
-          var updates = {};
-          updates['/users/' + userName + "/" + 'name'] = name;
-          updates['/users/' + userName + "/" + 'email'] = email;
-          updates['/users/' + userName + "/" + 'saved'] = saved;
-          firebase.database().ref().update(updates);
-        }
-
-        function displayData(){
-          var user = firebase.database().ref('users/' + userName);
-          user.once('value').then((snapshot) => {
-            if(snapshot.exists()) {
-              document.getElementById("userName").innerText = "User name has already been taken.";
-        }else {
-              document.getElementById("status").innerText = "User name is available.";
-            }
-          });
-        }
-        function login() {
-          // Get all our input fields
-          this.userName = document.getElementById("userName").value;
-          this.name = document.getElementById("fullName").value;
-          this.email = document.getElementById("email").value;
-          this.saved = document.getElementById("password").value;
-        
-          // Validate input fields
-          if (validate_email(email) == false || validate_password(password) == false) {
-            alert('Email or Password is Outta Line!!')
-            return
-            // Don't continue running the code
-          }
-        }
-
-
-       
-
-        // const dbRef = ref(getDatabase());
-        // get(child(dbRef, `users/xy`)).then((snapshot) => {
-        //   if (snapshot.exists()) {
-        //     console.log(snapshot.val());
-        //   } else {
-        //     console.log("No data available");
-        //   }
-        // }).catch((error) => {
-        //   console.error(error);
-        // });
-
-        </script> -->
-
-
-
+      </script>
   </div>
 
   </main>

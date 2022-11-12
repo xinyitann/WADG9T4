@@ -36,103 +36,7 @@ stepDisplay = new google.maps.InfoWindow();
 function calcRoute() {
   //create request 
   const selectedMode = document.getElementById('mode').value;
-  //driving---------------------------------------------------------------
-  //   var request_DRIVING ={
-  //     origin:document.getElementById('from').value,
-  //     destination:document.getElementById('to').value,
-  //     travelMode: google.maps.TravelMode.DRIVING,//WALKING,BICYCLING AND TRANSIT
-  //     unitSystem:google.maps.UnitSystem.METRIC
-  //   }
-
-  //   //Pass the request to the route metthod
-  //   directionsService.route(request_DRIVING,(result,status)=>{
-  //     if (status==google.maps.DirectionsStatus.OK){
-
-  //       //get distance and time 
-  //       const output=document.querySelector('#output_DRIVING');
-  //       output.innerHTML="<div class='alert-info'>From:"+document.getElementById('from').value+"<br/>To:" +document.getElementById('to').value +".<br/> Driving distance:"+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text + ".</div>";
-
-
-
-  //       //display route
-  //       directionsRenderer.setDirections(result);
-  //     }else{
-  //       //delete route from map 
-  //       directionsRenderer.setDirections({routes:[]});
-
-  //       //center map in spain 
-  //       map.setCenter(myLatLng);
-
-  //       //show error msg
-  //       output.innerHTML="<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve distance </div>"
-  //     }
-  //   })
-  // //walking -----------------------------------------------------------------
-  //   var request_WALKING ={
-  //     origin:document.getElementById('from').value,
-  //     destination:document.getElementById('to').value,
-  //     travelMode: google.maps.TravelMode.WALKING,//WALKING,BICYCLING AND TRANSIT
-  //     unitSystem:google.maps.UnitSystem.METRIC
-  //   }
-
-  //   //Pass the request to the route metthod
-  //   directionsService.route(request_WALKING,(result,status)=>{
-  //     if (status==google.maps.DirectionsStatus.OK){
-
-  //       //get distance and time 
-  //       const output=document.querySelector('#output_WALKING');
-  //       output.innerHTML="<div class='alert-info'>From:"+document.getElementById('from').value+"<br/>To:" +document.getElementById('to').value +".<br/> Driving distance:"+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text + ".</div>";
-
-
-
-  //       //display route
-  //       directionsRenderer.setDirections(result);
-  //     }else{
-  //       //delete route from map 
-  //       directionsRenderer.setDirections({routes:[]});
-
-  //       //center map in spain 
-  //       map.setCenter(myLatLng);
-
-  //       //show error msg
-  //       output.innerHTML="<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve distance </div>"
-  //     }
-  //   })
-
-
-  //   //bicycling---------------------------------------------------------------
-  //   var request_BICYCLING ={
-  //     origin:document.getElementById('from').value,
-  //     destination:document.getElementById('to').value,
-  //     travelMode: google.maps.TravelMode.BICYCLING,//WALKING,BICYCLING AND TRANSIT
-  //     unitSystem:google.maps.UnitSystem.METRIC
-  //   }
-
-  //   //Pass the request to the route metthod
-  //   directionsService.route(request_BICYCLING,(result,status)=>{
-  //     if (status==google.maps.DirectionsStatus.OK){
-
-  //       //get distance and time 
-  //       const output=document.querySelector('#output_BICYCLING');
-  //       output.innerHTML="<div class='alert-info'>From:"+document.getElementById('from').value+"<br/>To:" +document.getElementById('to').value +".<br/> Driving distance:"+result.routes[0].legs[0].distance.text+".<br/>Duration : "+result.routes[0].legs[0].duration.text + ".</div>";
-
-
-
-  //       //display route
-  //       directionsRenderer.setDirections(result);
-  //     }else{
-  //       //delete route from map 
-  //       directionsRenderer.setDirections({routes:[]});
-
-  //       //center map in spain 
-  //       map.setCenter(myLatLng);
-
-  //       //show error msg
-  //       output.innerHTML="<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve distance </div>"
-  //     }
-  //   })
-
-  //TRANSIT
+ 
   var request = {
     origin: document.getElementById('from').value,
     destination: document.getElementById('to').value,
@@ -150,7 +54,7 @@ function calcRoute() {
       const destination = document.getElementById('to').value
       const source = document.getElementById('from').value
 
-      output.innerHTML = "<div class='alert-info fs-4'><br> <b>Driving distance: </b>" + result.routes[0].legs[0].distance.text + "<br/><b>Duration: </b> " + result.routes[0].legs[0].duration.text + "</div>";
+      // output.innerHTML = "<div class='alert-info fs-4'><br> <b>Driving distance: 1</b>" + result.routes[0].legs[0].distance.text + "<br/><b>Duration: </b> " + result.routes[0].legs[0].duration.text + "</div>";
       var toSave = {}
       toSave['source'] = source
       toSave['destination'] = destination
@@ -178,13 +82,13 @@ function calcRoute() {
 
       //database.ref().child('user_routes/' + useremail).set(toSave)
 
-      output.innerHTML = "<div class='alert-info fs-4'><br><b> Driving distance: </b>" + result.routes[0].legs[0].distance.text + "<br/><b>Duration: </b> " + result.routes[0].legs[0].duration.text + "</div>";
+      // output.innerHTML = "<div class='alert-info fs-4'><br><b> Driving distance: 2</b>" + result.routes[0].legs[0].distance.text + "<br/><b>Duration: </b> " + result.routes[0].legs[0].duration.text + "</div>";
 
       //display route
       directionsRenderer.setDirections(result);
       showSteps(result);
 
-      output.innerHTML = "<div class='alert-info fs-4'><br><b>Driving distance: </b>" + result.routes[0].legs[0].distance.text + "<br/><b>Duration: </b> " + result.routes[0].legs[0].duration.text + "</div><br>";
+      output.innerHTML = "<div class='alert-info fs-4'><br><b>Distance: </b>" + result.routes[0].legs[0].distance.text + "<br/><b>Duration: </b> " + result.routes[0].legs[0].duration.text + "</div><br>";
     } else {
       //delete route from map 
       directionsRenderer.setDirections({ routes: [] });

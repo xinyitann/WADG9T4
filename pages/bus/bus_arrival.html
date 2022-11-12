@@ -24,6 +24,7 @@
     <!-- This is the API from Firebase Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="icon" href="../../src/img/logo3.png" type="image/icon type">
 
 
     <!-- <script src="../../src/js/index.js"></script> -->
@@ -98,15 +99,12 @@
                             Bus
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus_arrival.html">Bus Arrival
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_arrival.html">Bus Arrival
                                     Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus_service_map.html">Bus
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_service_map.html">Bus
                                     Services</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="../train.html">Train</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav_bar_text" href="../taxi.html">Taxi</a>
@@ -118,7 +116,7 @@
                         <a class="nav-link nav_bar_text" href="../traffic/traffic_check.html">Traffic</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav float-end" id="profile">
+                <ul class="navbar-nav text-center" id="profile">
                     <!-- <li class="nav-item">
                         <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
                                 class="fa-sharp fa-solid fa-gear"></i></a>
@@ -186,7 +184,17 @@
                         Refresh</button>
                     <span id="fav"></span>
                     <br>
-                    <span id="msg" class="mt-1 bg-danger"></span>
+                    <span id="msg">
+                        <div class="row justify-content-center">
+                            <div class="col-3 text-center fade alert-dismissible">
+                                <div class="alert alert-danger" id='too-many-alert' role="alert">
+                                    You currently have 10 favourite bus stops. Please go to profile to review them
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
                 </div>
                 <div class="container-fluid w-75 mx-auto">
                     <div class="row" v-for="(value, key) of selected_bus_stop_arrivals">
@@ -233,7 +241,7 @@
                     <a href="../../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
+                    <a href="../about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
                 </li>
                 <li class="list-inline-item">
                     <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
@@ -313,8 +321,7 @@
                     console.log(snap.val())
                     bus_stops = snap.val().fav_bus_stop
                     console.log(bus_stops)
-                    if (bus_stops == undefined) {
-                    } else {
+                    if (bus_stops == undefined) {} else {
                         var users = firebase.database().ref('users');
                         var bus_stop_name = document.getElementById('name').value
 
@@ -324,7 +331,7 @@
                         var uid = obj.uid
                         console.log(uid)
 
-                        var split_bus = bus_stops.split(',')
+                        var split_bus = bus_stops.split(', ')
                         console.log(split_bus)
                         var exists = false
                         for (bus_already of split_bus) {
@@ -332,6 +339,7 @@
                             console.log(bus_stop_name)
                             if (bus_already == bus_stop_name) {
                                 document.getElementById('fav_button').style.color += 'orange'
+                                document.getElementById('fav_button').disabled = true
                             }
                         }
                     }
@@ -384,7 +392,6 @@
                         firebase.database().ref().update(updates);
                     } else {
                         var users = firebase.database().ref('users');
-                        document.getElementById('fav_button').style.color += 'orange'
                         var bus_stop_name = document.getElementById('name').value
                         console.log(bus_stops)
 
@@ -400,7 +407,7 @@
                         var uid = obj.uid
                         console.log(uid)
 
-                        var split_bus = bus_stops.split(',')
+                        var split_bus = bus_stops.split(', ')
                         console.log(split_bus)
                         var exists = false
                         for (bus_already of split_bus) {
@@ -411,8 +418,28 @@
                         }
                         if (exists == false) {
                             if (split_bus.length >= 10) {
-                                document.getElementById('msg').innerText = 'You currently have 10 favourite bus stops. Please go to profile to review them'
+                                // document.getElementById('msg').innerText =
+                                //     'You currently have 10 favourite bus stops. Please go to profile to review them'
+                                var str = `<div class="row justify-content-center">
+                                            <div class="col-5 text-center fade show alert-dismissible">
+                                                <div class="alert alert-danger" id='too-many-alert' role="alert">
+                                                    You currently have 10 favourite bus stops. Please go to profile to review them
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                            </div>
+                                        </div>`
+                                        console.log(document.getElementById('msg').innerHTML)
+                                document.getElementById('msg').innerHTML = str
+                                setTimeout(
+                                    function () {
+                                        document.getElementById('msg').innerHTML = ''
+                                    }, 5000);
+
+                                
+                                document.getElementById('msg').innerHTML = str
                             } else {
+                                document.getElementById('fav_button').style.color += 'orange'
                                 var new_bus_stop = bus_stops + ", " + bus_stop_name
                                 console.log(new_bus_stop)
 

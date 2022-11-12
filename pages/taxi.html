@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taxi Timings</title>
+    <title>Taxi Availability</title>
 
     <!-- Vue.js 3 CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../src/css/bus_arrival.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="icon" href="../src/img/logo3.png" type="image/icon type">
 
     <style>
         .green {
@@ -110,23 +111,20 @@
                         <a class="nav-link nav_bar_text" aria-current="page" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle pb-0 active text-decoration-underline nav_bar_text" href="#"
+                        <a class="nav-link dropdown-toggle pb-0 nav_bar_text" href="#"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Bus
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus/bus_arrival.html">Bus Arrival
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus/bus_arrival.html">Bus Arrival
                                     Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold nav_bar_text" href="bus/bus_service_map.html">Bus
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus/bus_service_map.html">Bus
                                     Services</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="train.html">Train</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav_bar_text" href="taxi.html">Taxi</a>
+                        <a class="nav-link nav_bar_text active text-decoration-underline" href="taxi.html">Taxi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav_bar_text" href="car.html">Car</a>
@@ -135,7 +133,7 @@
                         <a class="nav-link nav_bar_text" href="traffic/traffic_check.html">Traffic</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav float-end" id="profile">
+                <ul class="navbar-nav text-center" id="profile">
                     <!-- <li class="nav-item">
                 <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
                         class="fa-sharp fa-solid fa-gear"></i></a>
@@ -309,6 +307,13 @@
         </div>
 
         <script>
+            window.addEventListener("scroll", function () {
+                if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+                    document.getElementById("header").style.boxShadow = "2px 2px 2px 2px #e5dfdf";
+                } else {
+                    document.getElementById("header").style.boxShadow = "none";
+                }
+            });
             // Ajax call
             function getLoc(action) {
                 var addr = encodeURI(document.getElementById("addr").value);
@@ -418,10 +423,10 @@
         <div class="row fs-5 text-center bg-light justify-content-center pt-2">
             <ul class="list-inline">
                 <li class="list-inline-item">
-                    <a href="../../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
+                    <a href="../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
+                    <a href="about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
                 </li>
                 <li class="list-inline-item">
                     <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
