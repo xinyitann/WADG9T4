@@ -17,7 +17,8 @@
     <link rel="stylesheet" href="../src/css/bus_arrival.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&callback=initMap"
+        async defer></script>
     <style>
         .green {
             color: green;
@@ -93,7 +94,7 @@
 
 </head>
 
-<body onload="user_login()">
+<body >
     <script>
         var user_detail = localStorage.getItem("users")
         console.log(user_detail)
@@ -164,132 +165,132 @@
         <div id="message"></div>
         <div id="check" style="justify-content: center; display: flex;">
         </div> 
-        <button onclick="carpark_avalibility()"></button>
-        <div id="car_table" onload="carpark_avalibility()"></div>
-        <div id="map" class="mx-auto"></div>
+        <!-- <button onclick="carpark_avalibility()"></button> -->
+        <div id="map" onload="initMap()"></div>
+        <!-- <div id="map" class="mx-auto"></div> -->
         <script>
             //Initialize and add the map
-            function user_login() {
-                console.log('user_login')
-                if (user_detail != null) {
-                    console.log('hree')
-                    document.getElementById('profile').innerHTML = `<li class="nav-item">
-                        <a href="profile.html" class="nav-link nav_bar_text justify-content-center"><i
-                                class="fa-sharp fa-solid fa-gear"></i></a>
-                    </li>`
-                } else {
-                    document.getElementById('profile').innerHTML = `<li class="nav-item">
-                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
-                    </li>`
-                }
-            }
+            // function user_login() {
+            //     console.log('user_login')
+            //     if (user_detail != null) {
+            //         console.log('hree')
+            //         document.getElementById('profile').innerHTML = `<li class="nav-item">
+            //             <a href="profile.html" class="nav-link nav_bar_text justify-content-center"><i
+            //                     class="fa-sharp fa-solid fa-gear"></i></a>
+            //         </li>`
+            //     } else {
+            //         document.getElementById('profile').innerHTML = `<li class="nav-item">
+            //             <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+            //         </li>`
+            //     }
+            // }
 
-            function initMap() { //displaying user position on maps
-                // default: The location of SIS, SMU
-                var i = 0
-                var str = `<table class="center">
-                <tr>
-                    <th>Number</th>
-                    <th>Car</th>
-                </tr>`
+            // function initMap() { //displaying user position on maps
+            //     // default: The location of SIS, SMU
+            //     var i = 0
+            //     var str = `<table class="center">
+            //     <tr>
+            //         <th>Number</th>
+            //         <th>Car</th>
+            //     </tr>`
 
-                var lat = parseFloat(document.getElementById("lat").value);
-                var lng = parseFloat(document.getElementById("lng").value);
-                // var uluru = {lat: -25.344, lng: 131.036};
-                var loc = {
-                    lat: lat,
-                    lng: lng
-                };
+            //     var lat = parseFloat(document.getElementById("lat").value);
+            //     var lng = parseFloat(document.getElementById("lng").value);
+            //     // var uluru = {lat: -25.344, lng: 131.036};
+            //     var loc = {
+            //         lat: lat,
+            //         lng: lng
+            //     };
 
-                // The map, centered at SIS, SMU
-                var map = new google.maps.Map(
-                    // play with the zoom value to zoom in or out
-                    document.getElementById('map'), {
-                        zoom: 16,
-                        center: loc
-                    });
-                // The marker, positioned at SIS, SMU
-                var marker = new google.maps.Marker({
-                    position: loc,
-                    map: map
-                });
-                // map = new google.maps.Map(document.getElementById("map"), {
-                //     center: { lat: 1.290, lng: 103.851 },
-                //     zoom: 13,
-                // });
-                infoWindow = new google.maps.InfoWindow();
+            //     // The map, centered at SIS, SMU
+            //     var map = new google.maps.Map(
+            //         // play with the zoom value to zoom in or out
+            //         document.getElementById('map'), {
+            //             zoom: 16,
+            //             center: loc
+            //         });
+            //     // The marker, positioned at SIS, SMU
+            //     var marker = new google.maps.Marker({
+            //         position: loc,
+            //         map: map
+            //     });
+            //     // map = new google.maps.Map(document.getElementById("map"), {
+            //     //     center: { lat: 1.290, lng: 103.851 },
+            //     //     zoom: 13,
+            //     // });
+            //     infoWindow = new google.maps.InfoWindow();
 
-                const locationButton = document.createElement("button");
+            //     const locationButton = document.createElement("button");
 
-                locationButton.textContent = "Pan to Current Location";
-                locationButton.classList.add("custom-map-control-button");
-                map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-                locationButton.addEventListener("click", () => {
-                    // Try HTML5 geolocation.
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(
-                            (position) => {
-                                const pos = {
-                                    lat: position.coords.latitude,
-                                    lng: position.coords.longitude,
-                                };
-                infoWindow.setPosition(pos);
-                infoWindow.setContent("Location found.");
-                infoWindow.open(map);
-                map.setCenter(pos);
-                let api_endpoint_url = '../src/php/car/carpark_avalibility.php'
-                axios.get(api_endpoint_url)
-                    .then(response => {
-                        console.log(response)
-                        for (res of response.data) {
-                            console.log(res.value)
-                            document.getElementById("message").innerHTML =
-                                "<h1>Below are the available Car Parks near you</h1>"
-                            document.getElementById("check").innerHTML =
-                                `<a href ="traffic/traffic_check.html" class="btn btn-outline-success">Check Traffic Here</a>`
-                            // for (r of res.value) {
-                            //     console.log(r.Longitude)
-                            //     console.log(r.Latitude)
-                            //     var marker = new google.maps.Marker({
-                            //         position: {
-                            //             lat: r.Latitude,
-                            //             lng: r.Longitude
-                            //         },
-                            //         map: map
-                            //     });
-                            //     if (i < 5) {
-                            //         str += `<tr><td>${i+1}</td>`
-                            //         str += `<td>${r.Latitude}</td></tr>`
-                            //         i++
-                            //     }
+            //     locationButton.textContent = "Pan to Current Location";
+            //     locationButton.classList.add("custom-map-control-button");
+            //     map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+            //     locationButton.addEventListener("click", () => {
+            //         // Try HTML5 geolocation.
+            //         if (navigator.geolocation) {
+            //             navigator.geolocation.getCurrentPosition(
+            //                 (position) => {
+            //                     const pos = {
+            //                         lat: position.coords.latitude,
+            //                         lng: position.coords.longitude,
+            //                     };
+            //     infoWindow.setPosition(pos);
+            //     infoWindow.setContent("Location found.");
+            //     infoWindow.open(map);
+            //     map.setCenter(pos);
+            //     let api_endpoint_url = '../src/php/car/carpark_avalibility.php'
+            //     axios.get(api_endpoint_url)
+            //         .then(response => {
+            //             console.log(response)
+            //             for (res of response.data) {
+            //                 console.log(res.value)
+            //                 document.getElementById("message").innerHTML =
+            //                     "<h1>Below are the available Car Parks near you</h1>"
+            //                 document.getElementById("check").innerHTML =
+            //                     `<a href ="traffic/traffic_check.html" class="btn btn-outline-success">Check Traffic Here</a>`
+            //                 // for (r of res.value) {
+            //                 //     console.log(r.Longitude)
+            //                 //     console.log(r.Latitude)
+            //                 //     var marker = new google.maps.Marker({
+            //                 //         position: {
+            //                 //             lat: r.Latitude,
+            //                 //             lng: r.Longitude
+            //                 //         },
+            //                 //         map: map
+            //                 //     });
+            //                 //     if (i < 5) {
+            //                 //         str += `<tr><td>${i+1}</td>`
+            //                 //         str += `<td>${r.Latitude}</td></tr>`
+            //                 //         i++
+            //                 //     }
 
-                            //     let url ="https://maps.googleapis.com/maps/api/geocode/json?latlng=${r.Latitude},${r.Longitude}&key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo";
-                            //     // fetch(url)
-                            //     //     .then(response => response.json())
-                            //     //     .then(data => {
-                            //     //         console.log(data)
-                            //     //     })
-                            // }
-                        }
-                        str += `
-            </table>`
-            str = ''
-                                        document.getElementById("car_table").innerHTML = str
-                                    })
-                                    .catch(error => {
-                                        console.log(error.message)
-                                    })
-                            },
-                            () => {
-                                handleLocationError(true, infoWindow, map.getCenter());
-                            }
-                        );
-                    } else {
-                        // Browser doesn't support Geolocation
-                        handleLocationError(false, infoWindow, map.getCenter());
-                    }
-                });
-            }
+            //                 //     let url ="https://maps.googleapis.com/maps/api/geocode/json?latlng=${r.Latitude},${r.Longitude}&key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo";
+            //                 //     // fetch(url)
+            //                 //     //     .then(response => response.json())
+            //                 //     //     .then(data => {
+            //                 //     //         console.log(data)
+            //                 //     //     })
+            //                 // }
+            //             }
+            //             str += `
+            // </table>`
+            // str = ''
+            //                             document.getElementById("car_table").innerHTML = str
+            //                         })
+            //                         .catch(error => {
+            //                             console.log(error.message)
+            //                         })
+            //                 },
+            //                 () => {
+            //                     handleLocationError(true, infoWindow, map.getCenter());
+            //                 }
+            //             );
+            //         } else {
+            //             // Browser doesn't support Geolocation
+            //             handleLocationError(false, infoWindow, map.getCenter());
+            //         }
+            //     });
+            // }
 
 
             function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -304,11 +305,6 @@
             }
             // window.initMap = initMap;
         </script>
-
-        <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places&callback=initMap&initAutocomplete"
-            async defer></script>
-
         <div class="jumbotron">
             <form>
                 <div class="form-group">
@@ -321,7 +317,7 @@
 
         <script>
             // Ajax call
-            function carpark_avalibility(){
+            function initMap(){
                 var loc = {
                 lat: 1.2963,
                 lng: 103.8502
@@ -390,53 +386,53 @@
                         console.log(error.message)
                     })
         }
-            function getLoc(action){
-                var addr = encodeURI(document.getElementById("addr").value);
-                console.log(addr);
-                var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + addr +
-                    "&key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo";
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        // following code may throw error if user input is invalid address
-                        // so we use try-catch block to handle errors
-                        try {
-                            // expected response is JSON data
-                            var data = JSON.parse(this.responseText);
-                            console.log(data);
+            // function getLoc(action){
+            //     var addr = encodeURI(document.getElementById("addr").value);
+            //     console.log(addr);
+            //     var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + addr +
+            //         "&key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo";
+            //     var xhttp = new XMLHttpRequest();
+            //     xhttp.onreadystatechange = function () {
+            //         if (this.readyState == 4 && this.status == 200) {
+            //             // following code may throw error if user input is invalid address
+            //             // so we use try-catch block to handle errors
+            //             try {
+            //                 // expected response is JSON data
+            //                 var data = JSON.parse(this.responseText);
+            //                 console.log(data);
 
-                            var info = '';
-                            if (action == 'postcode') {
-                                // display postal code, given an address
-                                info = getPostCode(data);
-                            } else {
-                                // display full address, given post code or partial addr
-                                info = getFullAddress(data);
-                            }
-                            console.log(info);
+            //                 var info = '';
+            //                 if (action == 'postcode') {
+            //                     // display postal code, given an address
+            //                     info = getPostCode(data);
+            //                 } else {
+            //                     // display full address, given post code or partial addr
+            //                     info = getFullAddress(data);
+            //                 }
+            //                 console.log(info);
 
-                            document.getElementById("display").innerHTML = info;
-                            // refresh the hidden input values with new lat lng coordinates
-                            var coordinate = getLatLng(data);
-                            document.getElementById("lat").value = coordinate["lat"];
-                            document.getElementById("lng").value = coordinate["lng"];
-                            // now refresh the map
-                            initMap();
-                        } catch (err) { // show error message
-                            // not a good idea to directly show err.message 
-                            // as it may contain sensitive info
-                            // document.getElementById("display").innerHTML = err.message;
+            //                 document.getElementById("display").innerHTML = info;
+            //                 // refresh the hidden input values with new lat lng coordinates
+            //                 var coordinate = getLatLng(data);
+            //                 document.getElementById("lat").value = coordinate["lat"];
+            //                 document.getElementById("lng").value = coordinate["lng"];
+            //                 // now refresh the map
+            //                 initMap();
+            //             } catch (err) { // show error message
+            //                 // not a good idea to directly show err.message 
+            //                 // as it may contain sensitive info
+            //                 // document.getElementById("display").innerHTML = err.message;
 
-                            // show a predefined error message string
-                            document.getElementById("display").innerHTML =
-                            "Sorry, invalid address. Please try again!";
-                        }
-                    }
-                };
+            //                 // show a predefined error message string
+            //                 document.getElementById("display").innerHTML =
+            //                 "Sorry, invalid address. Please try again!";
+            //             }
+            //         }
+            //     };
 
-                xhttp.open("GET", url, true);
-                xhttp.send();
-            }
+            //     xhttp.open("GET", url, true);
+            //     xhttp.send();
+            // }
 
             function getFullAddress(data) {
                 var addr = data["results"][0]["formatted_address"];
