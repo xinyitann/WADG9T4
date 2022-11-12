@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWyI5hJe5X7W9Svu7sVQCsUt3Q9JVdOqk&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&callback=initMap">
     </script>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
@@ -172,8 +172,12 @@
                 </div>
             </div>
 
-
             <div class="row justify-content-center mb-5" v-if="direction_dropdown">
+                <div class="row justify-content-center">
+                    <div class="col-md-5">
+                        <h2 class="fw-bold fs-4">Select a direction:</h2>
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <select v-model="direction" class="form-select form-select-lg mb-3" id="dropdown"
                         aria-label=".form-select-lg example">

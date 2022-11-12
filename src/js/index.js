@@ -52,7 +52,7 @@ function register() {
       var user_data = {
         email: email,
         username: username,
-        uid:user.uid,
+        uid: user.uid,
         // favourite_song: 'favourite_song',
         // milk_before_cereal : milk_before_cereal,
         last_login: Date.now()
@@ -60,6 +60,12 @@ function register() {
 
       // Push to Firebase Database
       database_ref.child('users/' + user.uid).set(user_data)
+      firebase.auth().currentUser.sendEmailVerification()
+        .then(() => {
+          // Email verification sent!
+          // ...
+          console.log("Email verification sent!")
+        });
 
       // DOne
       alert('User Created!!')
@@ -100,7 +106,7 @@ function login() {
       var user_data = {
         email: email,
         username: username,
-        uid:user.uid,
+        uid: user.uid,
         last_login: Date.now()
       }
 
@@ -110,12 +116,12 @@ function login() {
       // DOne
       alert('User Logged In!!')
       firebase.database().ref('users/' + user.uid).once("value", snap => {
-        
+
         console.log(snap.val())
         console.log(user_data)
-        localStorage.setItem("users",JSON.stringify(snap.val()) );
+        localStorage.setItem("users", JSON.stringify(snap.val()));
         window.location.replace("./index.html");
-        
+
       })
 
 
@@ -189,14 +195,36 @@ getAuth()
   });
 
 
-  // var user_detail = localStorage.getItem("users")
-  // console.log(user_detail)
-  // var obj = JSON.parse(user_detail)
-  // var username = obj.username
-  // console.log(username)
+// var user_detail = localStorage.getItem("users")
+// console.log(user_detail)
+// var obj = JSON.parse(user_detail)
+// var username = obj.username
+// console.log(username)
 
 
 
 function getDirections() {
   console.log('getting directions')
+}
+
+
+function update_email_index(email, uid) {
+  console.log('here')
+  const user = auth.currentUser;
+
+  user.updateEmail(email).then(() => {
+    console.log('success')
+    firebase.database().ref('users/' + uid).once("value", snap => {
+      bus_stops = snap.val().email
+      var users = firebase.database().ref('users');
+      var email = document.getElementById('email').value
+      var updates = {};
+      updates['/users/' + uid + "/" + 'email'] = email;
+      firebase.database().ref().update(updates);
+      get_data()
+    })
+  }).catch((error) => {
+    console.log('sorry didnt work', error)
+    return 'error'
+  });
 }
