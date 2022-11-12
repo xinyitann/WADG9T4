@@ -11,8 +11,8 @@ In this project, we aim to build a web-based one-stop portal for Singaporeans th
 Instructions for Windows:
 Ensure that nodejs version 18.10.0 and npm version 8.19.2 is installed on the device.
 
-a. to check, run node -v and npm -v in the command terminal
-b. if node is not found, search windows for advanced systems settings --> environment variabless --> new , with name being nodejs and directory being where the nodejs folder is
+1. To check, run node -v and npm -v in the command terminal
+2. If node is not found, search windows for advanced systems settings --> environment variabless --> new , with name being nodejs and directory being where the nodejs folder is
 
 Navigate to the ?? directory using the terminal, and from within that directory, run npm install inside the terminal
 Create a file in the ?? directory called "??.js" and paste the data from the following link ??
