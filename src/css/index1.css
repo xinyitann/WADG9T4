@@ -150,3 +150,13 @@ input {
 .nav_bar_text {
   color: rgb(113, 84, 66) !important;
 }
+
+/* @media (min-width: 992px){
+  container {
+    max-width: 960px;
+}
+} */
+
+@media (max-width: 1200px)
+{body {
+    min-width: 1140px;}}

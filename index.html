@@ -113,20 +113,20 @@
 
     <!--TEXT BOX-->
 
-
+    <div class="container-fluid ">
     <div class="row justify-content-center mx-3">
         <div class="col-md-4">
             <div class="row justify-content-md-center" style="color: rgb(113, 84, 66);">
                 <div class="input-group mb-4 input-group-lg">
                     <span class="input-group-text" style="background-color: rgb(113, 84, 66); color:white">From</span>
-                    <input id="from" type="text" class="form-control" style="background-color:#e5dfdf;"
+                    <input id="from" type="text" class="form-control" style="background-color:#f7f7f7;"
                         placeholder="where are you?">
                 </div>
             </div>
             <div class="col-12">
                 <div class="input-group mb-4 input-group-lg">
                     <span class="input-group-text" style="background-color: rgb(113, 84, 66); color:white">To</span>
-                    <input id="to" type="text" class="form-control" style="background-color:#e5dfdf;"
+                    <input id="to" type="text" class="form-control" style="background-color:#f7f7f7;"
                         placeholder="where are you going?">
                 </div>
             </div>
@@ -136,7 +136,7 @@
 
             </div>
             <div class="col-12">
-                <select id="mode" class="form-select form-select-lg mb-4">
+                <select id="mode" class="form-select form-select-lg mb-4"  style="background-color:#f7f7f7">
                     <option value="DRIVING">Driving</option>
                     <option value="WALKING">Walking</option>
                     <option value="BICYCLING">Bicycling</option>
@@ -210,7 +210,7 @@
     </div>
 
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBohQllg13oqNG10s28iZOiUsBw7nFWDlU&libraries=places">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places">
     </script>
 
     <script src="./src/js/map.js"></script>
@@ -332,7 +332,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-
+    </div>
     <script>
         var map = new google.maps.Map(document.getElementById('map'), mapOptions)
 
