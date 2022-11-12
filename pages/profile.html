@@ -143,8 +143,6 @@
               var all_favs = detail.fav_bus_stop
               console.log(all_favs)
               if (all_favs != undefined) {
-
-
                 var all_favs_list = all_favs.split(',')
                 console.log(all_favs_list)
                 var str = ''
@@ -162,14 +160,7 @@
                 document.getElementById('busStop').innerHTML =
                   `<b>You currently do not have any favourite bus stops</b>`;
               }
-
             })
-            // document.getElementById('userName').value = username;
-            // document.getElementById('email').value = email;
-            // document.getElementById('busStop').value = busStop;
-            // document.getElementById('busService').value = busService;
-
-
           } else {
             document.getElementById('userName').innerText = "";
             document.getElementById('email').innerText = "";
@@ -218,7 +209,19 @@
               firebase.database().ref().update(updates);
               get_data()
             }
+          })
+        }
 
+
+        function updateEmail() {
+          firebase.database().ref('users/' + uid).once("value", snap => {
+            bus_stops = snap.val().email
+            var users = firebase.database().ref('users');
+            var email = document.getElementById('email').value
+            var updates = {};
+            updates['/users/' + uid + "/" + 'email'] = email;
+            firebase.database().ref().update(updates);
+            get_data()
           })
         }
       </script>
