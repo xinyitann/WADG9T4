@@ -223,7 +223,8 @@
             if (all_favs_list.length > 0) {
               for (fav of all_favs_list) {
                 str += `<li>${fav} <button type="button" class="btn"
-                onclick="delete_fav(this)" id =${num}><i class="fa-solid fa-trash-can fs-5"></i></button></li>`
+                onclick="delete_fav(this)" id =${num}><i class="fa-solid fa-trash-can fs-5"></i></button><button type="button" class="btn"
+                onclick="delete_fav(this)" id =${num}><i class="fa-solid fa-circle-arrow-right fs-5"></i></button></li>`
                 num++
               }
               document.getElementById('busStop').innerHTML = str;
