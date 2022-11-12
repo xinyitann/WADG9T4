@@ -18,7 +18,7 @@
 
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWyI5hJe5X7W9Svu7sVQCsUt3Q9JVdOqk&libraries=places&callback=initMap">
-    </script>
+        </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
     <!-- This is the API from Firebase Realtime Database -->
@@ -99,10 +99,12 @@
                             Bus
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_arrival.html">Bus Arrival
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_arrival.html">Bus
+                                    Arrival
                                     Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_service_map.html">Bus
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center"
+                                    href="bus_service_map.html">Bus
                                     Services</a></li>
                         </ul>
                     </li>
@@ -144,7 +146,7 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center mb-5">
+            <div class="row justify-content-center">
                 <div class="col-md-4">
 
                     <input type="text" class="form-control" aria-label="Sizing example input"
@@ -166,8 +168,23 @@
                     </a>
                 </div>
             </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <span id="no_bus">
+                        <div class="row justify-content-center">
+                            <div class="text-center fade alert-dismissible">
+                                <div class="alert alert-danger" id='too-many-alert' role="alert">
+                                    This bus stop does not exist. Please try again
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
 
-            <div class="row mb-5 justify-content-center">
+            <div class="row my-5 justify-content-center">
                 <div class="col-md-8">
                     <h2 class="fw-bold fs-4">See bus stops close to you:</h2>
                 </div>
@@ -254,13 +271,13 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-        </script>
+            </script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <!-- <script src="../../src/js/bus_arrival.js"></script> -->
         <script src="../../src/js/bus/bus_arr.js"></script>
 
 
-
+    </div>
         <script>
             window.addEventListener("scroll", function () {
                 if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
@@ -310,50 +327,41 @@
             }
 
             function check_fav() {
+                console.log('herer')
                 var user_detail = localStorage.getItem("users")
                 console.log(user_detail)
-                var obj = JSON.parse(user_detail)
-                var uid = obj.uid
-                console.log(uid)
-                var bus_stops = ''
-                firebase.database().ref('users/' + uid).once("value", snap => {
-
-                    console.log(snap.val())
-                    bus_stops = snap.val().fav_bus_stop
-                    console.log(bus_stops)
-                    if (bus_stops == undefined) {} else {
-                        var users = firebase.database().ref('users');
-                        var bus_stop_name = document.getElementById('name').value
-
-                        var user_detail = localStorage.getItem("users")
-                        console.log(user_detail)
-                        var obj = JSON.parse(user_detail)
-                        var uid = obj.uid
-                        console.log(uid)
-
-                        var split_bus = bus_stops.split(', ')
-                        console.log(split_bus)
-                        var exists = false
-                        for (bus_already of split_bus) {
-                            console.log(bus_already)
-                            console.log(bus_stop_name)
-                            if (bus_already == bus_stop_name) {
-                                document.getElementById('fav_button').style.color += 'orange'
-                                document.getElementById('fav_button').disabled = true
+                if (user_detail != null) {
+                    var obj = JSON.parse(user_detail)
+                    var uid = obj.uid
+                    console.log(uid)
+                    var bus_stops = ''
+                    firebase.database().ref('users/' + uid).once("value", snap => {
+                        console.log(snap.val())
+                        bus_stops = snap.val().fav_bus_stop
+                        console.log(bus_stops)
+                        if (bus_stops == undefined) {} else {
+                            var users = firebase.database().ref('users');
+                            // var bus_stop_name = document.getElementById('name').value
+                            var bus_stop_name = document.getElementById('bus_stop_name').innerText
+                            var user_detail = localStorage.getItem("users")
+                            console.log(user_detail)
+                            var obj = JSON.parse(user_detail)
+                            var uid = obj.uid
+                            console.log(uid)
+                            var split_bus = bus_stops.split(', ')
+                            console.log(split_bus)
+                            var exists = false
+                            for (bus_already of split_bus) {
+                                console.log(bus_already)
+                                console.log(bus_stop_name)
+                                if (bus_already == bus_stop_name) {
+                                    document.getElementById('fav_button').style.color += 'orange'
+                                    document.getElementById('fav_button').disabled = true
+                                }
                             }
                         }
-                    }
-
-                })
-                // var user = firebase.database().ref('users/' + uid);
-                // user.once('value').then((snapshot) => {
-                //     if (snapshot.exists()) {
-                //         console.log(snapshot)
-                //         document.getElementById("status").innerText = "User ID has already been taken.";
-                //     } else {
-                //         document.getElementById("status").innerText = "User ID is available.";
-                //     }
-                // });
+                    })
+                }
             }
 
             // TO SAVE THE FAV BUS STOP
@@ -372,7 +380,7 @@
                     if (bus_stops == undefined) {
                         var users = firebase.database().ref('users');
                         document.getElementById('fav_button').style.color += 'orange'
-                        var bus_stop_name = document.getElementById('name').value
+                        var bus_stop_name = document.getElementById('bus_stop_name').innerText
 
 
                         var user_detail = localStorage.getItem("users")
@@ -392,7 +400,7 @@
                         firebase.database().ref().update(updates);
                     } else {
                         var users = firebase.database().ref('users');
-                        var bus_stop_name = document.getElementById('name').value
+                        var bus_stop_name = document.getElementById('bus_stop_name').innerText
                         console.log(bus_stops)
 
                         var user_detail = localStorage.getItem("users")
@@ -429,14 +437,14 @@
                                                 </div>
                                             </div>
                                         </div>`
-                                        console.log(document.getElementById('msg').innerHTML)
+                                console.log(document.getElementById('msg').innerHTML)
                                 document.getElementById('msg').innerHTML = str
                                 setTimeout(
                                     function () {
                                         document.getElementById('msg').innerHTML = ''
                                     }, 5000);
 
-                                
+
                                 document.getElementById('msg').innerHTML = str
                             } else {
                                 document.getElementById('fav_button').style.color += 'orange'

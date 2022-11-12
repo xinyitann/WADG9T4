@@ -59,23 +59,56 @@ var app = Vue.createApp({
         },
 
         get_arrival_time_bus_stop() {
-            document.getElementById('fav_button').style.color = ''
-            document.getElementById('fav_button').disabled = false
-            console.log(document.getElementById('fav_button').style.color )
-            this.auto_complete_suggestion_bus.length =0
+            console.log(document.getElementById('no_bus').innerHTML)
+            document.getElementById('no_bus').innerHTML = ''
+            // console.log(document.getElementById('no_bus').innerHTML)
+            var user_detail = localStorage.getItem("users")
+            if (user_detail != null) {
+                document.getElementById('fav_button').style.color = ''
+                document.getElementById('fav_button').disabled = false
+                console.log(document.getElementById('fav_button').style.color)
+            }
+            this.displayed_bus_stop_name = this.selected_bus_stop
             this.bus_stop_hidden = 'false'
+            this.auto_complete_suggestion_bus.length = 0
             console.log(this.bus_stops)
             console.log(this.bus_stops[this.selected_bus_stop])
             var code = this.bus_stops[this.selected_bus_stop]
             console.log(code)
-            if(code == undefined){
+            if (code == undefined) {
                 var bus_stop = this.selected_bus_stop
-                // console.log(bus_stop)
                 code = this.bus_stops_just_name[bus_stop]
-                // console.log(this.bus_stops_just_name)
-                // console.log(code)
+                this.bus_stop_hidden = 'false'
             }
-            this.displayed_bus_stop_name = this.selected_bus_stop
+
+            if (code == undefined) {
+                for (bus_stop in this.bus_stops) {
+                    console.log(this.selected_bus_stop)
+                    console.log(bus_stop)
+                    if (this.selected_bus_stop == this.bus_stops[bus_stop]) {
+                        this.displayed_bus_stop_name = bus_stop
+                        code = this.selected_bus_stop
+                    }
+                }
+            }
+            console.log('outside no code')
+            console.log(code)
+            if (code == undefined) {
+                console.log('no code')
+                var str = `<div class="row justify-content-center">
+                                <div class="text-center fade show alert-dismissible">
+                                    <div class="alert alert-danger" id='too-many-alert' role="alert">
+                                    This bus stop does not exist. Please try again
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            </div>`
+                console.log(document.getElementById('no_bus').innerHTML)
+                document.getElementById('no_bus').innerHTML = str
+                this.displayed_bus_stop_name = ''
+                this.bus_stop_hidden = ''
+            }
             this.selected_bus_stop_code = code
             let api_endpoint_url = '../../src/php/bus/bus_arrival.php?BusStopCode=' + code + '&ServiceNo=a'
             axios.get(api_endpoint_url)
@@ -142,6 +175,7 @@ var app = Vue.createApp({
                 .catch(error => {
                     console.log(error.message)
                 })
+
         },
 
         get_capacity_color(cap) {
@@ -212,7 +246,7 @@ var app = Vue.createApp({
                 var lat1 = this.bus_stop_location[bus_stop].latitude
                 var long1 = this.bus_stop_location[bus_stop].longitude
                 var lat2 = this.pos.lat
-                var long2 = this.pos.lng//wya
+                var long2 = this.pos.lng //wya
                 var dist = this.distanceInKmBetweenEarthCoordinates(lat1, long1, lat2, long2)
                 // console.log(dist)
                 if (dist < 500) {

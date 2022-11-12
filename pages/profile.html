@@ -141,24 +141,26 @@
               document.getElementById('userName').innerText = detail.username;
               document.getElementById('email').value = detail.email;
               var all_favs = detail.fav_bus_stop
-              var all_favs_list = all_favs.split(',')
-              console.log(all_favs_list)
-              var str = ''
-              var num = 0
-              for (fav of all_favs_list) {
-                str += `<li>${fav} <button type="button" class="btn"
+              console.log(all_favs)
+              if (all_favs != undefined) {
+                var all_favs_list = all_favs.split(',')
+                console.log(all_favs_list)
+                var str = ''
+                var num = 0
+                console.log(all_favs_list.length)
+                if (all_favs_list.length > 0) {
+                  for (fav of all_favs_list) {
+                    str += `<li>${fav} <button type="button" class="btn"
                 onclick="delete_fav(this)" id =${num}><i class="fa-solid fa-trash-can fs-5"></i></button></li>`
-                num++
+                    num++
+                  }
+                  document.getElementById('busStop').innerHTML = str;
+                }
+              } else {
+                document.getElementById('busStop').innerHTML =
+                  `<b>You currently do not have any favourite bus stops</b>`;
               }
-              document.getElementById('busStop').innerHTML = str;
-
             })
-            // document.getElementById('userName').value = username;
-            // document.getElementById('email').value = email;
-            // document.getElementById('busStop').value = busStop;
-            // document.getElementById('busService').value = busService;
-
-
           } else {
             document.getElementById('userName').innerText = "";
             document.getElementById('email').innerText = "";
@@ -183,11 +185,11 @@
               num++
             }
             console.log(bus_stop_name)
-            var new_bus_stop = ''
+            var count = 0
             for (fav of all_favs_list) {
               if (fav != bus_stop_name) {
-                if (new_bus_stop == '') {
-                  new_bus_stop = fav
+                if (count == 0) {
+                  var new_bus_stop = fav
                 } else {
                   console.log('here')
                   new_bus_stop = new_bus_stop + ", " + fav
@@ -196,9 +198,28 @@
               }
             }
             console.log(new_bus_stop)
+            if (new_bus_stop == undefined) {
+              var updates = {};
+              updates['/users/' + uid + "/" + 'fav_bus_stop'] = null;
+              firebase.database().ref().update(updates);
+              get_data()
+            } else {
+              var updates = {};
+              updates['/users/' + uid + "/" + 'fav_bus_stop'] = new_bus_stop;
+              firebase.database().ref().update(updates);
+              get_data()
+            }
+          })
+        }
 
+
+        function updateEmail() {
+          firebase.database().ref('users/' + uid).once("value", snap => {
+            bus_stops = snap.val().email
+            var users = firebase.database().ref('users');
+            var email = document.getElementById('email').value
             var updates = {};
-            updates['/users/' + uid + "/" + 'fav_bus_stop'] = new_bus_stop;
+            updates['/users/' + uid + "/" + 'email'] = email;
             firebase.database().ref().update(updates);
             get_data()
           })
