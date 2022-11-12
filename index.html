@@ -114,223 +114,226 @@
     <!--TEXT BOX-->
 
     <div class="container-fluid ">
-    <div class="row justify-content-center mx-3">
-        <div class="col-md-4">
-            <div class="row justify-content-md-center" style="color: rgb(113, 84, 66);">
-                <div class="input-group mb-4 input-group-lg">
-                    <span class="input-group-text" style="background-color: rgb(113, 84, 66); color:white">From</span>
-                    <input id="from" type="text" class="form-control" style="background-color:#f7f7f7;"
-                        placeholder="where are you?">
+        <div class="row justify-content-center mx-3">
+            <div class="col-md-4">
+                <div class="row justify-content-md-center" style="color: rgb(113, 84, 66);">
+                    <div class="input-group mb-4 input-group-lg">
+                        <span class="input-group-text"
+                            style="background-color: rgb(113, 84, 66); color:white">From</span>
+                        <input id="from" type="text" class="form-control" style="background-color:#f7f7f7;"
+                            placeholder="where are you?">
+                    </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <div class="input-group mb-4 input-group-lg">
-                    <span class="input-group-text" style="background-color: rgb(113, 84, 66); color:white">To</span>
-                    <input id="to" type="text" class="form-control" style="background-color:#f7f7f7;"
-                        placeholder="where are you going?">
+                <div class="col-12">
+                    <div class="input-group mb-4 input-group-lg">
+                        <span class="input-group-text" style="background-color: rgb(113, 84, 66); color:white">To</span>
+                        <input id="to" type="text" class="form-control" style="background-color:#f7f7f7;"
+                            placeholder="where are you going?">
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-12">
-                <h2 class="fw-bold fs-5">Select a mode of transportation:</h2>
+                <div class="col-12">
+                    <h2 class="fw-bold fs-5">Select a mode of transportation:</h2>
 
-            </div>
-            <div class="col-12">
-                <select id="mode" class="form-select form-select-lg mb-4"  style="background-color:#f7f7f7">
-                    <option value="DRIVING">Driving</option>
-                    <option value="WALKING">Walking</option>
-                    <option value="BICYCLING">Bicycling</option>
-                    <option value="TRANSIT">Transit</option>
-                </select>
-            </div>
+                </div>
+                <div class="col-12">
+                    <select id="mode" class="form-select form-select-lg mb-4" style="background-color:#f7f7f7">
+                        <option value="DRIVING">Driving</option>
+                        <option value="WALKING">Walking</option>
+                        <option value="BICYCLING">Bicycling</option>
+                        <option value="TRANSIT">Transit</option>
+                    </select>
+                </div>
 
-            <!--centered GO button-->
+                <!--centered GO button-->
 
-            <div class="col-12 mx-auto my-2">
-                <!-- <div class="row">
+                <div class="col-12 mx-auto my-2">
+                    <!-- <div class="row">
                     <div class="col-5">
                     </div>
                     <div class="col-2"> -->
-                <span type="button" class="btn btn-lg" style="background-color: rgb(113, 84, 66); color:white"
-                    data-bs-toggle="collapse" data-bs-target="#stepAndButton" role="button"
-                    onclick="calcRoute();save_route_in_db(); showSteps2()">Go</span>
+                    <span type="button" class="btn btn-lg" style="background-color: rgb(113, 84, 66); color:white"
+                        data-bs-toggle="collapse" data-bs-target="#stepAndButton" role="button"
+                        onclick="calcRoute();save_route_in_db(); showSteps2()">Go</span>
 
-            </div>
-            <!-- <div class="col-5"> 
+                </div>
+                <!-- <div class="col-5"> 
                     </div>
                 </div>
             </div> -->
 
-            <!--direction-->
-            <div class="col-12">
-                <div id="output">
-                </div>
-            </div>
-
-            <!--steps-->
-            <div id="stepAndButton" class="collapse">
-                <div data-bs-spy="scroll" data-bs-smooth-scroll="true"
-                    class="col-12 p-3 bg-light rounded-4 order-md-last" id="scrollbox">
-                    <ol id="steps" class="fs-5">
-                    </ol>
+                <!--direction-->
+                <div class="col-12">
+                    <div id="output">
+                    </div>
                 </div>
 
-                <!--centered GET TRAFFIC STATUS button-->
-                <div class="col-12 mx-auto my-3">
-                    <div class="row">
-                        <div class="col-2">
-                        </div>
-                        <div class="col-8">
-                            <span type="button" class="btn btn-lg"
-                                style="background-color: rgb(113, 84, 66); color:white" onclick="editMap()">Get Traffic
-                                Status</span>
+                <!--steps-->
+                <div id="stepAndButton" class="collapse">
+                    <div data-bs-spy="scroll" data-bs-smooth-scroll="true"
+                        class="col-12 p-3 bg-light rounded-4 order-md-last" id="scrollbox">
+                        <ol id="steps" class="fs-5">
+                        </ol>
+                    </div>
 
-                        </div>
-                        <div class="col-2">
+                    <!--centered GET TRAFFIC STATUS button-->
+                    <div class="col-12 mx-auto my-3">
+                        <div class="row">
+                            <div class="col-2">
+                            </div>
+                            <div class="col-8">
+                                <span type="button" class="btn btn-lg"
+                                    style="background-color: rgb(113, 84, 66); color:white" onclick="editMap()">Get
+                                    Traffic
+                                    Status</span>
+
+                            </div>
+                            <div class="col-2">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
 
 
-            <div class="row justify-content-left ms-5">
-                <div id="accident_map">
+                <div class="row justify-content-left ms-5">
+                    <div id="accident_map">
 
+                    </div>
                 </div>
+
+
+
             </div>
-
-
-
+            <div class="col-md-7">
+                <div id="map"></div>
+            </div>
         </div>
-        <div class="col-md-7">
-            <div id="map"></div>
-        </div>
-    </div>
 
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places">
-    </script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&libraries=places">
+            </script>
 
-    <script src="./src/js/map.js"></script>
-    <script>
-        window.addEventListener("scroll", function () {
-            if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
-                document.getElementById("header").style.boxShadow = "2px 2px 2px 2px #e5dfdf";
-            } else {
-                document.getElementById("header").style.boxShadow = "none";
-            }
-        });
-    </script>
-    <script>
-        function get_data() {
-            if (user_detail != null) {
-                document.getElementById('username').innerText = "Welcome " + username;
-                document.getElementById('profile').innerHTML = `<li class="nav-item">
+        <script src="./src/js/map.js"></script>
+        <script>
+            window.addEventListener("scroll", function () {
+                if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+                    document.getElementById("header").style.boxShadow = "2px 2px 2px 2px #e5dfdf";
+                } else {
+                    document.getElementById("header").style.boxShadow = "none";
+                }
+            });
+        </script>
+        <script>
+            function get_data() {
+                if (user_detail != null) {
+                    document.getElementById('username').innerText = "Welcome " + username;
+                    document.getElementById('profile').innerHTML = `<li class="nav-item">
                         <a href="./pages/profile.html" class="nav-link nav_bar_text justify-content-center"><i
                                 class="fa-sharp fa-solid fa-gear"></i></a>
                     </li>`
-            } else {
-                document.getElementById('username').innerText = "Welcome";
-                document.getElementById('profile').innerHTML = `<li class="nav-item">
+                } else {
+                    document.getElementById('username').innerText = "Welcome";
+                    document.getElementById('profile').innerHTML = `<li class="nav-item">
                         <a href="./login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
                     </li>`
-            }
-        }
-
-        function user_login() {
-            console.log('user_login')
-            if (user_detail != null) {
-                console.log('hree')
-                document.getElementById('fav').innerHTML =
-                    `<button type="button" class="btn btn-secondary mt-2 checked"
-                onclick="save_destination()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
-                // console.log(find_all_favs())
-            }
-        }
-
-        function save_destination() {
-            var user_detail = localStorage.getItem("users")
-            console.log(user_detail)
-            var obj = JSON.parse(user_detail)
-            var uid = obj.uid
-            console.log(uid)
-            var destination = ''
-            firebase.database().ref('users/' + uid).once("value", snap => {
-
-                console.log(snap.val())
-                destination = snap.val().fav_destination
-
-                if (destination == '') {
-                    var users = firebase.database().ref('users');
-                    document.getElementById('fav_button').style.color += 'orange'
-                    var service_no = document.getElementById('to').innerText
-
-                    var user_detail = localStorage.getItem("users")
-                    console.log(user_detail)
-                    var obj = JSON.parse(user_detail)
-                    var fav_destination = obj.fav_destination
-                    console.log(fav_destination)
-
-                    var user_detail = localStorage.getItem("users")
-                    console.log(user_detail)
-                    var obj = JSON.parse(user_detail)
-                    var uid = obj.uid
-                    console.log(uid)
-
-                    var updates = {};
-                    updates['/users/' + uid + "/" + 'fav_to'] = to;
-                    firebase.database().ref().update(updates);
-                } else {
-                    var users = firebase.database().ref('users');
-                    document.getElementById('fav_button').style.color += 'orange'
-                    var to = document.getElementById('to').innerText
-
-                    var user_detail = localStorage.getItem("users")
-                    console.log(user_detail)
-                    var obj = JSON.parse(user_detail)
-                    var fav_destination = obj.fav_destination
-                    console.log(fav_destination)
-
-                    var user_detail = localStorage.getItem("users")
-                    console.log(user_detail)
-                    var obj = JSON.parse(user_detail)
-                    var uid = obj.uid
-                    console.log(uid)
-
-                    var updates = {};
-                    updates['/users/' + uid + "/" + 'fav_to'] = to;
-                    firebase.database().ref().update(updates);
                 }
-            })
-        }
-    </script>
+            }
+
+            function user_login() {
+                console.log('user_login')
+                if (user_detail != null) {
+                    console.log('hree')
+                    document.getElementById('fav').innerHTML =
+                        `<button type="button" class="btn btn-secondary mt-2 checked"
+                onclick="save_destination()" id='fav_button'><i class="fa-solid fa-star"></i> Favourite</button>`;
+                    // console.log(find_all_favs())
+                }
+            }
+
+            function save_destination() {
+                var user_detail = localStorage.getItem("users")
+                console.log(user_detail)
+                var obj = JSON.parse(user_detail)
+                var uid = obj.uid
+                console.log(uid)
+                var destination = ''
+                firebase.database().ref('users/' + uid).once("value", snap => {
+
+                    console.log(snap.val())
+                    destination = snap.val().fav_destination
+
+                    if (destination == '') {
+                        var users = firebase.database().ref('users');
+                        document.getElementById('fav_button').style.color += 'orange'
+                        var service_no = document.getElementById('to').innerText
+
+                        var user_detail = localStorage.getItem("users")
+                        console.log(user_detail)
+                        var obj = JSON.parse(user_detail)
+                        var fav_destination = obj.fav_destination
+                        console.log(fav_destination)
+
+                        var user_detail = localStorage.getItem("users")
+                        console.log(user_detail)
+                        var obj = JSON.parse(user_detail)
+                        var uid = obj.uid
+                        console.log(uid)
+
+                        var updates = {};
+                        updates['/users/' + uid + "/" + 'fav_to'] = to;
+                        firebase.database().ref().update(updates);
+                    } else {
+                        var users = firebase.database().ref('users');
+                        document.getElementById('fav_button').style.color += 'orange'
+                        var to = document.getElementById('to').innerText
+
+                        var user_detail = localStorage.getItem("users")
+                        console.log(user_detail)
+                        var obj = JSON.parse(user_detail)
+                        var fav_destination = obj.fav_destination
+                        console.log(fav_destination)
+
+                        var user_detail = localStorage.getItem("users")
+                        console.log(user_detail)
+                        var obj = JSON.parse(user_detail)
+                        var uid = obj.uid
+                        console.log(uid)
+
+                        var updates = {};
+                        updates['/users/' + uid + "/" + 'fav_to'] = to;
+                        firebase.database().ref().update(updates);
+                    }
+                })
+            }
+        </script>
 
 
-    <!-- FOOTER -->
+        <!-- FOOTER -->
 
-    <div class="row fs-5 text-center bg-light justify-content-center pt-2">
-        <ul class="list-inline">
-            <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
-            </li>
-            <li class="list-inline-item">
-                <a href="pages/about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
-            </li>
-            <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
-            </li>
-            <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
-            </li>
-        </ul>
-        <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <div class="row fs-5 text-center bg-light justify-content-center pt-2">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="pages/about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
+                </li>
+            </ul>
+            <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+            </script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     </div>
     <script>
@@ -505,11 +508,11 @@
 
             let api_endpoint_url1 = 'src/js/traffic_accident.php'
             axios.get(api_endpoint_url1, {
-                    headers: {
-                        'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',
-                        'accept': 'application/json',
-                    }
-                })
+                headers: {
+                    'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',
+                    'accept': 'application/json',
+                }
+            })
                 .then(response => {
                     var values = response.data[0].value
 
