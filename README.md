@@ -27,16 +27,8 @@ Users can check for carpark availability.
 Users can see the current traffic conditions in Singapore.
 
 ## How to Install and Run Our Web Application (for Developers)
-Instructions for Windows:
-Ensure that nodejs version 18.10.0 and npm version 8.19.2 is installed on the device.
-
-1. To check, run node -v and npm -v in the command terminal
-2. If node is not found, search windows for advanced systems settings --> environment variabless --> new , with name being nodejs and directory being where the nodejs folder is
-
-Navigate to the ?? directory using the terminal, and from within that directory, run npm install inside the terminal
-Create a file in the ?? directory called "??.js" and paste the data from the following link ??
-Run npm run serve to startup the app
-click on the localhost link to view the app
+- No additional installations required
+- Download the resources and run wammp!
 
 ## Other Cool Things we did
 ### X-Factors
@@ -46,7 +38,7 @@ click on the localhost link to view the app
  API provides information for bus arrival timings, bus stop locations, taxi stands, carpark availability
 3. User authentication in firebase
 4. User information storage in firebase
-5. Deployment of app in firebase
+5. Deployment of app in AWS
 
 
 ## One Stop Planner Team
