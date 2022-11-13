@@ -311,8 +311,18 @@ var app = Vue.createApp({
         }
     },
     created() {
+        console.log('at created')
         // window.initMap = this.initMap();
         this.get_user_location()
+        var fav_stop = localStorage.getItem("bus_stop_fav")
+        localStorage.removeItem("bus_stop_fav")
+        console.log(fav_stop)
+        console.log('fav_stop')
+        if(fav_stop != null){
+            this.selected_bus_stop = fav_stop
+            console.log(this.selected_bus_stop)
+        }
+
     },
 
     computed: {
@@ -334,7 +344,7 @@ var app = Vue.createApp({
                                 for (word of words) {
                                     correct_desc += word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() + ' ';
                                 }
-                                var whole = correct_desc + " - " + road
+                                var whole = correct_desc + "- " + road
                                 this.bus_stops[whole] = value.BusStopCode
                                 var lower_desc = correct_desc.toLowerCase().trim()
                                 this.bus_stops_just_name[lower_desc] = value.BusStopCode

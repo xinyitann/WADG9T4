@@ -47,3 +47,11 @@ click on the localhost link to view the app
 3. User authentication in firebase
 4. User information storage in firebase
 5. Deployment of app in firebase
+
+
+## One Stop Planner Team
+- Tan Xin Yi
+- Balveen Kaur
+- Nicholas Chua
+- Hajarah Parveen
+- Utkarsh Kajaria
