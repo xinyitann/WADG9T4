@@ -17,10 +17,9 @@
     </script>
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
+
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
-    <!-- This is the authentication API from Firebase Realtime Database -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>  -->
+
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo&callback=initMap"
@@ -36,30 +35,17 @@
         #appp .row {
             position: flex;
         }
-
-        /* #appp .row .left {
-            flex: 31%;
-            background-color: white;
-            padding: 4vh;
-        }
-
-        #appp .row .middle {
-            flex: 49%;
-            height: 90vh;
-            padding: 4vh;
-        }
-        #appp .row .right {
-            flex: 20%;
-            height: 90vh;
-            padding: 4vh;
-        } */
-        #map {
+        /* #map {
             box-shadow: 2px 2px 2px 2px #999999;
-        }
-
+        } */
         .navbar-nav .nav-link.active,
         .navbar-nav .show>.nav-link {
             color: rgb(113, 84, 66);
+        }
+
+        .card{
+            border: 2px solid white;
+            
         }
     </style>
 
@@ -116,13 +102,7 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav text-center" id="profile">
-                    <!-- <li class="nav-item">
-                    <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
-                            class="fa-sharp fa-solid fa-gear"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
-                </li> -->
+
                 </ul>
             </div>
         </div>
@@ -179,10 +159,6 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <!-- <div >
-            <button type="button" id="button2" onclick="get_user_location()"></button>
-        </div> -->
-
             <div class="col-md-9">
                 <div id="map"></div>
             </div>
@@ -190,7 +166,7 @@
             <div class="col-md-3">
                 <div class="right">
                     <div id="legend">
-                        <div class="card">
+                        <div class="card bg-light">
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align:center; font-weight:bold;">Legend</h5>
                                 <br>
@@ -209,7 +185,7 @@
                                 <img src="../../src/img/traffic/abandoned.png" style="width:40px"> : abandoned car
                                 </br>
                                 <br>
-                                <img src="../../src/img/traffic/misc.png" style="width:40px"> : misc
+                                <img src="../../src/img/traffic/misc-removebg-preview.png" style="width:40px"> : misc
                                 </br>
                                 <br>
                                 <img src="../../src/img/traffic/congestion-removebg-preview.png" style="width:40px"> :
