@@ -342,17 +342,19 @@
         //     }
         // }
 
+        
         function check_user() {
             console.log('user_login')
             if (user_detail != null) {
                 console.log('hree')
                 document.getElementById('profile').innerHTML = `<li class="nav-item">
                         <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
-                                class="fa-sharp fa-solid fa-gear"></i></a>
+                                class="fa-solid fa-user"></i></a>
                     </li>`
             } else {
                 document.getElementById('profile').innerHTML = `<li class="nav-item">
-                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                        <a href="../../login.html" class="nav-link nav_bar_text"><button type="button" class="btn"
+                            style="background:rgb(113, 84, 66); color:white">Login</button></a>
                     </li>`
             }
         }

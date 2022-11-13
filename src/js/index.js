@@ -60,13 +60,6 @@ function register() {
 
       // Push to Firebase Database
       database_ref.child('users/' + user.uid).set(user_data)
-      firebase.auth().currentUser.sendEmailVerification()
-        .then(() => {
-          // Email verification sent!
-          // ...
-          console.log("Email verification sent!")
-        });
-
       // DOne
       alert('User Created!!')
     })
