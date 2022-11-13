@@ -54,7 +54,6 @@ function calcRoute() {
       const destination = document.getElementById('to').value
       const source = document.getElementById('from').value
 
-      // output.innerHTML = "<div class='alert-info fs-4'><br> <b>Driving distance: 1</b>" + result.routes[0].legs[0].distance.text + "<br/><b>Duration: </b> " + result.routes[0].legs[0].duration.text + "</div>";
       var toSave = {}
       toSave['source'] = source
       toSave['destination'] = destination
@@ -66,7 +65,6 @@ function calcRoute() {
           lng: point.lng()
         })
       }
-      // console.log('inside showsteps')
       toSave['route'] = route
 
       if (user_detail != null) {
@@ -74,15 +72,6 @@ function calcRoute() {
 
         toSave['email'] = useremail
       }
-
-
-
-
-      console.log(toSave)
-
-      //database.ref().child('user_routes/' + useremail).set(toSave)
-
-      // output.innerHTML = "<div class='alert-info fs-4'><br><b> Driving distance: 2</b>" + result.routes[0].legs[0].distance.text + "<br/><b>Duration: </b> " + result.routes[0].legs[0].duration.text + "</div>";
 
       //display route
       directionsRenderer.setDirections(result);
@@ -117,7 +106,6 @@ function calcRoute() {
       markerArray[i] = marker;
       steps.innerHTML += "<li>" + myRoute.steps[i].instructions + "</li><hr>"
     }
-    // steps.innerHTML += "<br><a href='pages/traffic/traffic_check.html'><button class='btn btn-success btn-lg'>Check Traffic</button></a>"
   }
 
   function attachInstructionText(marker, text) {
