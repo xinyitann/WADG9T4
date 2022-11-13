@@ -50,8 +50,6 @@ function register() {
         email: email,
         username: username,
         uid: user.uid,
-        // favourite_song: 'favourite_song',
-        // milk_before_cereal : milk_before_cereal,
         last_login: Date.now()
       }
 
@@ -110,8 +108,6 @@ function login() {
         window.location.replace("./index.html");
 
       })
-
-
     })
     .catch(function (error) {
       // Firebase will use this to alert of its errors
@@ -121,8 +117,6 @@ function login() {
       alert(error_message)
     })
 }
-
-
 
 
 // Validate Functions
