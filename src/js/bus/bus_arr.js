@@ -33,9 +33,7 @@ var app = Vue.createApp({
                     }
                 }
             }
-            // console.log(hint)
             this.auto_complete_suggestion_bus = hint
-            // console.log(this.auto_complete_suggestion_bus)
         },
 
         stristr(haystack, needle, bool) {
@@ -59,22 +57,16 @@ var app = Vue.createApp({
         },
 
         get_arrival_time_bus_stop() {
-            console.log(document.getElementById('no_bus').innerHTML)
             document.getElementById('no_bus').innerHTML = ''
-            // console.log(document.getElementById('no_bus').innerHTML)
             var user_detail = localStorage.getItem("users")
             if (user_detail != null) {
                 document.getElementById('fav_button').style.color = ''
                 document.getElementById('fav_button').disabled = false
-                console.log(document.getElementById('fav_button').style.color)
             }
             this.displayed_bus_stop_name = this.selected_bus_stop
             this.bus_stop_hidden = 'false'
             this.auto_complete_suggestion_bus.length = 0
-            console.log(this.bus_stops)
-            console.log(this.bus_stops[this.selected_bus_stop])
             var code = this.bus_stops[this.selected_bus_stop]
-            console.log(code)
             if (code == undefined) {
                 var bus_stop = this.selected_bus_stop
                 code = this.bus_stops_just_name[bus_stop]
@@ -83,18 +75,13 @@ var app = Vue.createApp({
 
             if (code == undefined) {
                 for (bus_stop in this.bus_stops) {
-                    console.log(this.selected_bus_stop)
-                    console.log(bus_stop)
                     if (this.selected_bus_stop == this.bus_stops[bus_stop]) {
                         this.displayed_bus_stop_name = bus_stop
                         code = this.selected_bus_stop
                     }
                 }
             }
-            console.log('outside no code')
-            console.log(code)
             if (code == undefined) {
-                console.log('no code')
                 var str = `<div class="row justify-content-center">
                                 <div class="text-center fade show alert-dismissible">
                                     <div class="alert alert-danger" id='too-many-alert' role="alert">
@@ -104,7 +91,6 @@ var app = Vue.createApp({
                                     </div>
                                 </div>
                             </div>`
-                console.log(document.getElementById('no_bus').innerHTML)
                 document.getElementById('no_bus').innerHTML = str
                 this.displayed_bus_stop_name = ''
                 this.bus_stop_hidden = ''
@@ -113,17 +99,12 @@ var app = Vue.createApp({
             let api_endpoint_url = '../../src/php/bus/bus_arrival.php?BusStopCode=' + code + '&ServiceNo=a'
             axios.get(api_endpoint_url)
                 .then(response => {
-                    // console.log(response)
                     Object.keys(this.selected_bus_stop_arrivals).forEach(key => {
                         delete this.selected_bus_stop_arrivals[key];
                     })
-                    // console.log('here')
-                    // console.log(this.selected_bus_stop_arrivals)
                     var response = response.data.Services
                     next_bus_no = 0
-                    // console.log(response)
                     for (res of response) {
-                        console.log(res)
                         const current = new Date()
                         var bus_big_list = []
                         for (i = 1; i <= 3; i++) {
@@ -142,7 +123,6 @@ var app = Vue.createApp({
                                 var capacity = res[bus_no].Load
                                 var type = res[bus_no].Type
                                 bus_inner_list.push(diff, feature, capacity, type)
-                                console.log(bus_inner_list)
 
                             } else {
                                 bus_no += i
@@ -159,16 +139,12 @@ var app = Vue.createApp({
                                     var capacity = res[bus_no].Load
                                     var type = res[bus_no].Type
                                     bus_inner_list.push(diff, feature, capacity, type)
-                                    console.log(bus_inner_list)
                                 }
                             }
                             bus_big_list.push(bus_inner_list)
                         }
-                        // console.log(bus_big_list)
                         var ServiceNo = res.ServiceNo
-                        // console.log(ServiceNo)
                         this.selected_bus_stop_arrivals[ServiceNo] = bus_big_list
-                        // console.log(this.selected_bus_stop_arrivals)
                     }
 
                 })
@@ -189,8 +165,6 @@ var app = Vue.createApp({
         },
         get_user_location() {
             if (navigator.geolocation) {
-                console.log('jere')
-                // navigator.geolocation.getCurrentPosition(this,showposition,errorCoor,{maximumAge:60000, timeout:5000, enableHighAccuracy:true})
                 navigator.geolocation.getCurrentPosition(position => {
                     this.pos = {
                         lat: position.coords.latitude,
@@ -212,7 +186,6 @@ var app = Vue.createApp({
                     lng: 103.8
                 };
             }
-            console.log(this.pos)
         },
 
         distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
@@ -235,31 +208,24 @@ var app = Vue.createApp({
         },
 
         get_bus_stop_map() {
-            console.log('here')
-            console.log(this.bus_stop_location)
             if (Object.keys(this.pos).length = 0) {
                 this.get_user_location()
             }
             for (bus_stop in this.bus_stop_location) {
-                // console.log(this.bus_stop_location[bus_stop])
-                // console.log(this.pos)
                 var lat1 = this.bus_stop_location[bus_stop].latitude
                 var long1 = this.bus_stop_location[bus_stop].longitude
                 var lat2 = this.pos.lat
-                var long2 = this.pos.lng //wya
+                var long2 = this.pos.lng
                 var dist = this.distanceInKmBetweenEarthCoordinates(lat1, long1, lat2, long2)
-                // console.log(dist)
                 if (dist < 500) {
                     var list = []
                     list.push(bus_stop.split(' - ')[0])
                     list.push(this.bus_stop_location[bus_stop]['latitude'])
                     list.push(this.bus_stop_location[bus_stop]['longitude'])
                     list.push(bus_stop)
-                    console.log(list)
                     this.list_of_stops.push(list)
                 }
             }
-            console.log(this.list_of_stops)
             window.initMap = this.initMap();
         },
 
@@ -276,7 +242,6 @@ var app = Vue.createApp({
 
                 points.push(latlong)
             }
-            console.log(this.pos.lat)
             var lat = this.pos.lat
             lat = lat.toFixed(2)
             var lng = this.pos.lng
@@ -285,7 +250,6 @@ var app = Vue.createApp({
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 17,
                 center: this.pos,
-                // center: new google.maps.LatLng(this.pos.lat, this.pos.lng),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
@@ -304,29 +268,22 @@ var app = Vue.createApp({
                         infowindow.setContent(locations[i][0]);
                         infowindow.open(map, marker);
                         this.selected_bus_stop = locations[i][3]
-                        console.log(this.selected_bus_stop)
                     }
                 })(marker, i));
             }
         }
     },
     created() {
-        console.log('at created')
-        // window.initMap = this.initMap();
         this.get_user_location()
         var fav_stop = localStorage.getItem("bus_stop_fav")
         var search_code = localStorage.getItem("search_bus_stop")
-        console.log(search_code)
         localStorage.removeItem("bus_stop_fav")
         localStorage.removeItem("search_bus_stop")
-        console.log(fav_stop)
-        console.log('fav_stop')
         if(fav_stop != null){
             this.selected_bus_stop = fav_stop
         }
         if(search_code != null){
             this.selected_bus_stop = search_code
-            console.log(this.selected_bus_stop)
         }
 
     },
@@ -367,9 +324,7 @@ var app = Vue.createApp({
                         }
                     }
                     this.get_user_location()
-                    // console.log(this.pos)
                     this.get_bus_stop_map()
-                    console.log(this.bus_stop_location)
                     this.bus_stops = Object.keys(this.bus_stops)
                         .sort()
                         .reduce((accumulator, key) => {
@@ -423,8 +378,6 @@ var app = Vue.createApp({
                             }
                         }
                     }
-
-                    // console.log(this.bus_routes)
                 })
                 .catch(error => {
                     console.log(error.message)
