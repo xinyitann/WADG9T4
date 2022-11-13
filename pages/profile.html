@@ -5,11 +5,6 @@
   <title>Profile</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap CSS -->
-
-
-  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="../src/css/index.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +22,6 @@
 
   <script>
     var user_detail = localStorage.getItem("users")
-    console.log(user_detail)
     var obj = JSON.parse(user_detail)
     var uid = obj.uid
     var username = obj.username
@@ -36,21 +30,31 @@
     var busService = obj.fav_service_no
 
     var user_routes = localStorage.getItem("user_routes")
-    console.log(user_routes)
   </script>
+  <style>
+            .btn{
+              background-color:white; 
+              color:rgb(113, 84, 66); 
+              border-color: rgb(113, 84, 66);
+            }
+            .btn:hover{
+            background-color: rgb(113, 84, 66);
+            color:white;
+        }
+  </style>
 </head>
 
 <body onload="get_data()">
   <!--NAVIGATION BAR-->
 
-  <div class="row justify-content-between">
+  <div class="row justify-content-between ">
     <div class="col-md-4">
       <a href="../index.html">
-        <img src="../src/img/logo2.png" alt="Logo" width='150' class="img-fluid">
+        <img src="../src/img/logo3.png" alt="Logo" width='100' class="img-fluid m-3">
       </a>
     </div>
     <div class="col-md-4">
-      <h1 class="display-6 text-center fw-bold mt-4">
+      <h1 class="display-6 text-center fw-bold mt-4 p-4">
         Profile <i class="fa-solid fa-user"></i>
       </h1>
     </div>
@@ -64,14 +68,14 @@
   <div class="container-fluid mt-3">
     <div class="row mx-1">
       <div class="col-md-4">
-        <div class="row justify-content-center">
-          <img src="../src/img/user.png" alt="Logo" style="width: 300px; height: 215px;" class="rounded-circle"
+        <div class="row justify-content-center g-0">
+          <img src="../src/img/user.png" alt="Logo" style="width: 215px; height: 215px;" class="rounded-circle"
             id="profile_pic">
         </div>
         <div class="col-12 text-center">
           <div class="row justify-content-center">
             <div class="col-md-4 mt-3">
-              <button type="button" class="btn" style="background:rgb(113, 84, 66); color:white"
+              <button type="button" class="btn  btn-outline" 
                 onclick="remove_pic()">Remove
                 Pic</button>
             </div>
@@ -89,7 +93,7 @@
 
         </div>
         <div class="col-12 mt-4 text-center">
-          <h4 class="fs-4"><b>User name:</b> <label id="userName" class="fs-5"></label></h4>
+          <h4 class="fs-4"><b>Welcome, </b> <label id="userName" class="fs-4"></label></h4>
         </div>
 
       </div>
@@ -99,10 +103,10 @@
           <div class="col-md-6">
             <input id="email" type="text" class="form-control" aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px; color: black;">
+              style="background-color:white; border-color: rgb(113, 84, 66); border-width: 2px; color: black;">
           </div>
           <div class="col-md-4">
-            <button type="button" class="btn" style="background-color:rgb(112, 52, 101); color:white"
+            <button type="button" class="btn btn-outline" 
               onclick="updateEmail()">Update Email</button>
           </div>
         </div>
@@ -116,79 +120,7 @@
   </div>
 
 
-
-
-
-
-
-
-  <!-- <hr>
-  <div class="container d-flex flex-column flex-md-row">
-    <nav class="navbar navbar-expand-md navbar-light d-flex flex-md-column">
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-        <ul class="navbar-nav w-100 d-flex flex-md-column text-center text-md-end">
-          <li>
-            <a href="#userName" class="nav-link" aria-current="page">Name</a>
-          </li>
-          <li>
-            <a href="#email" class="nav-link" aria-current="page">Email</a>
-          </li>
-          <li>
-            <a href="#busStop" class="nav-link" aria-current="page">Bus Stop</a>
-          </li>
-          <li>
-            <a href="#work" class="nav-link" aria-current="page">Work</a>
-          </li>
-        </ul>
-      </div>
-
-    </nav>
-
-    <main class="ps-0 ps-md-5 flex-grow-1">
-
-      <div class="container overflow-auto" id="app">
-
-        <div class="group">
-          <h4 class="fs-4">User name</h4>
-          <label id="userName" class="fs-5"></label><br>
-        </div>
-
-        <br>
-        <div class="group">
-          <h4>Email</h4>
-          <div class="row">
-            <div class="col-6">
-              <input id="email" type="text" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
-                style="background-color:white; border-color: hsla(311, 37%, 32%); border-width: 2px; color: black;">
-            </div>
-            <div class="col-2">
-              <button type="button" class="btn" style="background-color:rgb(112, 52, 101); color:white"
-                onclick="updateEmail()">Update Email</button>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="group">
-          <h4 class="fs-4">Bus Stop</h4>
-          <ol id="busStop" class="fs-5"></ol><br>
-        </div>
-
-        <p id="status"></p>
-        <p id="latest"></p>
-      </div> -->
-
-
-
-
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 
   <!-- TODO: Add SDKs for Firebase products that you want to use
                https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -199,17 +131,13 @@
 
   <script>
     function get_data() {
-      console.log('get_data')
       if (user_detail != null) {
         firebase.database().ref('users/' + uid).once("value", snap => {
 
-          console.log(snap.val())
           var detail = snap.val()
-          console.log(detail.username)
           document.getElementById('userName').innerText = detail.username;
           document.getElementById('email').value = detail.email;
           var pic = detail.profile_pic
-          console.log(pic)
           if (detail.profile_pic != undefined) {
             document.getElementById('profile_pic').src = detail.profile_pic
           } else {
@@ -217,13 +145,10 @@
           }
 
           var all_favs = detail.fav_bus_stop
-          console.log(all_favs)
           if (all_favs != undefined) {
             var all_favs_list = all_favs.split(', ')
-            console.log(all_favs_list)
             var str = ''
             var num = 0
-            console.log(all_favs_list.length)
             if (all_favs_list.length > 0) {
               for (fav of all_favs_list) {
                 str +=
@@ -236,7 +161,7 @@
             }
           } else {
             document.getElementById('busStop').innerHTML =
-              `<b>You currently do not have any favourite bus stops</b>`;
+              `<b>Oops! You currently do not have any favourite bus stops</b>`;
           }
         })
       } else {
@@ -253,7 +178,6 @@
         var users = firebase.database().ref('users');
         var bus_stop_id = here.id
         var all_favs_list = bus_stops.split(', ')
-        console.log(all_favs_list)
         var str = ''
         var num = 0
         for (fav of all_favs_list) {
@@ -262,23 +186,18 @@
           }
           num++
         }
-        console.log(bus_stop_name)
         var new_bus_stop = ''
         var count = 0
         for (fav of all_favs_list) {
           if (fav != bus_stop_name) {
             if (count == 0) {
               new_bus_stop = fav
-              console.log(new_bus_stop)
             } else {
-              console.log('here')
               new_bus_stop = new_bus_stop + ", " + fav
-              console.log(new_bus_stop)
             }
             count++
           }
         }
-        console.log(new_bus_stop)
         if (new_bus_stop == '') {
           var updates = {};
           updates['/users/' + uid + "/" + 'fav_bus_stop'] = null;
@@ -296,9 +215,7 @@
 
     function updateEmail() {
       var email = document.getElementById('email').value
-      console.log('here')
       var status = update_email_index(email, uid)
-      console.log(status)
     }
 
     function logout() {
@@ -307,10 +224,8 @@
     }
 
     document.querySelector('#image_input').addEventListener('change', function () {
-      console.log(this.files)
       const reader = new FileReader();
       reader.addEventListener('load', () => {
-        console.log(reader.result)
         var updates = {};
         updates['/users/' + uid + "/" + 'profile_pic'] = reader.result;
         firebase.database().ref().update(updates);
@@ -332,7 +247,6 @@
         var users = firebase.database().ref('users');
         var bus_stop_id = here.id
         var all_favs_list = bus_stops.split(', ')
-        console.log(all_favs_list)
         var str = ''
         var num = 0
         for (fav of all_favs_list) {
@@ -341,12 +255,9 @@
           }
           num++
         }
-        console.log(bus_stop_name)
         var bus_stop  = bus_stop_name.split(' (')[0]
-        console.log(bus_stop)
         localStorage.removeItem("bus_stop_fav")
         localStorage.setItem("bus_stop_fav", bus_stop);
-        console.log(localStorage.getItem("bus_stop_fav"))
         window.location.replace("../pages/bus/bus_arrival.html");
       })
     }
