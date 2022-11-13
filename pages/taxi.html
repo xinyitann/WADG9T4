@@ -74,10 +74,8 @@
 <body onload="user_login()">
     <script>
         var user_detail = localStorage.getItem("users")
-        console.log(user_detail)
         var obj = JSON.parse(user_detail)
         var username = obj.username
-        console.log(username)
     </script>
     <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" id="header"
         style="background-color:#f7f7f7; color: rgb(113, 84, 66);">
@@ -118,13 +116,6 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav text-center" id="profile">
-                    <!-- <li class="nav-item">
-                <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
-                        class="fa-sharp fa-solid fa-gear"></i></a>
-            </li>
-            <li class="nav-item">
-                <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
-            </li> -->
                 </ul>
             </div>
         </div>
@@ -140,16 +131,15 @@
         <script>
             //Initialize and add the map
             function user_login() {
-                console.log('user_login')
                 if (user_detail != null) {
-                    console.log('hree')
                     document.getElementById('profile').innerHTML = `<li class="nav-item">
                         <a href="profile.html" class="nav-link nav_bar_text justify-content-center"><i
-                                class="fa-sharp fa-solid fa-gear"></i></a>
+                                class="fa-solid fa-user"></i></a>
                     </li>`
                 } else {
                     document.getElementById('profile').innerHTML = `<li class="nav-item">
-                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                        <a href="../login.html" class="nav-link nav_bar_text"><button type="button" class="btn"
+                            style="background:rgb(113, 84, 66); color:white">Login</button></a>
                     </li>`
                 }
             }
@@ -165,7 +155,6 @@
 
                 var lat = parseFloat(document.getElementById("lat").value);
                 var lng = parseFloat(document.getElementById("lng").value);
-                // var uluru = {lat: -25.344, lng: 131.036};
                 var loc = {
                     lat: lat,
                     lng: lng
@@ -183,10 +172,6 @@
                     position: loc,
                     map: map
                 });
-                // map = new google.maps.Map(document.getElementById("map"), {
-                //     center: { lat: 1.290, lng: 103.851 },
-                //     zoom: 13,
-                // });
                 infoWindow = new google.maps.InfoWindow();
 
                 const locationButton = document.createElement("button");
@@ -195,7 +180,6 @@
                 locationButton.classList.add("custom-map-control-button");
                 map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
                 locationButton.addEventListener("click", () => {
-                    // Try HTML5 geolocation.
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(
                             (position) => {
@@ -211,14 +195,8 @@
                                 let api_endpoint_url = '../src/php/taxi/taxi_availability.php'
                                 axios.get(api_endpoint_url)
                                     .then(response => {
-                                        //console.log(response)
                                         for (res of response.data) {
-                                            //console.log(res.value)
-                                            // document.getElementById("message").innerHTML =
-                                            //     "<h1>Below are the available Taxis near you</h1>"
                                             for (r of res.value) {
-                                                // console.log(r.Longitude)
-                                                // console.log(r.Latitude)
                                                 var marker = new google.maps.Marker({
                                                     position: {
                                                         lat: r.Latitude,
@@ -301,40 +279,25 @@
             // Ajax call
             function getLoc(action) {
                 var addr = encodeURI(document.getElementById("addr").value);
-                console.log(addr);
                 var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + addr +
                     "&key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo";
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
-                        // following code may throw error if user input is invalid address
-                        // so we use try-catch block to handle errors
                         try {
-                            // expected response is JSON data
                             var data = JSON.parse(this.responseText);
-                            console.log(data);
-
                             var info = '';
                             if (action == 'postcode') {
-                                // display postal code, given an address
                                 info = getPostCode(data);
                             } else {
-                                // display full address, given post code or partial addr
                                 info = getFullAddress(data);
                             }
-                            console.log(info);
-
                             document.getElementById("display").innerHTML = info;
-                            // refresh the hidden input values with new lat lng coordinates
                             var coordinate = getLatLng(data);
                             document.getElementById("lat").value = coordinate["lat"];
                             document.getElementById("lng").value = coordinate["lng"];
-                            // now refresh the map
                             initMap();
-                        } catch (err) { // show error message
-                            // not a good idea to directly show err.message 
-                            // as it may contain sensitive info
-                            // document.getElementById("display").innerHTML = err.message;
+                        } catch (err) { 
 
                             // show a predefined error message string
                             document.getElementById("display").innerHTML =
@@ -361,7 +324,6 @@
             function getPostCode(data) {
                 var addrcomponents = data["results"][0]["address_components"];
                 var postcode = addrcomponents.filter(postcodeHelper);
-                // country is an array but there should be only one element
                 return postcode[0]["long_name"];
             }
 
@@ -371,17 +333,8 @@
 
 
             function getKeys(data) {
-                // data["results"][0] is an object
-                // this gets the keys/properties of results[0] object
                 var keys = Object.keys(data["results"][0]);
                 for (key of keys) {
-                    // this prints --
-                    /*  address_components
-                        formatted_address
-                        geometry
-                        place_id
-                        plus_code
-                        types */
                     document.getElementById("display").innerHTML += key + "<br>";
                 }
             }
@@ -426,8 +379,6 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
         </script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <!-- <script src="../src/js/taxi/taxi_availability.js"></script>  -->
-
     </body>
 
 </html>
