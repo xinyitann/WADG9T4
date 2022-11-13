@@ -192,6 +192,19 @@ function update_email_index(email, uid) {
       var updates = {};
       updates['/users/' + uid + "/" + 'email'] = email;
       firebase.database().ref().update(updates);
+
+      var str = `<div class="row justify-content-center mt-2">
+                  <div class="col-3 text-center fade show alert-dismissible">
+                    <div class="alert alert-success" id='too-many-alert' role="alert">
+                      Email updated!
+                    </div>
+                  </div>
+                </div>`
+      document.getElementById('msg').innerHTML = str
+      setTimeout(
+        function () {
+          document.getElementById('msg').innerHTML = ''
+        }, 5000);
       get_data()
     })
   }).catch((error) => {
