@@ -135,7 +135,7 @@ var app = Vue.createApp({
         get_bus_timing_from_service(bus_stop_code) {
             this.service_arrival_time = 'true'
             // console.log(this.selected_service_no)
-            let api_endpoint_url = '../../src/php/bus/bus_arrival.php?BusStopCode=' + bus_stop_code + '&ServiceNo=' + this.selected_service_no 
+            let api_endpoint_url = '../../src/php/bus/bus_arrival.php?BusStopCode=' + bus_stop_code + '&ServiceNo=' + this.selected_service_no
             axios.get(api_endpoint_url)
                 .then(response => {
                     var table = {}
@@ -300,6 +300,18 @@ var app = Vue.createApp({
                 })(marker, i));
             }
         }
+    },
+
+    created() {
+        console.log('at created')
+        var search_service = localStorage.getItem("search_bus_service")
+        console.log(search_service)
+        localStorage.removeItem("search_bus_service")
+        if (search_service != null) {
+            this.selected_service_no = search_service
+            console.log(this.selected_service_no)
+        }
+
     },
 
 
