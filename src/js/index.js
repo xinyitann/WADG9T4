@@ -12,10 +12,6 @@ var firebaseConfig = {
 // Initialize Firebase
 
 firebase.initializeApp(firebaseConfig);
-// Initialize variables
-// import { getDatabase, ref, onValue } from "firebase/database";
-// import { getAuth } from "firebase/auth";
-// import { getAuth } from "firebase/auth";
 const auth = firebase.auth()
 const database = firebase.database()
 
@@ -53,8 +49,6 @@ function register() {
         email: email,
         username: username,
         uid: user.uid,
-        // favourite_song: 'favourite_song',
-        // milk_before_cereal : milk_before_cereal,
         last_login: Date.now()
       }
 
@@ -110,14 +104,10 @@ function login() {
       alert('User Logged In!!')
       firebase.database().ref('users/' + user.uid).once("value", snap => {
 
-        console.log(snap.val())
-        console.log(user_data)
         localStorage.setItem("users", JSON.stringify(snap.val()));
         window.location.replace("./index.html");
 
       })
-
-
     })
     .catch(function (error) {
       // Firebase will use this to alert of its errors
@@ -127,8 +117,6 @@ function login() {
       alert(error_message)
     })
 }
-
-
 
 
 // Validate Functions
@@ -188,21 +176,12 @@ getAuth()
   });
 
 
-// var user_detail = localStorage.getItem("users")
-// console.log(user_detail)
-// var obj = JSON.parse(user_detail)
-// var username = obj.username
-// console.log(username)
-
-
-
 function getDirections() {
   console.log('getting directions')
 }
 
 
 function update_email_index(email, uid) {
-  console.log('here')
   const user = auth.currentUser;
 
   user.updateEmail(email).then(() => {
