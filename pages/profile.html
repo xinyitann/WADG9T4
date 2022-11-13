@@ -65,13 +65,14 @@
     <div class="row mx-1">
       <div class="col-md-4">
         <div class="row justify-content-center">
-          <img src="../src/img/user.png" alt="Logo" style="width: 300px; height: 215px;" class="rounded-circle" id="profile_pic">
+          <img src="../src/img/user.png" alt="Logo" style="width: 300px; height: 215px;" class="rounded-circle"
+            id="profile_pic">
         </div>
         <div class="col-12 text-center">
           <div class="row justify-content-center">
             <div class="col-md-4 mt-3">
               <button type="button" class="btn" style="background:rgb(113, 84, 66); color:white"
-                onclick="logout()">Remove
+                onclick="remove_pic()">Remove
                 Pic</button>
             </div>
             <div class="col-md-6 mt-3">
@@ -198,6 +199,7 @@
 
   <script>
     function get_data() {
+      console.log('get_data')
       if (user_detail != null) {
         firebase.database().ref('users/' + uid).once("value", snap => {
 
@@ -208,10 +210,12 @@
           document.getElementById('email').value = detail.email;
           var pic = detail.profile_pic
           console.log(pic)
-          if(detail.profile_pic != undefined){
-            document.getElementById('profile_pic').src =  detail.profile_pic
+          if (detail.profile_pic != undefined) {
+            document.getElementById('profile_pic').src = detail.profile_pic
+          } else {
+            document.getElementById('profile_pic').src = '../src/img/user.png'
           }
-          
+
           var all_favs = detail.fav_bus_stop
           console.log(all_favs)
           if (all_favs != undefined) {
@@ -222,9 +226,10 @@
             console.log(all_favs_list.length)
             if (all_favs_list.length > 0) {
               for (fav of all_favs_list) {
-                str += `<li>${fav} <button type="button" class="btn"
+                str +=
+                  `<li>${fav} <button type="button" class="btn"
                 onclick="delete_fav(this)" id =${num}><i class="fa-solid fa-trash-can fs-5"></i></button><button type="button" class="btn"
-                onclick="delete_fav(this)" id =${num}><i class="fa-solid fa-circle-arrow-right fs-5"></i></button></li>`
+                onclick="go_to_bus(this)" id =${num}><i class="fa-solid fa-circle-arrow-right fs-5"></i></button></li>`
                 num++
               }
               document.getElementById('busStop').innerHTML = str;
@@ -310,6 +315,56 @@
       })
       reader.readAsDataURL(this.files[0]);
     })
+
+    function remove_pic() {
+      var updates = {};
+      updates['/users/' + uid + "/" + 'profile_pic'] = null;
+      firebase.database().ref().update(updates);
+      get_data()
+    }
+
+    function go_to_bus(here) {
+      firebase.database().ref('users/' + uid).once("value", snap => {
+        bus_stops = snap.val().fav_bus_stop
+        var users = firebase.database().ref('users');
+        var bus_stop_id = here.id
+        var all_favs_list = bus_stops.split(', ')
+        console.log(all_favs_list)
+        var str = ''
+        var num = 0
+        for (fav of all_favs_list) {
+          if (num == bus_stop_id) {
+            var bus_stop_name = fav
+          }
+          num++
+        }
+        console.log(bus_stop_name)
+        var count = 0
+        for (fav of all_favs_list) {
+          if (fav != bus_stop_name) {
+            if (count == 0) {
+              var new_bus_stop = fav
+            } else {
+              console.log('here')
+              new_bus_stop = new_bus_stop + ", " + fav
+            }
+
+          }
+        }
+        console.log(new_bus_stop)
+        if (new_bus_stop == undefined) {
+          var updates = {};
+          updates['/users/' + uid + "/" + 'fav_bus_stop'] = null;
+          firebase.database().ref().update(updates);
+          get_data()
+        } else {
+          var updates = {};
+          updates['/users/' + uid + "/" + 'fav_bus_stop'] = new_bus_stop;
+          firebase.database().ref().update(updates);
+          get_data()
+        }
+      })
+    }
   </script>
   </div>
 
