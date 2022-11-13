@@ -200,11 +200,13 @@
         <script>
             function get_data() {
                 if (user_detail != null) {
+                    document.getElementById('username').innerText = "Welcome " + username;
                     document.getElementById('profile').innerHTML = `<li class="nav-item">
                         <a href="pages/profile.html" class="nav-link nav_bar_text justify-content-center"><i
                                 class="fa-solid fa-user"></i></a>
                     </li>`
                 } else {
+                    document.getElementById('username').innerText = "Welcome";
                     document.getElementById('profile').innerHTML = `<li class="nav-item">
                         <a href="login.html" class="nav-link nav_bar_text"><button type="button" class="btn"
                             style="background:rgb(113, 84, 66); color:white">Login</button></a>
