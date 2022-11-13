@@ -50,8 +50,8 @@ click on the localhost link to view the app
 
 
 ## One Stop Planner Team
-- [Tan Xin Yi] (https://github.com/xinyitann)
-- [Balveen Kaur] (https://github.com/balveen01)
-- [Nicholas Chua] (https://github.com/nicodelasc)
-- [Hajarah Parveen] (https://github.com/hajparv)
-- [Utkarsh Kajaria] (https://github.com/utkarshk03)
+- [Tan Xin Yi](https://github.com/xinyitann)
+- [Balveen Kaur](https://github.com/balveen01)
+- [Nicholas Chua](https://github.com/nicodelasc)
+- [Hajarah Parveen](https://github.com/hajparv)
+- [Utkarsh Kajaria](https://github.com/utkarshk03)
