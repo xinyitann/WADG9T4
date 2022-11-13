@@ -37,9 +37,7 @@ var app = Vue.createApp({
                     }
                 }
             }
-            // console.log(hint)
             this.auto_complete_suggestion_service = hint
-            // console.log(this.auto_complete_suggestion_service)
         },
 
         stristr(haystack, needle, bool) {
@@ -90,9 +88,6 @@ var app = Vue.createApp({
             if (second_list.length > 0) {
                 this.bus_service_sequence[2] = second_list
             }
-
-            // console.log(this.bus_service_sequence)
-
             if (Object.keys(this.bus_service_sequence).length == 1) {
                 this.direction = 1
                 this.table_shown = true
@@ -134,19 +129,13 @@ var app = Vue.createApp({
 
         get_bus_timing_from_service(bus_stop_code) {
             this.service_arrival_time = 'true'
-            // console.log(this.selected_service_no)
             let api_endpoint_url = '../../src/php/bus/bus_arrival.php?BusStopCode=' + bus_stop_code + '&ServiceNo=' + this.selected_service_no
             axios.get(api_endpoint_url)
                 .then(response => {
                     var table = {}
-                    // console.log(response)
-                    // console.log('here')
-                    // console.log(this.service_time)
                     var response = response.data.Services
                     next_bus_no = 0
-                    // console.log(response)
                     for (res of response) {
-                        // console.log(res)
                         const current = new Date()
                         var bus_big_list = []
                         var bus_no = 'NextBus'
@@ -163,8 +152,6 @@ var app = Vue.createApp({
                         var capacity = res[bus_no].Load
                         var type = res[bus_no].Type
                         bus_inner_list.push(diff, feature, capacity, type)
-                        // console.log(bus_inner_list)
-
                         var whole = ''
 
                         if (capacity == 'SEA') {
@@ -185,29 +172,14 @@ var app = Vue.createApp({
                         } else if (type = 'BD') {
                             whole += '<img src="../../src/img/bus/bd.png" style="width:100px">'
                         }
-
-                        // console.log(whole)
-                        // return whole
                         var name = Object.keys(this.bus_stops).find(key => this.bus_stops[key] === bus_stop_code)
-
-                        // var row = `<td>${bus_stop_code}</td>
-                        // <td>${name}</td>
-                        // <td>${whole}</td>`
-
-
                         table['code'] = bus_stop_code
                         table['name'] = name
                         table['str'] = whole
 
-                        // console.log(row)
-                        // table += row
-
-
                         this.service_time.push(table)
 
                     }
-                    // console.log(this.service_time)
-                    // document.getElementById('service_arr_table').innerHTML = table
 
                 })
                 .catch(error => {
@@ -218,30 +190,19 @@ var app = Vue.createApp({
 
         getting_all_bus_time() {
             this.service_time.length = 0
-            // console.log('over here - first')
-
-            // console.log(this.service_time)
-            // console.log(this.bus_service_sequence[this.direction])
             for (bus_stop_code of this.bus_service_sequence[this.direction]) {
-                console.log(bus_stop_code)
                 this.get_bus_timing_from_service(bus_stop_code)
             }
-            // console.log('over here -second')
-
-            // console.log(this.service_time)
         },
 
         get_google_map() {
             this.getting_all_bus_time()
             this.table_shown = true
             this.selected_locations.length = 0
-            // console.log(this.direction)
-            // console.log(this.bus_service_sequence[this.direction])
             for (value of this.bus_service_sequence[this.direction]) {
                 var list = []
                 var name = this.get_bus_stop_name(value)
                 list.push(name.split(' - ')[0])
-                // var coor = this.bus_stop_location[name]
                 list.push(this.bus_stop_location[name]['latitude'])
                 list.push(this.bus_stop_location[name]['longitude'])
                 this.selected_locations.push(list)
@@ -251,10 +212,7 @@ var app = Vue.createApp({
         },
 
         initMap() {
-            console.log(this.selected_locations)
             var locations = this.selected_locations
-
-
             var points = []
 
             for (i = 0; i < this.selected_locations.length; i++) {
@@ -303,13 +261,10 @@ var app = Vue.createApp({
     },
 
     created() {
-        console.log('at created')
         var search_service = localStorage.getItem("search_bus_service")
-        console.log(search_service)
         localStorage.removeItem("search_bus_service")
         if (search_service != null) {
             this.selected_service_no = search_service
-            console.log(this.selected_service_no)
         }
 
     },
@@ -405,8 +360,6 @@ var app = Vue.createApp({
                             }
                         }
                     }
-
-                    // console.log(this.bus_routes)
                 })
                 .catch(error => {
                     console.log(error.message)
