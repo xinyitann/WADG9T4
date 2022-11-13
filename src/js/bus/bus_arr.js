@@ -315,11 +315,17 @@ var app = Vue.createApp({
         // window.initMap = this.initMap();
         this.get_user_location()
         var fav_stop = localStorage.getItem("bus_stop_fav")
+        var search_code = localStorage.getItem("search_bus_stop")
+        console.log(search_code)
         localStorage.removeItem("bus_stop_fav")
+        localStorage.removeItem("search_bus_stop")
         console.log(fav_stop)
         console.log('fav_stop')
         if(fav_stop != null){
             this.selected_bus_stop = fav_stop
+        }
+        if(search_code != null){
+            this.selected_bus_stop = search_code
             console.log(this.selected_bus_stop)
         }
 

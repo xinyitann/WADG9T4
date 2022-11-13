@@ -95,10 +95,12 @@
                             Bus
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_arrival.html">Bus Arrival
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_arrival.html">Bus
+                                    Arrival
                                     Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="bus_service_map.html">Bus
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center"
+                                    href="bus_service_map.html">Bus
                                     Services</a></li>
                         </ul>
                     </li>
@@ -258,12 +260,12 @@
                         <tr>
                             <th scope="col">Bus Stop Code</th>
                             <th scope="col">Bus Stop Name</th>
-                            <th scope="col">Bus Timing</th>
+                            <th scope="col">Bus Timing (min)</th>
                         </tr>
                     </thead>
 
                     <tr v-for="time in service_time">
-                        <td>{{time.code}}</td>
+                        <td><a onclick="bus_stop_search(this)">{{time.code}}</a></td>
                         <td>{{time.name}}</td>
                         <td v-html="time.str"></td>
                     </tr>
@@ -271,6 +273,7 @@
             </div>
         </div>
     </div>
+
 
 
 
@@ -418,6 +421,13 @@
             //         document.getElementById("status").innerText = "User ID is available.";
             //     }
             // });
+        }
+
+        function bus_stop_search(here) {
+            var bus_stop_code = here.innerText
+            localStorage.removeItem("search_bus_stop")
+            localStorage.setItem("search_bus_stop", bus_stop_code);
+            window.location.replace("bus_arrival.html");
         }
     </script>
 
