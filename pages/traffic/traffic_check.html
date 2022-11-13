@@ -95,10 +95,12 @@
                             Bus
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="../bus/bus_arrival.html">Bus Arrival
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center"
+                                    href="../bus/bus_arrival.html">Bus Arrival
                                     Time</a>
                             </li>
-                            <li><a class="dropdown-item fw-bold nav_bar_text text-center" href="../bus/bus_service_map.html">Bus
+                            <li><a class="dropdown-item fw-bold nav_bar_text text-center"
+                                    href="../bus/bus_service_map.html">Bus
                                     Services</a></li>
                         </ul>
                     </li>
@@ -176,88 +178,87 @@
         </div>
     </div>
     <div class="container-fluid">
-    <div class="row">
-        <!-- <div >
+        <div class="row">
+            <!-- <div >
             <button type="button" id="button2" onclick="get_user_location()"></button>
         </div> -->
 
-        <div class="col-md-9">
-            <div id="map"></div>
-        </div>
+            <div class="col-md-9">
+                <div id="map"></div>
+            </div>
 
-        <div class="col-md-3">
-            <div class="right">
-                <div id="legend">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center; font-weight:bold;">Legend</h5>
-                            <br>
-                            <img src="../../src/img/traffic/roadblock.png" style="width:40px"> : roadblock
-                            </br>
-                            <br>
-                            <img src="../../src/img/traffic/roadwork_color.png" style="width:40px"> : roadwork
-                            </br>
-                            <br>
-                            <img src="../../src/img/traffic/breakdown_color.png" style="width:40px"> : breakdown
-                            </br>
-                            <row>
-                                <img src="../../src/img/traffic/accident_color.png" style="width:40px"> : accident
-                            </row>
-                            <br>
-                            <img src="../../src/img/traffic/abandoned.png" style="width:40px"> : abandoned car
-                            </br>
-                            <br>
-                            <img src="../../src/img/traffic/misc.png" style="width:40px"> : misc
-                            </br>
-                            <br>
-                            <img src="../../src/img/traffic/congestion-removebg-preview.png" style="width:40px"> :
-                            congestion
-                            </br>
+            <div class="col-md-3">
+                <div class="right">
+                    <div id="legend">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align:center; font-weight:bold;">Legend</h5>
+                                <br>
+                                <img src="../../src/img/traffic/roadblock.png" style="width:40px"> : roadblock
+                                </br>
+                                <br>
+                                <img src="../../src/img/traffic/roadwork_color.png" style="width:40px"> : roadwork
+                                </br>
+                                <br>
+                                <img src="../../src/img/traffic/breakdown_color.png" style="width:40px"> : breakdown
+                                </br>
+                                <row>
+                                    <img src="../../src/img/traffic/accident_color.png" style="width:40px"> : accident
+                                </row>
+                                <br>
+                                <img src="../../src/img/traffic/abandoned.png" style="width:40px"> : abandoned car
+                                </br>
+                                <br>
+                                <img src="../../src/img/traffic/misc.png" style="width:40px"> : misc
+                                </br>
+                                <br>
+                                <img src="../../src/img/traffic/congestion-removebg-preview.png" style="width:40px"> :
+                                congestion
+                                </br>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
+
+        <!-- FOOTER -->
+        <div class="row fs-5 text-center bg-light justify-content-center pt-2 mt-3">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="../../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="../about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
+                </li>
+            </ul>
+            <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
+        </div>
     </div>
-
-
-
-
-    <!-- FOOTER -->
-    <div class="row fs-5 text-center bg-light justify-content-center pt-2 mt-3">
-        <ul class="list-inline">
-            <li class="list-inline-item">
-                <a href="../../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
-            </li>
-            <li class="list-inline-item">
-                <a href="../about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
-            </li>
-            <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
-            </li>
-            <li class="list-inline-item">
-                <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
-            </li>
-        </ul>
-        <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
-    </div>
-</div>
 
 
 
     <script>
         window.addEventListener("load", function () {
             if (user_detail != null) {
-                console.log('hree')
-                console.log(document.getElementById('profile'))
                 document.getElementById('profile').innerHTML = `<li class="nav-item">
-                        <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
-                                class="fa-sharp fa-solid fa-gear"></i></a>
+                        <a href="profile.html" class="nav-link nav_bar_text justify-content-center"><i
+                                class="fa-solid fa-user"></i></a>
                     </li>`
             } else {
                 document.getElementById('profile').innerHTML = `<li class="nav-item">
-                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                        <a href="../login.html" class="nav-link nav_bar_text"><button type="button" class="btn"
+                            style="background:rgb(113, 84, 66); color:white">Login</button></a>
                     </li>`
             }
         });
@@ -320,7 +321,7 @@
                 map: window.map
             });
 
-            let api_endpoint_url1 = '../../src/js/traffic_accident.php'
+            let api_endpoint_url1 = '../../src/php/traffic_accident.php'
             axios.get(api_endpoint_url1, {
                     headers: {
                         'AccountKey': 'rA62Al3wSpWoBqzOBOIC6g==',

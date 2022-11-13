@@ -23,7 +23,7 @@ function callAPI($method, $url, $data,$skip)
     // OPTIONS:
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-        'AccountKey: rA62Al3wSpWoBqzOBOIC6g==',
+        'AccountKey: 3+qMwmsMR1+Y4uxlex3DvA==',
         'Content-Type: application/json',
     ));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
