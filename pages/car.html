@@ -84,7 +84,7 @@
     <nav class="navbar navbar-expand-lg fs-4 fw-bold sticky-top" id="header"
         style="background-color:#f7f7f7; color: rgb(113, 84, 66);">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="../index.html">
                 <img src="../src/img/logo3.png" alt="Logo" width='90' class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -122,375 +122,198 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav text-center" id="profile">
-                    <!-- <li class="nav-item">
-            <a href="../profile.html" class="nav-link nav_bar_text justify-content-center"><i
-                    class="fa-sharp fa-solid fa-gear"></i></a>
-        </li>
-        <li class="nav-item">
-            <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
-        </li> -->
                 </ul>
             </div>
         </div>
-        </nav>
+    </nav>
 
-        <body>
-            <h1 class="display-6 text-center fw-bold mt-5">
-                Carparks near you <img src="../src/img/beetle.png" style="width:150px ">
-            </h1>
+    <body>
+        <h1 class="display-6 text-center fw-bold mt-5">
+            Carparks near you <img src="../src/img/beetle.png" style="width:150px ">
+        </h1>
 
 
-            <div id="message"></div>
-            <div id="check" style="justify-content: center; display: flex;">
-            </div>
-            <!-- <button onclick="carpark_avalibility()"></button> -->
-            <div id="map" onload="initMap()"></div>
-            <!-- <div id="map" class="mx-auto"></div> -->
-            <script>
-                //Initialize and add the map
-                function user_login() {
-                    console.log('user_login')
-                    if (user_detail != null) {
-                        console.log('hree')
-                        document.getElementById('profile').innerHTML = `<li class="nav-item">
+        <div id="message"></div>
+        <div id="check" style="justify-content: center; display: flex;">
+        </div>
+        <div id="map" onload="initMap()"></div>
+        <script>
+            window.addEventListener("scroll", function () {
+                if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+                    document.getElementById("header").style.boxShadow = "2px 2px 2px 2px #e5dfdf";
+                } else {
+                    document.getElementById("header").style.boxShadow = "none";
+                }
+            });
+            //Initialize and add the map
+            function user_login() {
+                if (user_detail != null) {
+                    document.getElementById('profile').innerHTML = `<li class="nav-item">
                         <a href="profile.html" class="nav-link nav_bar_text justify-content-center"><i
-                                class="fa-sharp fa-solid fa-gear"></i></a>
+                                class="fa-solid fa-user"></i></a>
                     </li>`
-                    } else {
-                        document.getElementById('profile').innerHTML = `<li class="nav-item">
-                        <a href="../../login.html" class="nav-link nav_bar_text"><i class="fa-solid fa-user"></i></a>
+                } else {
+                    document.getElementById('profile').innerHTML = `<li class="nav-item">
+                        <a href="../login.html" class="nav-link nav_bar_text"><button type="button" class="btn"
+                            style="background:rgb(113, 84, 66); color:white">Login</button></a>
                     </li>`
-                    }
                 }
+            }
 
-                // function initMap() { //displaying user position on maps
-                //     // default: The location of SIS, SMU
-                //     var i = 0
-                //     var str = `<table class="center">
-                //     <tr>
-                //         <th>Number</th>
-                //         <th>Car</th>
-                //     </tr>`
+            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
-                //     var lat = parseFloat(document.getElementById("lat").value);
-                //     var lng = parseFloat(document.getElementById("lng").value);
-                //     // var uluru = {lat: -25.344, lng: 131.036};
-                //     var loc = {
-                //         lat: lat,
-                //         lng: lng
-                //     };
+                infoWindow.setPosition(pos);
+                infoWindow.setContent(
+                    browserHasGeolocation ?
+                    "Error: The Geolocation service failed." :
+                    "Error: Your browser doesn't support geolocation."
+                );
+                infoWindow.open(map);
+            }
+        </script>
+        <div class="jumbotron">
+            <form>
+                <div class="form-group">
+                    <input type="hidden" id="lat" name="lat" value="1.2973784" />
+                    <input type="hidden" id="lng" name="lng" value="103.8495219" />
+                </div>
+                <p id="display" class="lead text-center"></p>
+            </form>
+        </div>
 
-                //     // The map, centered at SIS, SMU
-                //     var map = new google.maps.Map(
-                //         // play with the zoom value to zoom in or out
-                //         document.getElementById('map'), {
-                //             zoom: 16,
-                //             center: loc
-                //         });
-                //     // The marker, positioned at SIS, SMU
-                //     var marker = new google.maps.Marker({
-                //         position: loc,
-                //         map: map
-                //     });
-                //     // map = new google.maps.Map(document.getElementById("map"), {
-                //     //     center: { lat: 1.290, lng: 103.851 },
-                //     //     zoom: 13,
-                //     // });
-                //     infoWindow = new google.maps.InfoWindow();
+        <script>
+            // Ajax call
+            function initMap() {
+                var loc = {
+                    lat: 1.2963,
+                    lng: 103.8502
+                };
+                var map = new google.maps.Map(document.getElementById("map"), {
+                    center: loc,
+                    zoom: 14,
+                });
 
-                //     const locationButton = document.createElement("button");
+                window.map = map
 
-                //     locationButton.textContent = "Pan to Current Location";
-                //     locationButton.classList.add("custom-map-control-button");
-                //     map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-                //     locationButton.addEventListener("click", () => {
-                //         // Try HTML5 geolocation.
-                //         if (navigator.geolocation) {
-                //             navigator.geolocation.getCurrentPosition(
-                //                 (position) => {
-                //                     const pos = {
-                //                         lat: position.coords.latitude,
-                //                         lng: position.coords.longitude,
-                //                     };
-                //     infoWindow.setPosition(pos);
-                //     infoWindow.setContent("Location found.");
-                //     infoWindow.open(map);
-                //     map.setCenter(pos);
-                //     let api_endpoint_url = '../src/php/car/carpark_avalibility.php'
-                //     axios.get(api_endpoint_url)
-                //         .then(response => {
-                //             console.log(response)
-                //             for (res of response.data) {
-                //                 console.log(res.value)
-                //                 document.getElementById("message").innerHTML =
-                //                     "<h1>Below are the available Car Parks near you</h1>"
-                //                 document.getElementById("check").innerHTML =
-                //                     `<a href ="traffic/traffic_check.html" class="btn btn-outline-success">Check Traffic Here</a>`
-                //                 // for (r of res.value) {
-                //                 //     console.log(r.Longitude)
-                //                 //     console.log(r.Latitude)
-                //                 //     var marker = new google.maps.Marker({
-                //                 //         position: {
-                //                 //             lat: r.Latitude,
-                //                 //             lng: r.Longitude
-                //                 //         },
-                //                 //         map: map
-                //                 //     });
-                //                 //     if (i < 5) {
-                //                 //         str += `<tr><td>${i+1}</td>`
-                //                 //         str += `<td>${r.Latitude}</td></tr>`
-                //                 //         i++
-                //                 //     }
+                var marker = new google.maps.Marker({
+                    position: loc,
+                    map: window.map
+                });
 
-                //                 //     let url ="https://maps.googleapis.com/maps/api/geocode/json?latlng=${r.Latitude},${r.Longitude}&key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo";
-                //                 //     // fetch(url)
-                //                 //     //     .then(response => response.json())
-                //                 //     //     .then(data => {
-                //                 //     //         console.log(data)
-                //                 //     //     })
-                //                 // }
-                //             }
-                //             str += `
-                // </table>`
-                // str = ''
-                //                             document.getElementById("car_table").innerHTML = str
-                //                         })
-                //                         .catch(error => {
-                //                             console.log(error.message)
-                //                         })
-                //                 },
-                //                 () => {
-                //                     handleLocationError(true, infoWindow, map.getCenter());
-                //                 }
-                //             );
-                //         } else {
-                //             // Browser doesn't support Geolocation
-                //             handleLocationError(false, infoWindow, map.getCenter());
-                //         }
-                //     });
-                // }
-
-
-                function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent(
-                        browserHasGeolocation ?
-                        "Error: The Geolocation service failed." :
-                        "Error: Your browser doesn't support geolocation."
-                    );
-                    infoWindow.open(map);
-                }
-                // window.initMap = initMap;
-            </script>
-            <div class="jumbotron">
-                <form>
-                    <div class="form-group">
-                        <input type="hidden" id="lat" name="lat" value="1.2973784" />
-                        <input type="hidden" id="lng" name="lng" value="103.8495219" />
-                    </div>
-                    <p id="display" class="lead text-center"></p>
-                </form>
-            </div>
-
-            <script>
-                // Ajax call
-                function initMap() {
-                    var loc = {
-                        lat: 1.2963,
-                        lng: 103.8502
-                    };
-                    var map = new google.maps.Map(document.getElementById("map"), {
-                        center: loc,
-                        zoom: 14,
-                    });
-
-                    window.map = map
-
-                    var marker = new google.maps.Marker({
-                        position: loc,
-                        map: window.map
-                    });
-                    console.log("yes")
-
-                    let api_endpoint_url = '../src/php/car/carpark_avalibility.php'
-                    axios.get(api_endpoint_url)
-                        .then(response => {
-                            console.log("SUCCESS")
-                            console.log(response.data)
-                            console.log(response.data[0].value[0])
-                            for (carparks of response.data) {
-
-                                // console.log(carparks)
-                                // console.log(carparks.value)
-                                if (carparks != []) {
-                                    for (carpark of carparks.value) {
-                                        console.log(carpark)
-                                        var coordin = carpark.Location
-                                        console.log(coordin)
-                                        var car_id = carpark.CarParkID
-                                        var car_lat = Number(coordin.slice(0, 11))
-                                        console.log(car_lat)
-                                        var car_lng = Number(coordin.slice(12, 23))
-                                        console.log(car_lng)
-                                        const latlng = {
-                                            lat: car_lat,
-                                            lng: car_lng
-                                        }
-                                        var marker = new google.maps.Marker({
-                                            position: latlng,
-                                            map: window.map,
-                                            icon: {
-                                                url: "../src/img/carpark.png",
-                                                scaledSize: new google.maps.Size(35, 35)
-                                            }
-                                        });
-                                        // var car_park = {}
-                                        // car_park['latitude'] = car_lat
-                                        // car_park['longitude'] = car_lng
-                                        // if (car_park in this.location) {
-                                        //     continue
-                                        // } else {
-                                        //     this.location[car_id] = car_park
-                                        // }
-                                        // console.log("rjdks")
-                                        // console.log(this.location)
+                let api_endpoint_url = '../src/php/car/carpark_avalibility.php'
+                axios.get(api_endpoint_url)
+                    .then(response => {
+                        console.log("SUCCESS")
+                        for (carparks of response.data) {
+                            if (carparks != []) {
+                                for (carpark of carparks.value) {
+                                    console.log(carpark)
+                                    var coordin = carpark.Location
+                                    console.log(coordin)
+                                    var car_id = carpark.CarParkID
+                                    var car_lat = Number(coordin.slice(0, 11))
+                                    console.log(car_lat)
+                                    var car_lng = Number(coordin.slice(12, 23))
+                                    console.log(car_lng)
+                                    const latlng = {
+                                        lat: car_lat,
+                                        lng: car_lng
                                     }
+                                    var marker = new google.maps.Marker({
+                                        position: latlng,
+                                        map: window.map,
+                                        icon: {
+                                            url: "../src/img/carpark.png",
+                                            scaledSize: new google.maps.Size(35, 35)
+                                        }
+                                    });
                                 }
                             }
+                        }
 
-                        })
-                        .catch(error => {
-                            console.log(error.message)
-                        })
+                    })
+                    .catch(error => {
+                        console.log(error.message)
+                    })
+            }
+
+            function getFullAddress(data) {
+                var addr = data["results"][0]["formatted_address"];
+                var loc = getLatLng(data);
+                return addr + "<br> lat: " + loc["lat"] + ", lng: " + loc["lng"];
+            }
+
+            function getLatLng(data) {
+                var location = data["results"][0]["geometry"]["location"];
+                return location;
+            }
+
+            function getPostCode(data) {
+                var addrcomponents = data["results"][0]["address_components"];
+                var postcode = addrcomponents.filter(postcodeHelper);
+                // country is an array but there should be only one element
+                return postcode[0]["long_name"];
+            }
+
+            function postcodeHelper(addr) {
+                return addr["types"][0] == "postal_code";
+            }
+
+
+            function getKeys(data) {
+                // data["results"][0] is an object
+                // this gets the keys/properties of results[0] object
+                var keys = Object.keys(data["results"][0]);
+                for (key of keys) {
+                    // this prints --
+                    /*  address_components
+                        formatted_address
+                        geometry
+                        place_id
+                        plus_code
+                        types */
+                    document.getElementById("display").innerHTML += key + "<br>";
                 }
-                // function getLoc(action){
-                //     var addr = encodeURI(document.getElementById("addr").value);
-                //     console.log(addr);
-                //     var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + addr +
-                //         "&key=AIzaSyAs1iuRLcEdqMoZ9F_KzCdanQg-e66A4Fo";
-                //     var xhttp = new XMLHttpRequest();
-                //     xhttp.onreadystatechange = function () {
-                //         if (this.readyState == 4 && this.status == 200) {
-                //             // following code may throw error if user input is invalid address
-                //             // so we use try-catch block to handle errors
-                //             try {
-                //                 // expected response is JSON data
-                //                 var data = JSON.parse(this.responseText);
-                //                 console.log(data);
+            }
 
-                //                 var info = '';
-                //                 if (action == 'postcode') {
-                //                     // display postal code, given an address
-                //                     info = getPostCode(data);
-                //                 } else {
-                //                     // display full address, given post code or partial addr
-                //                     info = getFullAddress(data);
-                //                 }
-                //                 console.log(info);
+            function getCountry(data) {
+                // this is an array
+                var addrcomponents = data["results"][0]["address_components"];
+                // The filter() method creates a new array with array elements that passes a test.
+                var country = addrcomponents.filter(countryHelper);
+                // country is an array but there should be only one element
+                return country[0]["long_name"];
+            }
 
-                //                 document.getElementById("display").innerHTML = info;
-                //                 // refresh the hidden input values with new lat lng coordinates
-                //                 var coordinate = getLatLng(data);
-                //                 document.getElementById("lat").value = coordinate["lat"];
-                //                 document.getElementById("lng").value = coordinate["lng"];
-                //                 // now refresh the map
-                //                 initMap();
-                //             } catch (err) { // show error message
-                //                 // not a good idea to directly show err.message 
-                //                 // as it may contain sensitive info
-                //                 // document.getElementById("display").innerHTML = err.message;
+            function countryHelper(addr, index) {
+                return addr["types"][0] == "country";
+            }
+        </script>
 
-                //                 // show a predefined error message string
-                //                 document.getElementById("display").innerHTML =
-                //                 "Sorry, invalid address. Please try again!";
-                //             }
-                //         }
-                //     };
+        <!-- FOOTER -->
+        <div class="row fs-5 text-center bg-light justify-content-center pt-2">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
+                </li>
+            </ul>
+            <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
+        </div>
 
-                //     xhttp.open("GET", url, true);
-                //     xhttp.send();
-                // }
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-                function getFullAddress(data) {
-                    var addr = data["results"][0]["formatted_address"];
-                    var loc = getLatLng(data);
-                    return addr + "<br> lat: " + loc["lat"] + ", lng: " + loc["lng"];
-                }
-
-                function getLatLng(data) {
-                    var location = data["results"][0]["geometry"]["location"];
-                    return location;
-                }
-
-                function getPostCode(data) {
-                    var addrcomponents = data["results"][0]["address_components"];
-                    var postcode = addrcomponents.filter(postcodeHelper);
-                    // country is an array but there should be only one element
-                    return postcode[0]["long_name"];
-                }
-
-                function postcodeHelper(addr) {
-                    return addr["types"][0] == "postal_code";
-                }
-
-
-                function getKeys(data) {
-                    // data["results"][0] is an object
-                    // this gets the keys/properties of results[0] object
-                    var keys = Object.keys(data["results"][0]);
-                    for (key of keys) {
-                        // this prints --
-                        /*  address_components
-                            formatted_address
-                            geometry
-                            place_id
-                            plus_code
-                            types */
-                        document.getElementById("display").innerHTML += key + "<br>";
-                    }
-                }
-
-                function getCountry(data) {
-                    // this is an array
-                    var addrcomponents = data["results"][0]["address_components"];
-                    // The filter() method creates a new array with array elements that passes a test.
-                    var country = addrcomponents.filter(countryHelper);
-                    // country is an array but there should be only one element
-                    return country[0]["long_name"];
-                }
-
-                function countryHelper(addr, index) {
-                    return addr["types"][0] == "country";
-                }
-            </script>
-
-            <!-- FOOTER -->
-            <div class="row fs-5 text-center bg-light justify-content-center pt-2">
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <a href="../index.html" class="nav-link nav_bar_text"><button class="btn">Home</button></a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="about.html" class="nav-link nav_bar_text "><button class="btn">About us</button></a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#" class="nav-link nav_bar_text"><button class="btn">Terms of Service</button></a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#" class="nav-link nav_bar_text"><button class="btn">Privacy Policy</button></a>
-                    </li>
-                </ul>
-                <span class="fs-5">©2022 WAD G9T4 | All rights reserved</span>
-            </div>
-
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-                crossorigin="anonymous">
-            </script>
-            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-            <!-- <script src="../src/js/carpark_avalibility.js"></script>  -->
-
-        </body>
+    </body>
 
 </html>
